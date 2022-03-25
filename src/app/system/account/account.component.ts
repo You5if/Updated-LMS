@@ -188,8 +188,10 @@ export class AccountComponent implements OnInit {
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add account");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Add");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة حساب");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Add");
     }
     
     this.openEntry2(this.model);
@@ -223,8 +225,10 @@ export class AccountComponent implements OnInit {
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit account");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل حساب");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }
     
     this.openEntry2(this.model)

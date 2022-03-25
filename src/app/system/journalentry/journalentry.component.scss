@@ -30,6 +30,14 @@
   transition: all 0.2s ease-in-out;
   background: #20bf6b;
 }
+.rowRY {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background: #ece57c;
+}
+.rowRR {
+  background: rgb(224, 103, 103);
+}
 .rowRG:hover {
   background: #f1f2f6;
   transform: scale(1.05);

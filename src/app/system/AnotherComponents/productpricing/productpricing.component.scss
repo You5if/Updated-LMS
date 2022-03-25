@@ -10,11 +10,20 @@
   background: #ffffff;
 }
 
+:host {
+  ::ng-deep {
+    [dir="rtl"] .mat-checkbox-inner-container {
+      margin-left: 0px;
+      margin-right: auto;
+    }
+  }
+}
 .sec {
   width: 100%;
   display: flex;
   justify-content: flex-start;
   margin-left: 15px;
+  margin-right: 15px;
 }
 .active {
   background: #f1f2f6;

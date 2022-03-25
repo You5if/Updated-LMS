@@ -31,8 +31,7 @@ import { Direction } from '@angular/cdk/bidi';
 
 export class ChequeFromCompanyComponent implements OnInit {
 
-    displayedColumns: string[] =
-    ['chequeNumber', 'amount', 'dueDate', 'passFail', 'status'];
+    displayedColumns: string[] = []
 
     dataSource: any;
     isLastPage = false;
@@ -56,6 +55,7 @@ export class ChequeFromCompanyComponent implements OnInit {
     clickedRows = new Set<ChequeToCompanyModel>();
     selection = new SelectionModel<ChequeToCompanyModel>(true, []);;
 
+    role = localStorage.getItem("role");
     pageData: any
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -93,6 +93,12 @@ export class ChequeFromCompanyComponent implements OnInit {
       }
 
   ngOnInit() {
+
+    if (this.role == '5') {
+      this.displayedColumns =['chequeNumber', 'amount', 'dueDate', 'passFail', 'status'];
+    }else {
+      this.displayedColumns =['chequeNumber', 'amount', 'dueDate', 'status'];
+    }
     this.pageData = {
       tableId: this.pTableId,
       userId: 26,

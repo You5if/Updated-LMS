@@ -31,8 +31,7 @@ import { Direction } from '@angular/cdk/bidi';
 
 export class ChequeToCompanyComponent implements OnInit {
 
-    displayedColumns: string[] =
-        ['select','chequeNumber', 'amount'  , 'customerName', 'customerMobile1', 'dueDate', 'passFail', 'status'];
+    displayedColumns: string[] = [];
 
     edit!:any
     dataSource: any;
@@ -51,6 +50,7 @@ export class ChequeToCompanyComponent implements OnInit {
     currencyName!:string;
     customerName!:string;
     customerMobile1!:string;
+    role = localStorage.getItem("role");
     header!: string;
     direction! : Direction
     indexes!: any[]
@@ -93,6 +93,11 @@ export class ChequeToCompanyComponent implements OnInit {
       }
 
   ngOnInit() {
+    if (this.role == '5') {
+      this.displayedColumns = ['select','chequeNumber', 'amount'  , 'customerName', 'customerMobile1', 'dueDate', 'passFail', 'status'];
+    }else {
+      this.displayedColumns =['select','chequeNumber', 'amount'  , 'customerName', 'customerMobile1', 'dueDate', 'status'];
+    }
     this.pageData = {
       tableId: this.pTableId,
       userId: 26,

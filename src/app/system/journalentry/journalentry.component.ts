@@ -254,15 +254,17 @@ export class JournalEntryComponent implements OnInit {
     this.paginator.firstPage()
   }
 
-  onState  (id: number, status:any) {
+  onState  (id: number, status:any, rState: number) {
     
-        let stateModel = {
-          statusId :id
+        if (rState != 2203) {
+          let stateModel = {
+            statusId :id
+          }
+          this._ui.loadingStateChanged.next(true);
+          this.opC = false
+          this.openState(stateModel);
+          this._ui.loadingStateChanged.next(false);
         }
-        this._ui.loadingStateChanged.next(true);
-        this.opC = false
-        this.openState(stateModel);
-        this._ui.loadingStateChanged.next(false);
     
   };
 
@@ -382,24 +384,29 @@ export class JournalEntryComponent implements OnInit {
     });
   }
 
-  onEdit = (id: number) => {
-    if(this.opC == true) {
-    this._ui.loadingStateChanged.next(true);
-    this.journalentryservice.getJournalEntryEntry(id).subscribe((result: JournalEntryModel) => {
-      this._ui.loadingStateChanged.next(false);
-      result.entryMode = 'E';
-      result.readOnly = false;
-      if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-        localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit journal");
-      }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-        localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل سجل");
+  onEdit = (id: number, rState: number) => {
+    if (rState != 2203) {
+      if(this.opC == true) {
+        this._ui.loadingStateChanged.next(true);
+        this.journalentryservice.getJournalEntryEntry(id).subscribe((result: JournalEntryModel) => {
+          this._ui.loadingStateChanged.next(false);
+          result.entryMode = 'E';
+          result.readOnly = false;
+          if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+            localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit journal");
+          }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+            localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل سجل");
+          }
+          this.openEntry(result);
+        });
+      }else {
+        this._ui.loadingStateChanged.next(false);
+        this.opC = true
       }
-      this.openEntry(result);
-    });
-  }else {
-    this._ui.loadingStateChanged.next(false);
-    this.opC = true
-  }
+    }else {
+      console.log('user');
+      
+    }
   }
 
   onDelete = function(id: number) {

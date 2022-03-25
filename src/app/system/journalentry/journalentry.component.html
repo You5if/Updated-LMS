@@ -80,7 +80,7 @@
     <ng-container matColumnDef="edit">
       <mat-header-cell class="cent" *matHeaderCellDef>{{edit}}</mat-header-cell>
       <mat-cell class="cent" mat-cell *matCellDef="let row">
-        <button class="Btn" mat-icon-button color="primary" class="Btn" (click)="onEdit(row.journalEntryId)" [disabled]="!screenRights.editFlag">
+        <button class="Btn" mat-icon-button color="primary" class="Btn" (click)="onEdit(row.journalEntryId, row.recordState)" [disabled]="!screenRights.editFlag">
           <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true">edit</mat-icon>
         </button>
       </mat-cell>
@@ -108,7 +108,7 @@
     <ng-container matColumnDef="state">
       <mat-header-cell class="centH" *matHeaderCellDef>{{state}}</mat-header-cell>
       <mat-cell class="centH" mat-cell *matCellDef="let row">
-        <button *ngIf="row.recordState === 2" mat-icon-button color="primary" class="Btn" (click)="onState(row.journalEntryId, row.status)" [disabled]="!screenRights.editFlag">
+        <button *ngIf="row.recordState === 2" mat-icon-button color="primary" class="Btn" (click)="onState(row.journalEntryId, row.status, row.recordAuthor)" [disabled]="!screenRights.editFlag">
           <i class="fas fa-sync"></i>
         </button>
       </mat-cell>
@@ -126,8 +126,9 @@
     </ng-container>
 
     <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    
 
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.journalEntryId)" class="{{row.recordState === 3 ? 'rowRG' : 'rowR'}}"   [class.active]="clickedRows.has(row)" ></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.journalEntryId, row.recordAuthor)" class="{{row.recordState === 2 && row.recordAuthor === 2203 ? 'rowRR' : row.recordState === 2 && row.recordAuthor === 2202 ? 'rowRY' : row.recordState === 3 && row.recordAuthor === 2201 ? 'rowRG': row.recordState === 3 && row.recordAuthor === 2202 ? 'rowRG' : 'rowR'}}"   [class.active]="clickedRows.has(row)" ></mat-row>
 
   </mat-table>
 
@@ -173,7 +174,7 @@
       <div>
         <button class="Btn" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
 <mat-menu #menu="matMenu">
-  <button (click)="onEdit(index.journalEntryId)" class="Btn" mat-menu-item>{{edit}}</button>
+  <button (click)="onEdit(index.journalEntryId , index.recordState)" class="Btn" mat-menu-item>{{edit}}</button>
   
 </mat-menu>
       </div>

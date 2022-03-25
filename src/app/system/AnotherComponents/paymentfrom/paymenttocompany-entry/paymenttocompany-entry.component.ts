@@ -475,6 +475,11 @@ export class PaymentfromEntryComponent implements OnInit {
                 this._select.getDropdown(this.dropItem.refId, this.dropItem.refTable, this.dropItem.refColumn, this.dropItem.refCondition, false).subscribe((res: SelectModel[]) => {
                   console.log("drop: ", res);
                   this.dropList[k].myarray = res;
+                  res.forEach((r) => {
+                    if (this.data[3].value == r.id.toString()) {
+                      this.data[3].myarray2 = r.name
+                    }
+                  })
                   this.container.push(res);
                   console.log(this.container)
                 });
@@ -888,19 +893,19 @@ export class PaymentfromEntryComponent implements OnInit {
 
       this.dropListItem1.push(this.childElemInit2[4])
       
-  //     for(let k=0;k<this.dropListItem1.length;k++) {
-  //       console.log("loop cycle" + k)
-  //       this.dropItemchild1 = this.dropListItem1[k]
-  //       console.log("DropitemTax", this.dropItemchild1)
+      for(let k=0;k<this.dropListItem1.length;k++) {
+        console.log("loop cycle" + k)
+        this.dropItemchild1 = this.dropListItem1[k]
+        console.log("DropitemTax", this.dropItemchild1)
 
             
-  //             this._select.getDropdown(this.dropListItem1[k].refId, this.dropListItem1[k].refTable, this.dropListItem1[k].refColumn, this.dropListItem1[k].refCondition, false).subscribe((res: SelectModel[]) => {
-  //               this.dropListItem1[k].myarray = res
-  //             })
+              this._select.getDropdown(this.dropListItem1[k].refId, this.dropListItem1[k].refTable, this.dropListItem1[k].refColumn, this.dropListItem1[k].refCondition, false).subscribe((res: SelectModel[]) => {
+                this.dropListItem1[k].myarray = res
+              })
 
 
     
-  // }
+  }
       
 
       for(let i=0;i<this.childElemInit2.length;i++){

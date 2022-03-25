@@ -201,7 +201,7 @@ export class SystemAccountComponent implements OnInit {
       }
 
       console.log("LL", this.light)
-      if(localStorage.getItem(this._globals.baseAppName + '_Add&Edit') == "Add") {
+      if(localStorage.getItem(this._globals.baseAppName + '_Add&Edit2') == "Add") {
         for(let i=0;i<this.light.length;i++){
         
           this.ver5 = this.light[i]
