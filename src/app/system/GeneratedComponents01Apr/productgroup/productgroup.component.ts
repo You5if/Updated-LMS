@@ -51,7 +51,7 @@ export class ProductGroupComponent implements OnInit {
     
   indexes!: any[];
     displayedColumns: string[] =
-        ['select','categoryName','GroupCode', 'GroupName'];
+        ['select','categoryName','GroupCode', 'GroupName', 'edit'];
 
     dataSource: any;
     categoryName!:string;

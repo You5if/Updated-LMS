@@ -55,6 +55,22 @@
         </mat-cell>
   
     </ng-container>
+      <ng-container matColumnDef="checkIsActive">
+        <mat-header-cell class="centH"  *matHeaderCellDef>
+          {{checkIsAvtice}}
+        </mat-header-cell>
+         <mat-cell class="cent" *matCellDef="let row; let i = index">
+          <mat-checkbox
+                [ngModel]="row.isActive == false ? false : row.isActive == true ? true : null"
+                (ngModelChange)="row.isActive = $event ? false : true"
+                [disabled]="row.isActive"
+                (click)="onCheckIsActive(row.schoolYearId, row.isActive)"
+                name="checkIsActive"
+                ></mat-checkbox>
+  
+        </mat-cell>
+  
+    </ng-container>
     <ng-container matColumnDef="scName">      <mat-header-cell class="centH" *matHeaderCellDef>{{scName}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.scName}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="remarks">      <mat-header-cell class="centH" *matHeaderCellDef>{{remarks}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.remarks}}</mat-cell>

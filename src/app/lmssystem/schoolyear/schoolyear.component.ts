@@ -18,6 +18,7 @@ import { Send } from 'src/app/send.model';
 import { AppGlobals } from 'src/app/app.global';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Direction } from '@angular/cdk/bidi';
+import { CheckforIsActiveComponent } from './checkfordelete/checkfordelete.component';
 
 @Component({
     selector: 'app-schoolyear',
@@ -28,7 +29,7 @@ import { Direction } from '@angular/cdk/bidi';
 export class SchoolYearComponent implements OnInit {
 
     displayedColumns: string[] =
-        ['select','scName', 'remarks'];
+        ['select','scName', 'remarks', 'checkIsActive'];
 
     dataSource: any;
     isLastPage = false;
@@ -47,6 +48,8 @@ export class SchoolYearComponent implements OnInit {
         cancel!:string;
         scName!:string;
         remarks!:string;
+        checkIsAvtice!:string
+        opC: boolean = true
 
 
     clickedRows = new Set<SchoolYearModel>();
@@ -97,7 +100,7 @@ export class SchoolYearComponent implements OnInit {
       this.header = "School year"
       this.scName="Year"
       this.remarks="Remarks"
-      
+      this.checkIsAvtice = "Active year"
       
 
       this.edit = "Edit"
@@ -106,7 +109,8 @@ export class SchoolYearComponent implements OnInit {
     }
     else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
-      this.header = "السنة الدراسية"
+      this.checkIsAvtice = ""
+      this.header = "السنة المحددة"
       this.scName="السنة"
       this.remarks="التعليق"
       
@@ -164,6 +168,25 @@ export class SchoolYearComponent implements OnInit {
       this._msg.showAPIError(error);
       return false;
     }
+  }
+
+  onCheckIsActive(yearId: number, active: boolean) {
+    this.opC = false
+    if (!active) {
+      
+    console.log(yearId);
+    const dialogRef = this.dialog.open(CheckforIsActiveComponent, {
+      disableClose: true,
+      
+      data: {
+        id: yearId
+      }
+    });
+  dialogRef.afterClosed().subscribe(() => {
+    this.refreshMe();
+  });
+    }
+    
   }
 
   onSort () {
@@ -225,6 +248,7 @@ export class SchoolYearComponent implements OnInit {
   }
 
   onEdit = (id: number) => {
+    if(this.opC == true) {
     this.model = {
       tableId: 72,
       recordId: id,
@@ -239,6 +263,10 @@ export class SchoolYearComponent implements OnInit {
     }
     
     this.openEntry2(this.model)
+  }else {
+    this._ui.loadingStateChanged.next(false);
+    this.opC = true
+  }
   }
 
   onDelete = function(id: number) {

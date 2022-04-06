@@ -365,6 +365,7 @@ import { Checkforpass2Component } from "./system/AnotherComponents/chequefromcom
 import { ChequeFromCompanyComponent } from "./system/AnotherComponents/chequefromcompany/chequetocompany.component";
 import { Movetobank2Component } from "./system/AnotherComponents/chequefromcompany/movetobank/movetobank.component";
 import { ChequeFromCompanyEntryComponent } from "./system/AnotherComponents/chequefromcompany/chequetocompany-entry/chequetocompany-entry.component";
+import { CheckforIsActiveComponent } from "./lmssystem/schoolyear/checkfordelete/checkfordelete.component";
 
 
 
@@ -712,7 +713,8 @@ SubTeQueEntryComponent,
     PaymentfromComponent,
     CheckforstateComp2Component,
     ConfBoxComponent,
-    ChequeFromCompanyEntryComponent
+    ChequeFromCompanyEntryComponent,
+    CheckforIsActiveComponent
 
     
     
@@ -930,6 +932,7 @@ SubTeQueEntryComponent,
     Movetobank2Component,
     Checkforpass2Component,
     ChequeFromCompanyEntryComponent,
+    CheckforIsActiveComponent
     
   ]
 })
