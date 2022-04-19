@@ -332,6 +332,8 @@ import { CustomerAccountEntryComponent } from "./lmssystem/customeraccount/custo
 import { SchoolYearEntryComponent } from "./lmssystem/schoolyear/schoolyear-entry/schoolyear-entry.component";
 import { ProductEntryComponent } from "./system/GeneratedComponents01Apr/product/product-entry/product-entry.component";
 import { ProductComponent } from "./system/GeneratedComponents01Apr/product/product.component";
+import { ServiceEnComponent } from "./system/GeneratedComponents01Apr/serviceen/serviceen.component";
+import { ServiceEnEntryComponent } from "./system/GeneratedComponents01Apr/serviceen/serviceen-entry/serviceen-entry.component";
 import { ProductCategoryEntryComponent } from "./system/GeneratedComponents01Apr/productcategory/productcategory-entry/productcategory-entry.component";
 import { ProductCategoryComponent } from "./system/GeneratedComponents01Apr/productcategory/productcategory.component";
 // import { ProductUnitEntryComponent } from "./system/GeneratedComponents01Apr/productunit/productunit-entry/productunit-entry.component";
@@ -714,7 +716,9 @@ SubTeQueEntryComponent,
     CheckforstateComp2Component,
     ConfBoxComponent,
     ChequeFromCompanyEntryComponent,
-    CheckforIsActiveComponent
+    CheckforIsActiveComponent,
+    ServiceEnComponent,
+    ServiceEnEntryComponent
 
     
     
@@ -932,7 +936,8 @@ SubTeQueEntryComponent,
     Movetobank2Component,
     Checkforpass2Component,
     ChequeFromCompanyEntryComponent,
-    CheckforIsActiveComponent
+    CheckforIsActiveComponent,
+    ServiceEnEntryComponent
     
   ]
 })

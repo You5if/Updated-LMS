@@ -112,6 +112,7 @@ import { RegistrationInvoiceComponent } from "./system/AnotherComponents/Registr
 import { TransportInvoiceComponent } from "./system/AnotherComponents/Transport-invoice/invoice.component";
 import { PaymentfromComponent } from "./system/AnotherComponents/paymentfrom/paymenttocompany.component";
 import { ChequeFromCompanyComponent } from "./system/AnotherComponents/chequefromcompany/chequetocompany.component";
+import { ServiceEnComponent } from "./system/GeneratedComponents01Apr/serviceen/serviceen.component";
 
 
 const routes: Routes = [
@@ -197,6 +198,7 @@ const routes: Routes = [
         { path: "AccountConfig", component: AccountConfigurationComponent},
         { path: "Customer", component: CustomerComponent},
         { path: "Product", component: ProductComponent},
+        { path: "Service", component: ServiceEnComponent},
         { path: "ProductCat", component: ProductCategoryComponent},
         { path: "ProductGroup", component: ProductGroupComponent},
       //   { path: "ProductUnit", component: ProductUnitComponent},

@@ -67,6 +67,7 @@
         <li *ngIf="role === '2' || role === '4' || role === '5'" routerLink="chequeFrom" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-check-alt"></i><div class="title">{{cheque2}}</div></li>
         <mat-divider *ngIf="role === '2' || role === '5'" ></mat-divider>
         <h3 *ngIf="role === '2' || role === '5'" class="main_title">{{serviceM}}</h3>
+        <li *ngIf="role === '2' || role === '5'" routerLink="Service" routerLinkActive="is-active" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{product}}</div></li>
         <!-- <li *ngIf="role === '2' || role === '5'" routerLink="Product" routerLinkActive="is-active" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{product}}</div></li> -->
         <li *ngIf="role === '2' || role === '5'" routerLink="ProductCat" routerLinkActive="is-active" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productCategory}}</div></li>
         <li *ngIf="role === '2' || role === '5'" routerLink="ProductGroup" routerLinkActive="is-active" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productGroup}}</div></li>
