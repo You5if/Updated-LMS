@@ -65,7 +65,7 @@ export class MovetobankComponent implements OnInit {
      
 
     }
-    this._select.getDropdown("companybankbranchaccountid", "companybankbranchaccount", "accountnumber", "active=1 and deleted=0 and companybankbranchaccountid>1", false).subscribe((res: SelectModel[]) => {
+    this._select.getDropdown("distinct companybankbranchaccountid", "companybank,companybankbranch,companybankbranchaccount", "concat(bankname,':',accountnumber)", "companybankbranch.companybankid=companybank.companybankid and companybankbranchaccount.companybankbranchid=companybankbranch.companybankbranchid", false).subscribe((res: SelectModel[]) => {
       this.banks = res
       
     });

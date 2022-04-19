@@ -22,6 +22,13 @@
                         [placeholder]="dated"
                          type="date" (input)="onChangeDate($event)" [(ngModel)]= "pModel.entryDate" [readonly]= "pModel.readOnly"  >           
                        </mat-form-field>          </mat-list-item>
+                <mat-list-item>            
+                  <mat-form-field appearance="outline" class="matD date-field">
+                       <mat-label> {{receipt}} </mat-label>          
+                        <input matInput name="receipt" 
+                        [placeholder]="receipt"
+                         type="receipt"  [(ngModel)]= "pModel.reference" [readonly]= "pModel.readOnly"  >           
+                       </mat-form-field>          </mat-list-item>
               <mat-list-item>
                 <div fxLayout fxLayoutGap="5px">
                   <h1>Currency</h1>
@@ -61,6 +68,13 @@
               
                 
               <mat-list-item>            <mat-form-field appearance="outline" class="matD date-field">   <mat-label>{{dated}}</mat-label>           <input matInput name="date" [placeholder]="dated" type="date" [(ngModel)] = "pModel.entryDate" [readonly]= "pModel.readOnly"  >            </mat-form-field>          </mat-list-item>
+              <mat-list-item>            
+                <mat-form-field appearance="outline" class="matD date-field">
+                     <mat-label> {{receipt}} </mat-label>          
+                      <input matInput name="receipt" 
+                      [placeholder]="receipt"
+                       type="receipt"  [(ngModel)]= "pModel.reference" [readonly]= "pModel.readOnly"  >           
+                     </mat-form-field>          </mat-list-item>
               <mat-list-item>
                 <!-- <mat-form-field class="matC" appearance="outline">
                   <mat-select matNativeControl name="currency" [placeholder]="currency"

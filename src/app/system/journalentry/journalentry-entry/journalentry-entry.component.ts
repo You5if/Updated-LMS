@@ -90,6 +90,7 @@ journalEntryDetailTableValueAfterDeleteArray: journalentrydetailModel[] = [];
 journalEntryDetailDataSource = new MatTableDataSource(this.journalEntryDetailData);
 elemSource = new MatTableDataSource(this.elem);
   curName!: string;
+  receipt!: string;
 
 
   constructor(
@@ -110,6 +111,7 @@ elemSource = new MatTableDataSource(this.elem);
       
       this.direction = "ltr"
       this.reference = "Reference"
+      this.receipt = "Receipt no"
       this.narration = "Narration"
       this.forexRate = "Forex rate"
       this.dated = "Date"
@@ -138,6 +140,7 @@ elemSource = new MatTableDataSource(this.elem);
       this.forexRate = "معدل فوركس"
       this.dated = "التاريخ"
       this.acc = "حساب"
+      this.receipt = "ايصال رقم"
       this.currency = "العملة"
       this.customer = "العميل"
       this.supplier = "الممول"
