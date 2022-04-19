@@ -103,7 +103,7 @@ export class JournalEntryComponent implements OnInit {
         this.recordsPerPage = 10;
         this.currentPageIndex = 1;
         this.menuId = 1019106011;
-        this.titleService.setTitle("Journals - Greenfield");
+        this.titleService.setTitle("Journals - LMS");
       }
 
   ngOnInit() {
