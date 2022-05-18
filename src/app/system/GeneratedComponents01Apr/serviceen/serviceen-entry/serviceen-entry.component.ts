@@ -83,6 +83,8 @@ export class ServiceEnEntryComponent implements OnInit {
     dialog_title: string|null = localStorage.getItem(this._globals.baseAppName + '_Add&Edit');
   
     dropList: Sources[] = [];
+  stringOfV!: string;
+  refString!: string;
 
 
   constructor(
@@ -111,7 +113,10 @@ export class ServiceEnEntryComponent implements OnInit {
       this.dapiService.Controllers(this.pModel).subscribe(res => {
         this._ui.loadingStateChanged.next(false);
         this.data = res;
-  
+        
+          this.data[2].refCondition = this.data[2].refCondition + this.data[1].value
+        
+        
         for(let i=0;i<=this.data.length;i++){
           this.ver2 = this.data[i]
           if (this.ver2 && this.ver2.inTransaction && this.ver2.access != "NoAccess"){
@@ -127,6 +132,9 @@ export class ServiceEnEntryComponent implements OnInit {
             }
           }
         }
+
+
+  
         this.breakpoint =
         window.innerWidth <= 960
           ? 1
@@ -140,8 +148,35 @@ export class ServiceEnEntryComponent implements OnInit {
           this.container.push(res);
       });
   
-        }  
+        } 
+        
       })
+
+      
+     
+  }
+
+  onCategory(id: number) {
+    this.stringOfV = id.toString()
+    console.log("working fine")
+    for(let k=0;k<=this.dropList.length;k++) {
+      
+      if(this.dropList[k].tableColumnId == 1032) {
+        this.dropItem = this.dropList[k]
+        this.refString = this.dropItem.refCondition + this.stringOfV
+        this._select.getDropdown(this.dropItem.refId, this.dropItem.refTable, this.dropItem.refColumn, this.refString, false).subscribe((res: SelectModel[]) => {
+          console.log("drop: ", res);
+          this.dropList[k].myarray = res;
+          this.container.push(res);
+          console.log(this.container)
+  
+  
+      });
+      
+      }
+      
+
+    }
   }
 
   onSubmit() {

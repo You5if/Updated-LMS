@@ -20,6 +20,7 @@ import { AppGlobals } from 'src/app/app.global';
 import { ProductModel } from '../product/product.model';
 import { Direction } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ServiceEnEntry2Component } from './serviceen-entry2/serviceen-entry.component';
 
 @Component({
     selector: 'app-serviceen',
@@ -31,7 +32,10 @@ export class ServiceEnComponent implements OnInit {
 
   idS! : number;
   direction!: Direction;
-  serviceEnId!: string;
+  category!: string;
+  group!: string;
+  service!: string;
+  price!: string;
   productName!: string;
   productCategoryId!: string;
   productGroupId!: string;
@@ -48,7 +52,7 @@ export class ServiceEnComponent implements OnInit {
   selection = new SelectionModel<ServiceEnModel>(true, []);;
     
     displayedColumns: string[] =
-        ['select','serviceEnId'];
+        ['select','category','group','service','price'];
 
     dataSource: any;
     isLastPage = false;
@@ -100,7 +104,10 @@ export class ServiceEnComponent implements OnInit {
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Service"
-      this.serviceEnId = "serviceEnId"
+      this.category = "Category"
+      this.group = "Group"
+      this.service = "Service"
+      this.price = "Price"
       
       this.edit = "Edit"
       this.submit = "Submit"
@@ -108,7 +115,10 @@ export class ServiceEnComponent implements OnInit {
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.header = "الخدمة"
-      this.serviceEnId = "serviceEnId"
+      this.category = "الفئة"
+      this.group = "المجموعة"
+      this.service = "الخدمة"
+      this.price = "السعر"
       
       this.edit = "تعديل"
       this.submit = "ارسال"
@@ -185,7 +195,7 @@ export class ServiceEnComponent implements OnInit {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة خدمة");
     }
     
-    this.openEntry2(this.model);
+    this.openEntry3(this.model);
   };
 
   onView = (id: number) => {
@@ -208,8 +218,10 @@ export class ServiceEnComponent implements OnInit {
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit service");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل خدمة");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }
     
     this.openEntry2(this.model)
@@ -278,6 +290,27 @@ export class ServiceEnComponent implements OnInit {
       });
     } else {
       const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
+        disableClose: true,
+        
+        data: result
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.refreshMe();
+      });
+    }
+  };
+  openEntry3 (result: Send) {
+    if (result === undefined) {
+      const dialogRef = this.dialog.open(ServiceEnEntry2Component, {
+        disableClose: true,
+       
+        data: {}
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.refreshMe();
+      });
+    } else {
+      const dialogRef = this.dialog.open(ServiceEnEntry2Component, {
         disableClose: true,
         
         data: result

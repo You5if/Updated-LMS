@@ -276,7 +276,7 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
             
           }
 
-          this.onChangeValueC(+this.data[5].value)
+          this.onChangeValueC(Number(this.data[5].value))
           
           
           

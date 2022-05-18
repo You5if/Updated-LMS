@@ -157,7 +157,12 @@ export class RegistrationInvoiceComponent implements OnInit {
 
     
     this.pageData.sort = this._cf.sortVar
-    this.pageData.filter = 'ProductCategoryId = 10'
+    if (this._cf.filterVar != '') {
+      this.pageData.filter = 'ProductCategoryId = 10' + ' ' + 'and' + ' ' + this._cf.filterVar
+    }else {
+
+      this.pageData.filter = 'ProductCategoryId = 10'
+    }
 
     this._ui.loadingStateChanged.next(true);
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {

@@ -183,7 +183,7 @@
             <mat-grid-tile *ngSwitchCase="'dropdown'">
               <div [ngSwitch]="source.access">
                 <div *ngSwitchCase="'Editable'">
-                  <div *ngIf="source.tableColumnId != 195">
+                  <div *ngIf="source.tableColumnId != 1031">
                     <mat-form-field  appearance="fill">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
@@ -200,13 +200,13 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div *ngIf="source.tableColumnId == 195">
+                  <div *ngIf="source.tableColumnId == 1031">
                     <mat-form-field  appearance="fill">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
                         [(ngModel)]="+source.value"
                         name="{{ source.label }}"
-                        
+                        #choosedValue (valueChange)="onCategory(choosedValue.value)"
                         
                       >
                         <mat-option
