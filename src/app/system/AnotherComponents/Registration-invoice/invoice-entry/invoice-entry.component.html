@@ -337,6 +337,21 @@
 
           </div>
         </div>
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>{{ groups }}</mat-label>
+            <mat-select matNativeControl 
+            #choosedValue (valueChange)="onGroupsSelected(choosedValue.value)"  
+              [(ngModel)]="selectedGroup" [ngModelOptions]="{standalone: true}">
+              <mat-option *ngFor="let item of fetchGroups" [value]="item.id">
+                {{item.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button class="BtnF" (click)="onFetch()"  mat-button color="warn" type="submit">{{fetch}}</button>
+        </mat-grid-tile>
       </mat-grid-list>
     </div>
     
@@ -652,12 +667,11 @@
       </button>
       </mat-card>
     </div>
-    <div class="btn-container">
-      <!-- <button mat-raised-button color="primary" (click)="addChild1ExpenseItem(0)" type="submit">Add</button> -->
+    <!-- <div class="btn-container">
       <button mat-raised-button  class="add_btn" type="button" (click)="addChild1ExpenseItem(0)">
         + Add item
         </button>
-    </div>
+    </div> -->
     
     
   </form>

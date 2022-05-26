@@ -167,6 +167,10 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
   cancel!: string;
   stringOfV!: string;
   refString!: string;
+  groups!: string;
+  fetch!:string;
+  fetchGroups!:any[];
+  selectedGroup!: number;
 
   light: Sources[] = [];
   dark: Sources[] = [];
@@ -239,14 +243,22 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
       this.direction = "ltr"
       this.submit = "Submit"
       this.cancel = "Cancel"
+      this.fetch = "Fetch"
+      this.groups = "Groups"
       
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.submit = "ارسال"
       this.cancel = "الغاء"
+      this.fetch = "ادخال"
+      this.groups = "المجموعات"
      
 
     }
+
+    this._select.getDropdown('productgroupid','productgroup','groupname','active=1 and deleted=0 and productgroupid>1 and productcategoryid=10',false).subscribe((res: SelectModel[]) => {
+      this.fetchGroups = res;
+  });
 
 
 
@@ -399,6 +411,13 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
 
  
 
+  onGroupsSelected(id: number) {
+    
+  }
+
+  onFetch() {
+    
+  }
  
 
 
