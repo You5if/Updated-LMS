@@ -14,6 +14,8 @@
 .headerRow {
   top: 0px;
   position: sticky;
+  background: #34495e;
+  color: #ffffff;
   z-index: 1;
 }
 
@@ -25,13 +27,27 @@
 .cent {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 .fontY {
   font-size: 35px !important;
 
   font-weight: lighter;
 }
-
+.centH {
+  display: flex;
+  font-size: 18px !important;
+  font-weight: bolder;
+  color: #ffffff;
+  justify-content: center;
+  align-items: center;
+}
+.paginator {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .Btn {
   outline: none;
   border: none;
@@ -50,9 +66,11 @@
 //   // margin-top: 50px;
 // }
 .toolSection {
-  height: 400px;
+  height: 390px;
   overflow: hidden;
   overflow-y: scroll;
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 .toolSection::-webkit-scrollbar {
   width: 3px;
@@ -85,6 +103,9 @@
 }
 .matC {
   width: 100px;
+}
+.select-wrap{
+  width: 130px !important;
 }
 
 .matD {

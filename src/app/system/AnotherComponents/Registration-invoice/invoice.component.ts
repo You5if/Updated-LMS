@@ -57,7 +57,7 @@ export class RegistrationInvoiceComponent implements OnInit {
 
   model!: Send;
     displayedColumns: string[] =
-        ['select','InvoiceNo', 'InvoiceDate','customer', 'report'];
+        ['select','InvoiceNo', 'InvoiceDate','customer'];
 
     dataSource: any;
     isLastPage = false;
@@ -341,8 +341,10 @@ export class RegistrationInvoiceComponent implements OnInit {
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add invoice");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Add");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة فاتورة");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Add");
     }
     
     this.openEntry2(this.model);

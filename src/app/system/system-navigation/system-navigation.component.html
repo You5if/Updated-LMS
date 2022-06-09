@@ -110,9 +110,9 @@
         <li *ngIf="role === '2'" routerLink="tripexec" routerLinkActive="is-active" class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{tripexec}}</div></li>
         <li *ngIf="role === '2'" routerLink="vehicleFuel" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{vehicleFuel}}</div></li>
         <li *ngIf="role === '2'" routerLink="vehMain" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{vehMain}}</div></li>
-        <mat-divider *ngIf="role === '2'"></mat-divider>
-        <h3 *ngIf="role === '2'" class="main_title">{{reports}}</h3>
-        <li *ngIf="role === '2'" routerLink="FinancialReports" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{financialReports}}</div></li>
+        <mat-divider *ngIf="role === '6' || role === '2'"></mat-divider>
+        <h3 *ngIf="role === '6' || role === '2'" class="main_title">{{reports}}</h3>
+        <li *ngIf="role === '6' || role === '2'" routerLink="FinancialReports" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-print"></i><div class="title">{{financialReports}}</div></li>
 
 
 

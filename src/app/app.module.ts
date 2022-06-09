@@ -369,6 +369,7 @@ import { Movetobank2Component } from "./system/AnotherComponents/chequefromcompa
 import { ChequeFromCompanyEntryComponent } from "./system/AnotherComponents/chequefromcompany/chequetocompany-entry/chequetocompany-entry.component";
 import { CheckforIsActiveComponent } from "./lmssystem/schoolyear/checkfordelete/checkfordelete.component";
 import { ServiceEnEntry2Component } from "./system/GeneratedComponents01Apr/serviceen/serviceen-entry2/serviceen-entry.component";
+import { MyTestAutoComponent } from "./system/my-test-auto/my-test-auto.component";
 
 
 
@@ -720,7 +721,8 @@ SubTeQueEntryComponent,
     CheckforIsActiveComponent,
     ServiceEnComponent,
     ServiceEnEntryComponent,
-    ServiceEnEntry2Component
+    ServiceEnEntry2Component,
+    MyTestAutoComponent
 
     
     

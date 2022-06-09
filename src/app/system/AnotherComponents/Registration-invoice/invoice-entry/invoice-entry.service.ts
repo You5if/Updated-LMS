@@ -64,6 +64,13 @@ export class InvoiceEntryService {
             }), catchError(this._cf.handleError)
             );
            }
+           getChildFromGroup(id: number): Observable<any[]> {
+            return this.httpClient.get<any[]>(this._globals.baseAPIUrl + 'invoiceProduct/bygroup/' + id).pipe(
+            map((result: any[]) => {
+            return result;
+            }), catchError(this._cf.handleError)
+            );
+           }
 
            getChild2byChild2(id: number): Observable<invoicetaxModel[]> {
             return this.httpClient.get<invoicetaxModel[]>(this._globals.baseAPIUrl + 'InvoiceTax/byinvoice/' + id).pipe(

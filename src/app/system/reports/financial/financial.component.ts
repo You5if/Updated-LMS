@@ -1,9 +1,10 @@
+import { Direction } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
+import { MatDialog,   } from '@angular/material/dialog';
+import { PageEvent} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router';
 import { AppGlobals } from 'src/app/app.global';
 import { CommonService } from 'src/app/components/common/common.service';
@@ -19,7 +20,6 @@ import { Send } from 'src/app/send.model';
 import { AccountModel } from '../../account/account.model';
 import { AccountService } from '../../account/account.service';
 import { SystemNavigationComponent } from '../../system-navigation/system-navigation.component';
-import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-financial',
@@ -30,10 +30,13 @@ export class FinancialComponent implements OnInit {
 
   idS !: number;
   direction!: Direction;
-  accountCode!: string;
-  accountName!: string;
-  accountType!: string;
-  balance!: string;
+  financialReports!: string;
+  report!: string;
+  from!: string;
+  fetch!: string;
+  to!: string;
+  company!: string;
+  account!: string;
   edit!: string;
   header!: string;
   submit!: string;
@@ -44,7 +47,7 @@ export class FinancialComponent implements OnInit {
   indexes!: any[];
 
     displayedColumns: string[] =
-        ['report', 'from', 'to', 'currency', 'fetch'];
+        ['report', 'from', 'to', 'account', 'company', 'fetch'];
 
     dataSource: any;
     selection = new SelectionModel<AccountModel>(true, []);;
@@ -70,6 +73,11 @@ export class FinancialComponent implements OnInit {
         shortCloseFlag: true,
         viewFlag: true
       };
+      acc!: SelectModel[];
+      sub1!: SelectModel[];
+      val3!: SelectModel[];
+      drop5!:any
+      drop2Appear:boolean=false
 
     constructor(
         public dialog: MatDialog,
@@ -100,39 +108,39 @@ export class FinancialComponent implements OnInit {
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Account"
-      this.accountCode = "Account Code"
-      this.accountName = "Account Name"
-      this.accountType = "Account Type"
-      this.balance = "Balance"
+      this.financialReports = "Financial reports"
+      this.report = "Report"
+      this.from = "From"
+      this.to = "To"
+      this.fetch = "Fetch"
+      this.account = "Account"
+      this.company = "Group"
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.header = "الحسابات"
-      this.accountCode = "رمز الحساب"
-      this.accountName = "اسم الحساب"
-      this.accountType = "نوع الحساب"
-      this.balance = "الحساب"
+      this.financialReports = "التقارير المالية"
+      this.report = "التقرير"
+      this.from = "من"
+      this.to = "الى"
+      this.fetch = "تحضير"
+      this.account = "الحساب"
+      this.company = "المجموعة"
       this.edit = "تعديل"
       this.submit = "ارسال"
       this.cancel = "الغاء"
     }
 
-    this._select.getDropdown("miscdetailId", "miscdetail", "misctext", "miscid=17", false).subscribe((res: SelectModel[]) => {
-      console.log("drop: ", res);
-      var curr: SelectModel[] = res
-      var Tdate: string = formatDate(new Date(), 'yyyy-MM-dd', 'en_US');
-      const src = [
-        {report: "Revenue", currency: 17001, value: curr, fromDate: Tdate, toDate: Tdate },
-        {report: "Expense", currency: 17001, value: curr, fromDate: Tdate , toDate: Tdate},
-        {report: "Rev vs. Exp", currency: 17001, value: curr, fromDate: Tdate, toDate: Tdate },
-        
-        
-      ]
-            this.dataSource = new MatTableDataSource(src);
-      
+    // this._ui.loadingStateChanged.next(true)
+    this._select.getDropdown("accountid", "account", "concat(accountname,':',accountcode)", "active=1 and deleted=0 and accountid>1", false).subscribe((res: SelectModel[]) => {
+      console.log("drop3: ", res);
+      this.acc = res;
+      this.beforAfterThat()
     });
+
+    
     // this._cf.getPageData('Account', this.pScreenId, this._auth.getUserId(), this.pTableId,
     //   this.recordsPerPage, this.currentPageIndex, false).subscribe(
     //     (result) => {
@@ -160,27 +168,125 @@ export class FinancialComponent implements OnInit {
     });
   }
 
+  beforAfterThat(){
+    this._select.getDropdown("miscdetailid", "miscdetail", "misctext", "miscid=31", false).subscribe((res: SelectModel[]) => {
+      console.log("drop3: ", res);
+      this.sub1=res
+      this.afterThat()
+    })
+  }
+
+  afterThat(){//http://greenfieldapi.autopay-mcs.com/api/ddl/getdropdown/miscdetailid/miscdetail/misctext/miscid=31/false
+    var Tdate: string = formatDate(new Date(), 'yyyy-MM-dd', 'en_US');
+    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+      var src = [
+        {reportSelected: 1, report: "Account summary", account: 148 , value2:this.acc, fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: true, inSub:false},
+        // {report: "Account summary (company-wise)", company: 2, value: copm, account: 148 ,  value2:this.acc, fromDate: Tdate , toDate: Tdate, companyAppear: true, accountAppear: true, inSub:false},
+        // {report: "Sub-account", account: 0, value2: this.sub1,value3:this.val3, accountDrop2:1, fromDate: Tdate, toDate: Tdate, companyAppear: true, accountAppear: true, inSub:true, drop2Appear: this.drop2Appear},
+        {reportSelected: 2, report: "Trial balance", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
+        {reportSelected: 3, report: "Balance sheet", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
+        // {report: "Trial balance (company)", company: 2, value: copm, fromDate: Tdate, toDate: Tdate, companyAppear: true, accountAppear: false, inSub:false },
+        
+        
+      ]
+    }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+      var src = [
+        {reportSelected: 1, report: "ملخص الحساب", account: 148 , value2:this.acc, fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: true, inSub:false},
+        // {report: "ملخص الحسابات (الشركة)", company: 2, value: copm, account: 148 ,  value2:this.acc, fromDate: Tdate , toDate: Tdate, companyAppear: true, accountAppear: true, inSub:false},
+        // {report: "Sub-account", account: 0, value2: this.sub1,value3:this.val3, accountDrop2:1, fromDate: Tdate, toDate: Tdate, companyAppear: true, accountAppear: true, inSub:true, drop2Appear: this.drop2Appear },
+        {reportSelected: 2, report: "ميزان المراجعة", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
+        {reportSelected: 3, report: "الميزانية العمومية", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
+        // {report: "ميزان المراجعة (الشركة)", company: 2, value: copm, fromDate: Tdate, toDate: Tdate, companyAppear: true, accountAppear: false, inSub:false },
+        
+        
+      ]
+    }
+          this.dataSource = new MatTableDataSource(src!);}
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onReport(report: string,fromDate: Date, toDate:Date, currency: number) { 
-    var reportId: number
-    if (report == "Expense") {
-       reportId = 3; // if expense button: 3, Revenue: 4, RevVsExp: 5 
-    }else if (report == "Revenue") {
-     reportId = 4; // if expense button: 3, Revenue: 4, RevVsExp: 5 
-    }else if (report == "Rev vs. Exp") {
-      reportId = 5; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+  subTypeChange(value:any){
+    console.log(value);
+    this.drop2Appear=true
+    if (value=== 31002){//customer
+      this._ui.loadingStateChanged.next(true)
+      this._select.getDropdown("customerid", "customer", "customername", "active=1 and deleted=0 and customerid>1", false).subscribe((res: SelectModel[]) => {
+        this.val3=res
+        this._ui.loadingStateChanged.next(false)
+        console.log("drop4: ", res);
+        console.log(this.val3);
+        
+        // this.afterThat()
+      })
+    }else if (value=== 31003){//partner
+      this._ui.loadingStateChanged.next(true)
+      this._select.getDropdown("shareholderid", "shareholder", "shname", "active=1 and deleted=0 and shareholderid>1", false).subscribe((res: SelectModel[]) => {
+        this.val3=res
+        this._ui.loadingStateChanged.next(false)
+        console.log("drop5: ", res);
+        // this.afterThat()
+      })
+      
+    }else if (value=== 31001){//supplier
+      this._ui.loadingStateChanged.next(true)
+      this._select.getDropdown("supplierid", "supplier", "suppliername", "active=1 and deleted=0 and supplierid>1", false).subscribe((res: SelectModel[]) => {
+        this.val3=res
+        this._ui.loadingStateChanged.next(false)
+        console.log("drop6: ", res);
+        // this.afterThat()
+      })
+      
     }
     
+  }
+
+  onResults(row:any, e:any) {
+    row.account= e
+    console.log('ee',e);
+    this.subTypeChange(e)
+    // this.light.forEach((res:any) => {
+    //   if (res.tableColumnId === id) {
+    //     console.log('ee', e);
+        
+    //     res.value = e.toString()
+    //     // if(res.tableColumnId === 195) {
+    //     //   this.onChangeValue(res.value)
+    //     // }
+        
+    //   }
+    // })
+  }
+
+  onReport(reportSelected: number,fromDate: Date, toDate:Date, company: number, account: number, accountDrop2:number) { 
+    var reportId: number
     let restOfUrl: string; 
-    restOfUrl = 'from=' + fromDate; 
-    restOfUrl = restOfUrl + '&to=' + toDate; 
-    restOfUrl = restOfUrl + '&currency=' + currency; 
-    console.log(restOfUrl)
-    this._report.passReportData({ reportId: reportId!, restOfUrl: restOfUrl }); 
-    this._nav.onClickListItem('FRP');
+    if (reportSelected == 1) {
+      console.log(reportSelected);
+      
+      reportId = 4;
+      restOfUrl = 'account=' + account; 
+      restOfUrl = restOfUrl + '&from=' + fromDate; 
+      restOfUrl = restOfUrl + '&to=' + toDate; 
+    }
+    else if (reportSelected == 2) {
+      console.log(reportSelected);
+      reportId = 5; 
+      restOfUrl = 'from=' + fromDate; 
+      restOfUrl = restOfUrl + '&to=' + toDate; 
+    }
+    else if (reportSelected == 3) {
+      console.log(reportSelected);
+      reportId = 7; 
+      restOfUrl = 'from=' + fromDate; 
+      restOfUrl = restOfUrl + '&to=' + toDate; 
+    }
+    
+    
+    console.log(restOfUrl!)
+    this._report.passReportData({ reportId: reportId!, restOfUrl: restOfUrl! }); 
+    this.router.navigate(['System/FinancialReportsPage']);
   }
  
   paginatoryOperation(event: PageEvent) {
@@ -203,8 +309,6 @@ export class FinancialComponent implements OnInit {
       return false;
     }
   }
-
-  onView(a:any){}
 
   onSort  () {
     const dialogRef = this.dialog.open(PageSortComponent, {
@@ -230,7 +334,7 @@ export class FinancialComponent implements OnInit {
   //   this.openEntry2(this.model);
   // };
 
-  // onView = (id: number) => {
+  onView = (id: number) => {
   //   this._ui.loadingStateChanged.next(true);
   //   this.accountservice.getAccountEntry(id).subscribe((result: AccountModel) => {
   //     this._ui.loadingStateChanged.next(false);
@@ -238,7 +342,7 @@ export class FinancialComponent implements OnInit {
   //     result.readOnly = true;
   //     this.openEntry(result);
   //   });
-  // }
+  }
 
   // onEdit = (id: number) => {
   //   // this._ui.loadingStateChanged.next(true);

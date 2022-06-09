@@ -616,7 +616,7 @@
                       >
                         <mat-option
                           *ngFor="let choice of source.myarray"
-                          [value]="choice.unitId"
+                          [value]="choice.id"
                           
                         >
                           {{ choice.unitName }}
@@ -633,8 +633,18 @@
                   *ngSwitchCase="'ViewOnly'"
                   class="radio"
                 >
-                  <h3>{{ source.label }}:</h3>
+                  <div *ngIf="source.tableColumnId == 290">
+                    <div *ngFor="let choice of source.myarray">
+                      <div *ngIf="choice.id === +source.value">
+                        <h3>{{ source.label }}:</h3>
+                  <h5>{{ choice.name }}</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="source.tableColumnId != 290">
+                    <h3>{{ source.label }}:</h3>
                   <h5>{{ source.value }}</h5>
+                  </div>
                 </div>
               </div>
             </mat-grid-tile>

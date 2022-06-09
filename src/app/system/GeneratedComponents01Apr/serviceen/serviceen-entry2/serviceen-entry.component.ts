@@ -239,6 +239,13 @@ export class ServiceEnEntry2Component implements OnInit {
   }
 
   onFetch() {
+    var sGroup : string
+    for (let s = 0; s < this.data[2].myarray.length; s++) {
+      if (this.data[2].myarray[s].id.toString() === this.data[2].value.toString()) {
+        sGroup = this.data[2].myarray[s].name
+      }
+      
+    }
     this.fetchDone = true
     this._ui.loadingStateChanged.next(true);
     this.dapiService.Controllers(this.pModel).subscribe(res => {
@@ -249,7 +256,7 @@ export class ServiceEnEntry2Component implements OnInit {
 
       this.data1[1].value = this.data[1].value
       this.data1[2].value = this.data[2].value
-      this.data1[3].value = "Registration fees"
+      this.data1[3].value = sGroup +"_Registration fees"
       
       for(let i=0;i<=this.data1.length;i++){
         this.ver21 = this.data1[i]
@@ -282,7 +289,7 @@ export class ServiceEnEntry2Component implements OnInit {
 
       this.data2[1].value = this.data[1].value
       this.data2[2].value = this.data[2].value
-      this.data2[3].value = "Tuition fees"
+      this.data2[3].value = sGroup +"_Tuition fees"
       
       for(let i=0;i<=this.data2.length;i++){
         this.ver22 = this.data2[i]
@@ -315,7 +322,7 @@ export class ServiceEnEntry2Component implements OnInit {
 
       this.data3[1].value = this.data[1].value
       this.data3[2].value = this.data[2].value
-      this.data3[3].value = "Books and Uniform fees"
+      this.data3[3].value = sGroup +"_Books and Uniform fees"
       
       for(let i=0;i<=this.data3.length;i++){
         this.ver23 = this.data3[i]
@@ -348,7 +355,7 @@ export class ServiceEnEntry2Component implements OnInit {
 
       this.data4[1].value = this.data[1].value
       this.data4[2].value = this.data[2].value
-      this.data4[3].value = "Activity fees"
+      this.data4[3].value = sGroup +"_Activity fees"
       
       for(let i=0;i<=this.data4.length;i++){
         this.ver24 = this.data4[i]
@@ -530,7 +537,7 @@ export class ServiceEnEntry2Component implements OnInit {
        }
   
   
-       this.data4.forEach((Object4)=> this.light3.forEach((obj4)=>
+       this.data4.forEach((Object4)=> this.light4.forEach((obj4)=>
       {
         if(Object4.tableColumnId === obj4.tableColumnId){
           Object4.value = obj4.value
