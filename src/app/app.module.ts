@@ -370,6 +370,7 @@ import { ChequeFromCompanyEntryComponent } from "./system/AnotherComponents/cheq
 import { CheckforIsActiveComponent } from "./lmssystem/schoolyear/checkfordelete/checkfordelete.component";
 import { ServiceEnEntry2Component } from "./system/GeneratedComponents01Apr/serviceen/serviceen-entry2/serviceen-entry.component";
 import { MyTestAutoComponent } from "./system/my-test-auto/my-test-auto.component";
+import { AssignToGroupComponent } from "./system/AnotherComponents/Registration-invoice/assign-to-group/movetobank.component";
 
 
 
@@ -722,7 +723,8 @@ SubTeQueEntryComponent,
     ServiceEnComponent,
     ServiceEnEntryComponent,
     ServiceEnEntry2Component,
-    MyTestAutoComponent
+    MyTestAutoComponent,
+    AssignToGroupComponent
 
     
     
@@ -942,7 +944,8 @@ SubTeQueEntryComponent,
     ChequeFromCompanyEntryComponent,
     CheckforIsActiveComponent,
     ServiceEnEntryComponent,
-    ServiceEnEntry2Component
+    ServiceEnEntry2Component,
+    AssignToGroupComponent
     
   ]
 })

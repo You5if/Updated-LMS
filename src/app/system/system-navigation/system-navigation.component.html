@@ -60,6 +60,7 @@
         <!-- <li (click)="onClickListItem('S3')" class="side_list_item"><mat-icon>Student</mat-icon><div class="title">{{Student}}</div></li> -->
         <!-- <li *ngIf="role === '2'" routerLink="Invoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{invoice}}</div></li> -->
         <li *ngIf="role === '2' || role === '7'" routerLink="RegistrationInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{rInvoice}}</div></li>
+        <li *ngIf="role === '2' || role === '9'" routerLink="RegistrationInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{rInvoice}}</div></li>
         <li *ngIf="role === '2' || role === '8'" routerLink="TransportInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{tInvoice}}</div></li>
         <li *ngIf="role === '2' || role === '3' || role === '5'" routerLink="PaymentToCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentToCompany}}</div></li>
         <li *ngIf="role === '2' || role === '4' || role === '5'" routerLink="PaymentFromCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentFromCompany}}</div></li>

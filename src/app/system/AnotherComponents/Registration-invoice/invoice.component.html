@@ -9,6 +9,7 @@
     <section class="sec" >
 
       <button class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon>add</mat-icon></button>
+      <button class="add_btn2" mat-button color="primary" (click)="onMoveToBank()" [disabled]="!screenRights.createFlag">Move to bank</button>
       <div class="chImg" (click)="onMySort()"><img class="sfimg" src="../../../../assets/images/svg/sort (3).png" alt=""></div>
       <div class="chImg" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
       <div class="chImg" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
@@ -69,6 +70,12 @@
     <ng-container matColumnDef="InvoiceDate">      <mat-header-cell class="centH" *matHeaderCellDef>{{invoiceDate}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.invoiceDate | date}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="customer">      <mat-header-cell class="centH" *matHeaderCellDef>{{customer}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.customerName}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="registeredGroup">      <mat-header-cell class="centH" *matHeaderCellDef>{{registeredGroup}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.registeredGroup}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="assignedGroup">      <mat-header-cell class="centH" *matHeaderCellDef>{{assignedGroup}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.assignedGroup}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="schoolYear">      <mat-header-cell class="centH" *matHeaderCellDef>{{schoolYear}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.schoolYear}}</mat-cell>
     </ng-container>
     <!-- <ng-container matColumnDef="warehouse">      <mat-header-cell class="centH" *matHeaderCellDef>{{warehouse}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.wareHouseName}}</mat-cell>
     </ng-container> -->
@@ -151,10 +158,21 @@
           <h3>:</h3>
           <h3>{{ index.customerName }}</h3>
         </div>
+        
         <div fxLayoutGap="5px" class="index_row">
-          <h3>{{warehouse}}</h3>
+          <h3>{{registeredGroup}}</h3>
           <h3>:</h3>
-          <h3>{{ index.wareHouseName }}</h3>
+          <h3>{{ index.registeredGroup }}</h3>
+        </div>
+        <div fxLayoutGap="5px" class="index_row">
+          <h3>{{assignedGroup}}</h3>
+          <h3>:</h3>
+          <h3>{{ index.assignedGroup }}</h3>
+        </div>
+        <div fxLayoutGap="5px" class="index_row">
+          <h3>{{schoolYear}}</h3>
+          <h3>:</h3>
+          <h3>{{ index.schoolYear }}</h3>
         </div>
         
       </div>

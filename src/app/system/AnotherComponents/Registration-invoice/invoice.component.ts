@@ -24,6 +24,7 @@ import { FilterService } from 'src/app/components/filter/filter.service';
 import { MyFilterComponent } from '../../journalentry/operation/my-filter/my-filter.component';
 import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.component';
 import { Direction } from '@angular/cdk/bidi';
+import { AssignToGroupComponent } from './assign-to-group/movetobank.component';
 
 @Component({
     selector: 'app-invoice',
@@ -43,6 +44,9 @@ export class RegistrationInvoiceComponent implements OnInit {
   invoiceDate!: string;
   customer!:string;
   warehouse!:string;
+  registeredGroup!:string;
+  assignedGroup!:string;
+  schoolYear!:string;
   edit!: string;
   header!: string;
   submit!: string;
@@ -56,9 +60,9 @@ export class RegistrationInvoiceComponent implements OnInit {
   deleteModel!: DeleteModel
 
   model!: Send;
-    displayedColumns: string[] =
-        ['select','InvoiceNo', 'InvoiceDate','customer'];
+    displayedColumns!: string[];
 
+        role :string|null= localStorage.getItem("role");
     dataSource: any;
     isLastPage = false;
     pTableName: string;
@@ -116,6 +120,11 @@ export class RegistrationInvoiceComponent implements OnInit {
       }
 
   ngOnInit() {
+    if (this.role === "7") {
+      this.displayedColumns = ['select','InvoiceNo', 'InvoiceDate','customer']
+    }else {
+      this.displayedColumns = ['select','InvoiceNo', 'InvoiceDate','customer', 'registeredGroup', 'assignedGroup', 'schoolYear']
+    }
     this.pageData = {
       tableId: this.pTableId,
       userId: 26,
@@ -138,6 +147,9 @@ export class RegistrationInvoiceComponent implements OnInit {
       this.invoiceDate = "Invoice Date"
       this.customer = "Customer"
       this.warehouse = "Warehouse"
+      this.registeredGroup = "Registered group"
+      this.assignedGroup = "Assigned group"
+      this.schoolYear = "School year"
       this.edit = "Edit"
       this.report = "Report"
       this.delete = "Delete"
@@ -149,6 +161,9 @@ export class RegistrationInvoiceComponent implements OnInit {
       this.invoiceDate = "التاريخ"
       this.customer = "العميل"
       this.warehouse = "المخزن"
+      this.registeredGroup = "المجموعات المسجلة"
+      this.assignedGroup = "المجموعات المكلفة"
+      this.schoolYear = "السنة الدراسية"
       this.delete = "حذف"
       this.edit = "تعديل"
       this.report = "تقرير "
@@ -203,6 +218,33 @@ export class RegistrationInvoiceComponent implements OnInit {
   //     data: {}
   //   });
   // }
+
+  onMoveToBank  () {
+  console.log(this.selection);
+  
+  if (this.selection.selected != null && this.selection.selected !=  []) {
+    var arr = []
+    for (let i = 0; i < this.selection.selected.length; i++) {
+      
+      if (this.selection.selected) {
+        arr.push(this.selection.selected[i])
+      }
+      
+    }
+    const dialogRef = this.dialog.open(AssignToGroupComponent, {
+      disableClose: true,
+      data: {
+        selected: arr
+      }
+    });
+  
+  dialogRef.afterClosed().subscribe(() => {
+    this.refreshMe();
+    this.selection.clear()
+  });
+  }
+
+}
 
   onClearSort() {
     this.pageData.sort = ""
