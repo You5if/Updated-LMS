@@ -128,6 +128,25 @@
               </div>
             </mat-grid-tile>
 
+            <mat-grid-tile *ngSwitchCase="'autocomplete'">
+              <div [ngSwitch]="source.access">
+                <div *ngSwitchCase="'Editable'">
+                 
+                    <app-my-test-auto [refId]="source.refId" [refCondition]="source.refCondition" [refTable]="source.refTable" [refColumn]="source.refColumn" [labelValue]="source.label" [initialValue]="source.value" (resultId)="onResults(source.tableColumnId, $event)"></app-my-test-auto>
+                 
+                </div>
+                <div
+                  fxLayout
+                  fxLayoutGap="10px"
+                  *ngSwitchCase="'ViewOnly'"
+                  class="radio"
+                >
+                  <h3>{{ source.label }}:</h3>
+                  <h5>{{ source.value }}</h5>
+                </div>
+              </div>
+            </mat-grid-tile>
+
             <mat-grid-tile *ngSwitchCase="'Checkbox'">
               <div [ngSwitch]="source.access">
                 <mat-checkbox

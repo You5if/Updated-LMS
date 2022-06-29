@@ -93,3 +93,19 @@ export class SortingModel {
                 name: string,
         id: number;
               }
+
+              export class AssignGroupBatch {
+                constructor(
+                        public customerAccountId: number|null,
+                        
+                ) { }
+                }
+
+                export class AssignGroupBatchModel {
+                        constructor(
+                        
+                                public record: AssignGroupBatch[],
+                                public studentGroupId: number|null,
+                                
+                        ) { }
+                        }

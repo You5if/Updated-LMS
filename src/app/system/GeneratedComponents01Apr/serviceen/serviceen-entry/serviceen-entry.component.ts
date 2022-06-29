@@ -179,6 +179,7 @@ export class ServiceEnEntryComponent implements OnInit {
     }
   }
 
+ 
   onSubmit() {
     this.data.forEach((Object)=> this.light.forEach((obj)=>
     {

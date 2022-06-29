@@ -950,6 +950,26 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
 
   // }
 
+  onResults(id:number, e:any) {
+    console.log('ee',e);
+    
+    this.light.forEach((res:any) => {
+      if (res.tableColumnId === id) {
+        console.log('ee', e);
+        
+        res.value = e.toString()
+        if(res.tableColumnId === 282) {
+          this.onDiscountChange(res.value)
+        }else if(res.tableColumnId === 284) {
+          this.onChangeValueC(res.value)
+        }else if(res.tableColumnId === 285) {
+          this.onChangeCurrency(res.value)
+        }
+        
+      }
+    })
+  }
+
   onCategory(id: number) {
     var refCond: string = ""
     this.catId = id

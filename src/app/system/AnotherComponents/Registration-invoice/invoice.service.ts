@@ -30,6 +30,9 @@ export class InvoiceService {
      ) {
      }
 
+     moveToBank(arr: any){
+      return this.http.post(this._globals.baseAPIUrl + 'GroupStudent/movetogroup',arr);
+   }
     
    // Get entry method of the model, which fethces data based on provided id (int)
    getInvoiceEntry(id: number): Observable<InvoiceModel> {

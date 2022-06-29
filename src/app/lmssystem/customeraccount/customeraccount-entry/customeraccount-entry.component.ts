@@ -179,6 +179,22 @@ export class CustomerAccountEntryComponent implements OnInit {
 
 onParent(){}
 
+onResults(id:number, e:any) {
+  console.log('ee',e);
+  
+  this.light.forEach((res:any) => {
+    if (res.tableColumnId === id) {
+      console.log('ee', e);
+      
+      res.value = e.toString()
+      // if(res.tableColumnId === 588) {
+      //   this.onChangeValue(res.value, i)
+      // }
+      
+    }
+  })
+}
+
   onSubmit() {
     this.data.forEach((Object)=> this.light.forEach((obj)=>
     {

@@ -185,6 +185,7 @@ export class FinancialComponent implements OnInit {
         // {report: "Sub-account", account: 0, value2: this.sub1,value3:this.val3, accountDrop2:1, fromDate: Tdate, toDate: Tdate, companyAppear: true, accountAppear: true, inSub:true, drop2Appear: this.drop2Appear},
         {reportSelected: 2, report: "Trial balance", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
         {reportSelected: 3, report: "Balance sheet", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
+        {reportSelected: 4, report: "P&L statement", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
         // {report: "Trial balance (company)", company: 2, value: copm, fromDate: Tdate, toDate: Tdate, companyAppear: true, accountAppear: false, inSub:false },
         
         
@@ -196,6 +197,7 @@ export class FinancialComponent implements OnInit {
         // {report: "Sub-account", account: 0, value2: this.sub1,value3:this.val3, accountDrop2:1, fromDate: Tdate, toDate: Tdate, companyAppear: true, accountAppear: true, inSub:true, drop2Appear: this.drop2Appear },
         {reportSelected: 2, report: "ميزان المراجعة", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
         {reportSelected: 3, report: "الميزانية العمومية", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
+        {reportSelected: 4, report: "بيان الربح والخسارة", fromDate: Tdate, toDate: Tdate, companyAppear: false, accountAppear: false, inSub:false },
         // {report: "ميزان المراجعة (الشركة)", company: 2, value: copm, fromDate: Tdate, toDate: Tdate, companyAppear: true, accountAppear: false, inSub:false },
         
         
@@ -279,6 +281,12 @@ export class FinancialComponent implements OnInit {
     else if (reportSelected == 3) {
       console.log(reportSelected);
       reportId = 7; 
+      restOfUrl = 'from=' + fromDate; 
+      restOfUrl = restOfUrl + '&to=' + toDate; 
+    }
+    else if (reportSelected == 4) {
+      console.log(reportSelected);
+      reportId = 11; 
       restOfUrl = 'from=' + fromDate; 
       restOfUrl = restOfUrl + '&to=' + toDate; 
     }

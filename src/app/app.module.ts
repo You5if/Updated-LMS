@@ -371,6 +371,7 @@ import { CheckforIsActiveComponent } from "./lmssystem/schoolyear/checkfordelete
 import { ServiceEnEntry2Component } from "./system/GeneratedComponents01Apr/serviceen/serviceen-entry2/serviceen-entry.component";
 import { MyTestAutoComponent } from "./system/my-test-auto/my-test-auto.component";
 import { AssignToGroupComponent } from "./system/AnotherComponents/Registration-invoice/assign-to-group/movetobank.component";
+import { AssignToClassComponent } from "./lmssystem/subject/assign-to-group/movetobank.component";
 
 
 
@@ -724,7 +725,8 @@ SubTeQueEntryComponent,
     ServiceEnEntryComponent,
     ServiceEnEntry2Component,
     MyTestAutoComponent,
-    AssignToGroupComponent
+    AssignToGroupComponent,
+    AssignToClassComponent
 
     
     
@@ -945,7 +947,8 @@ SubTeQueEntryComponent,
     CheckforIsActiveComponent,
     ServiceEnEntryComponent,
     ServiceEnEntry2Component,
-    AssignToGroupComponent
+    AssignToGroupComponent,
+    AssignToClassComponent
     
   ]
 })

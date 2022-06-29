@@ -50,7 +50,7 @@
         <li *ngIf="role === '2'|| role === '9'" routerLink="schoolyear" routerLinkActive="is-active" class="side_list_item"><mat-icon> attach_money</mat-icon><div class="title"> {{schoolyear}}</div></li>
         <li *ngIf="role === '2'|| role === '9'" routerLink="schoolclass" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{schoolclass}}</div></li>
         <li *ngIf="role === '2'|| role === '9'" routerLink="schoolgroup" routerLinkActive="is-active" class="side_list_item"><mat-icon>receipt</mat-icon><div class="title"> {{schoolgroup}}</div></li>
-        <li *ngIf="role === '2'" routerLink="subject" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-book"></i><div class="title">{{subject}}</div></li>
+        <li *ngIf="role === '2' || role === '9'" routerLink="subject" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-book"></i><div class="title">{{subject}}</div></li>
         <li *ngIf="role === '2'" routerLink="classsubject" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{classsubject}}</div></li>
         <li *ngIf="role === '2'" routerLink="subjectoutline" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-book"></i><div class="title">{{subjectoutline}}</div></li>
         <mat-divider *ngIf="role === '2' || role === '3' || role === '5' || role === '7'"></mat-divider>

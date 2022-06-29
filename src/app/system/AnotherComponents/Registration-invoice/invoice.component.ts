@@ -51,7 +51,10 @@ export class RegistrationInvoiceComponent implements OnInit {
   header!: string;
   submit!: string;
   cancel!: string;
-  selection = new SelectionModel<InvoiceModel>(true, []);;
+  selection = new SelectionModel<InvoiceModel>(true, []);
+  accReport!: string;
+  customerReport!: string;
+;
 
   opC: boolean = true
 
@@ -60,7 +63,7 @@ export class RegistrationInvoiceComponent implements OnInit {
   deleteModel!: DeleteModel
 
   model!: Send;
-    displayedColumns!: string[];
+    displayedColumns: string[] = ['select','InvoiceNo', 'InvoiceDate','customer', 'report'];
 
         role :string|null= localStorage.getItem("role");
     dataSource: any;
@@ -120,11 +123,11 @@ export class RegistrationInvoiceComponent implements OnInit {
       }
 
   ngOnInit() {
-    if (this.role === "7") {
-      this.displayedColumns = ['select','InvoiceNo', 'InvoiceDate','customer']
-    }else {
-      this.displayedColumns = ['select','InvoiceNo', 'InvoiceDate','customer', 'registeredGroup', 'assignedGroup', 'schoolYear']
-    }
+    // if (this.role === "7") {
+    //   this.displayedColumns = ['select','InvoiceNo', 'InvoiceDate','customer', 'report']
+    // }else {
+    //   this.displayedColumns = ['select','InvoiceNo', 'InvoiceDate','customer', 'registeredGroup', 'assignedGroup', 'schoolYear', 'report']
+    // }
     this.pageData = {
       tableId: this.pTableId,
       userId: 26,
@@ -139,6 +142,9 @@ export class RegistrationInvoiceComponent implements OnInit {
   }
 
   refreshMe() {
+
+    this.selection.clear()
+    this.clickedRows.clear()
     
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
@@ -152,6 +158,8 @@ export class RegistrationInvoiceComponent implements OnInit {
       this.schoolYear = "School year"
       this.edit = "Edit"
       this.report = "Report"
+      this.customerReport = "Customer R."
+      this.accReport = "Acc. report"
       this.delete = "Delete"
       
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
@@ -167,6 +175,8 @@ export class RegistrationInvoiceComponent implements OnInit {
       this.delete = "حذف"
       this.edit = "تعديل"
       this.report = "تقرير "
+      this.customerReport = "تقارير العملاء"
+      this.accReport = "تقارير الحسابات"
       
     }
 
@@ -327,6 +337,44 @@ export class RegistrationInvoiceComponent implements OnInit {
     
     let restOfUrl: string; 
     restOfUrl = 'invoiceid=' + invId; 
+     
+    console.log(restOfUrl)
+    this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
+    this.router.navigate(['/System/FinancialReportsPage']);
+  }
+  onCustomerReport(invId:number) { 
+    this.opC = false
+    var reportId: number
+    reportId = 9
+    // if (report == "Expense") {
+    //    reportId = 3; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Revenue") {
+    //  reportId = 4; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Rev vs. Exp") {
+    //   reportId = 5; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }
+    
+    let restOfUrl: string; 
+    restOfUrl = 'customer=' + invId; 
+     
+    console.log(restOfUrl)
+    this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
+    this.router.navigate(['/System/FinancialReportsPage']);
+  }
+  onAccReport(invId:number) { 
+    this.opC = false
+    var reportId: number
+    reportId = 6
+    // if (report == "Expense") {
+    //    reportId = 3; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Revenue") {
+    //  reportId = 4; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Rev vs. Exp") {
+    //   reportId = 5; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }
+    
+    let restOfUrl: string; 
+    restOfUrl = 'custaccount=' + invId; 
      
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 

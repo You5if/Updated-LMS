@@ -267,7 +267,7 @@ elemSource = new MatTableDataSource(this.elem);
           case 'A': {
               this.url = 'JournalEntry/Create';
               
-              this.addControl();
+              this.addControlFirstLine();
 
               break;
           }
@@ -394,7 +394,7 @@ elemSource = new MatTableDataSource(this.elem);
 
 
 
-  addControl() {
+  addControlFirstLine() {
     console.log('I ran from add control');
     // ++this.num
     const row = {
@@ -417,6 +417,55 @@ elemSource = new MatTableDataSource(this.elem);
       reference: '',
       narration: '',
       debit1: 1,
+      credit1: 0,
+      'active': true,
+      readOnly: false,
+      auditColumns: this._auth.getAuditColumns()
+    }
+    // this.narr = row.narration
+    if(this.referenceLock){
+      row.reference = this.refr
+    }
+    if(this.narrationLock){
+      row.narration = this.narr
+    }
+
+    this.elem.push(row)
+    this.elemSource.data = [...this.elem]
+    this.selectedElement = this.elem.length - 1;
+    this.elem.forEach((one) => {
+      if(one && one.value != this.num) {
+        one.collapse = false
+        one.numTitle = true
+      }
+
+    })
+    // console.log(this.elem)
+    // console.log(this.selectedElement)
+  }
+  addControl() {
+    console.log('I ran from add control');
+    // ++this.num
+    const row = {
+      value: ++this.num,
+       collapse: true,
+       numTitle: false,
+      journalEntryDetailId1: 0,
+      journalEntryId: this.pModel.journalEntryId,
+      accountId1: 2,
+      customerId1:2,
+      showShare1:false,
+      showCustomer1:false,
+      showCost1:false,
+      showSupplier1:false,
+      
+      supplierId1:2,
+      costCenterId1:2,
+      shareholderId1:2,
+      sysCompanyId1:2,
+      reference: '',
+      narration: '',
+      debit1: 0,
       credit1: 0,
       'active': true,
       readOnly: false,

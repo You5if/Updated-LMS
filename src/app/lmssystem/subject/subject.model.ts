@@ -15,3 +15,20 @@ constructor(
 ) { }
 }
 
+export class AssignClassBatch {
+        constructor(
+                public subjectId: number|null,
+                
+        ) { }
+        }
+
+        export class AssignClassBatchModel {
+                constructor(
+                
+                        public record: AssignClassBatch[],
+                        public schoolClassId: number|null,
+                        
+                ) { }
+                }
+
+

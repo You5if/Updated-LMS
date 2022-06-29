@@ -18,6 +18,7 @@ import { Send } from 'src/app/send.model';
 import { AppGlobals } from 'src/app/app.global';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Direction } from '@angular/cdk/bidi';
+import { AssignToClassComponent } from './assign-to-group/movetobank.component';
 
 @Component({
     selector: 'app-subject',
@@ -89,6 +90,8 @@ export class subjectComponent implements OnInit {
   }
 
   refreshMe() {
+    this.selection.clear()
+    this.clickedRows.clear()
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Subject"
@@ -160,6 +163,32 @@ export class subjectComponent implements OnInit {
     }
   }
 
+  onMoveToBank  () {
+    console.log(this.selection);
+    
+    if (this.selection.selected != null && this.selection.selected !=  []) {
+      var arr = []
+      for (let i = 0; i < this.selection.selected.length; i++) {
+        
+        if (this.selection.selected) {
+          arr.push(this.selection.selected[i])
+        }
+        
+      }
+      const dialogRef = this.dialog.open(AssignToClassComponent, {
+        disableClose: true,
+        data: {
+          selected: arr
+        }
+      });
+    
+    dialogRef.afterClosed().subscribe(() => {
+      this.refreshMe();
+      this.selection.clear()
+    });
+    }
+  
+  }
   onSort  () {
     const dialogRef = this.dialog.open(PageSortComponent, {
       disableClose: true,

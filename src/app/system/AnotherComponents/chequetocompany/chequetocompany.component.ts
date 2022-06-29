@@ -110,6 +110,8 @@ export class ChequeToCompanyComponent implements OnInit {
   }
 
   refreshMe() {
+    this.selection.clear()
+    this.clickedRows.clear()
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Cheque to"

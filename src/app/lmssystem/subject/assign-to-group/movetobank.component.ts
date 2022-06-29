@@ -8,16 +8,17 @@ import { MessageBoxService } from 'src/app/components/messagebox/message-box.ser
 import { SelectModel } from 'src/app/components/misc/SelectModel';
 import { UIService } from 'src/app/components/shared/uiservices/UI.service';
 import { Send } from 'src/app/send.model';
-import { FilteringModel } from '../../invoice/invoice.model';
-import { ChequeToCompanyBatch, ChequeToCompanyBatchModel } from '../chequetocompany.model';
-import { ChequeToCompanyService } from '../chequetocompany.service';
+import { AssignClassBatch, AssignClassBatchModel } from '../subject.model';
+import { subjectService } from '../subject.service';
+
+
 
 @Component({
   selector: 'app-movetobank',
   templateUrl: './movetobank.component.html',
   styleUrls: ['./movetobank.component.scss']
 })
-export class MovetobankComponent implements OnInit {
+export class AssignToClassComponent implements OnInit {
 
   submit!: string;
   disabled: boolean = true
@@ -28,9 +29,9 @@ export class MovetobankComponent implements OnInit {
     bankAccountId!: number
     bankAccount!: string
 
-    jsonToSend: ChequeToCompanyBatchModel = {
+    jsonToSend: AssignClassBatchModel = {
       record: [],
-      bankAccountId: null 
+      schoolClassId: null 
     }
 
     ver2: any;
@@ -38,35 +39,37 @@ export class MovetobankComponent implements OnInit {
 
 
   constructor(
-    private dialogRef: MatDialogRef<MovetobankComponent>,
+    private dialogRef: MatDialogRef<AssignToClassComponent>,
     @Inject(MAT_DIALOG_DATA) public pModel: any,
     private _globals: AppGlobals,
     private _msg: MessageBoxService,
     private _select: SelectService,
     private _ui: UIService,
     private _cf: CommonService,
-    private chequetocompanyservice: ChequeToCompanyService
+    private chequetocompanyservice: subjectService
   ) { }
 
   ngOnInit() {
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
-      this.submit = "Apply"
+      this.submit = "Assign"
       this.cancel = "Cancel"
-      this.bankAccount = "Bank account"
-      this.header = "Move to bank"
+      this.bankAccount = "Class"
+      this.header = "Assign to"
       
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
-      this.submit = "تطبيق"
-      this.bankAccount = "حساب البنك"
+      this.submit = "تعيين"
+      this.bankAccount = "الفصول"
       this.cancel = "الغاء"
-      this.header = "تحويل الى بنك"
+      this.header = "تعيين الى"
      
 
     }
-    //http://lmsapi.autopay-mcs.com/api/Ddl/getdropdown/distinct%20companybankbranchaccountid/companybank,companybankbranch,companybankbranchaccount/concat(bankname,':',accountnumber)/companybankbranch.companybankid=companybank.companybankid%20and%20companybankbranchaccount.companybankbranchid=companybankbranch.companybankbranchid%20andcompanybankbranchaccount.active=true/false
-    this._select.getDropdown("distinct companybankbranchaccountid", "companybank,companybankbranch,companybankbranchaccount", "concat(bankname,':',accountnumber)", "companybankbranch.companybankid=companybank.companybankid and companybankbranchaccount.companybankbranchid=companybankbranch.companybankbranchid and companybankbranchaccount.active=1", false).subscribe((res: SelectModel[]) => {
+    console.log(this.pModel);
+    
+    //http://lmsapi.autopay-mcs.com/api/Ddl/getdropdown/schoolclassid/schoolclass/scclassname/active=1 and deleted=0 and schoolclassid>1/false
+    this._select.getDropdown("schoolclassid", "schoolclass", "scclassname", "active=1 and deleted=0 and schoolclassid>1", false).subscribe((res: SelectModel[]) => {
       this.banks = res
       
     });
@@ -92,13 +95,13 @@ export class MovetobankComponent implements OnInit {
   }
   onChangeBank(id: number) {
     this.disabled = false
-    this.jsonToSend.bankAccountId = id
+    this.jsonToSend.schoolClassId = id
     
     this.pModel.selected.forEach((selected:any) => {
-      var newChequeId : ChequeToCompanyBatch = {
-        chequeToCompanyId: null
+      var newChequeId : AssignClassBatch = {
+        subjectId: null
       }
-      newChequeId.chequeToCompanyId = selected.chequeToCompanyId
+      newChequeId.subjectId = selected.subjectId
       this.jsonToSend.record.push(newChequeId)
       // newChequeId.chequeToCompanyId = null
     })
@@ -107,7 +110,7 @@ export class MovetobankComponent implements OnInit {
 
   }
   onApply () {
-    console.log(this.jsonToSend);
+    console.log(JSON.stringify(this.jsonToSend));
 
     this.chequetocompanyservice.moveToBank(this.jsonToSend).subscribe((response) => {
       console.log(response);

@@ -57,7 +57,7 @@ export class TransportInvoiceComponent implements OnInit {
 
   model!: Send;
     displayedColumns: string[] =
-        ['select','InvoiceNo', 'InvoiceDate','customer'];
+        ['select','InvoiceNo', 'InvoiceDate','customer', 'report'];
 
     dataSource: any;
     isLastPage = false;

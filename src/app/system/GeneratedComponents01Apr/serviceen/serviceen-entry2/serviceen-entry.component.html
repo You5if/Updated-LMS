@@ -59,6 +59,7 @@
                     [(ngModel)]="source.value"
                     name="{{ source.label }}"
                     type="textbox"
+                    (input)="onAmountChange2()"
                     placeholder="Number"
                     appIsDecimalDirective
                   />
@@ -329,6 +330,7 @@
                     [(ngModel)]="source.value"
                     [ngModelOptions]="{standalone: true}"
                     type="textbox"
+                    (input)="onAmountChange()"
                     placeholder="Number"
                     appIsDecimalDirective
                   />
@@ -597,6 +599,7 @@
                     [(ngModel)]="source.value"
                     [ngModelOptions]="{standalone: true}"
                     type="textbox"
+                    (input)="onAmountChange()"
                     placeholder="Number"
                     appIsDecimalDirective
                   />
@@ -865,6 +868,7 @@
                     [(ngModel)]="source.value"
                     [ngModelOptions]="{standalone: true}"
                     type="textbox"
+                    (input)="onAmountChange()"
                     placeholder="Number"
                     appIsDecimalDirective
                   />
@@ -1132,6 +1136,7 @@
                     matInput
                     [(ngModel)]="source.value"
                     [ngModelOptions]="{standalone: true}"
+                    (input)="onAmountChange()"
                     type="textbox"
                     placeholder="Number"
                     appIsDecimalDirective
@@ -1356,6 +1361,36 @@
       </mat-grid-list>
     </div>
   </form>
+  <div class="bot">
+    <div class="botTotal">
+      <!-- <div fxLayout fxLayoutGap="5px">
+        <h4 class="fontY2">
+          Sub-Total
+        </h4>
+        <h4 class="fontY2">:</h4>
+        <h4 class="fontY2">
+          {{ subTotal }}
+        </h4>
+      </div> -->
+      <div fxLayout fxLayoutGap="5px">
+        <h4 class="fontY2">
+          Total
+        </h4>
+        <h4 class="fontY2">:</h4>
+        <h4 class="fontY2">
+          {{ total }}
+        </h4>
+      </div>
+    </div>
+    <div class="btn-container" fxLayoutGap="10px">
+    
+    <button class="BtnC" type="button" mat-button (click)="onCancel()">{{cancel}}</button>
+    <button type="submit" (click)="onSubmit()" mat-button class="BtnS">{{submit}}</button>
+    <!-- <button *ngIf="pModel.entryMode=='A' || pModel.entryMode=='E'"  
+    [disabled]="expensefilingForm.invalid"
+      type="submit" mat-button class="BtnS">{{submit}}</button> -->
+  </div>
+                    </div>
   <!-- <div class="upload">
     <div class="img_profile" >
     
@@ -1371,10 +1406,7 @@
       </app-profile-upload>
     </div>
   </div> -->
-  <div class="btn-container">
-    <button class="BtnC" (click)="onCancel()" mat-button color="warn" type="submit">{{cancel}}</button>
-    <button class="BtnS" (click)="onSubmit()" mat-button color="primary" type="submit">{{submit}}</button>
-  </div>
+ 
 </section>
 
 

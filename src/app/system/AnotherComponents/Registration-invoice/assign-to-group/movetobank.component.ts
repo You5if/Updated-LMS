@@ -9,6 +9,7 @@ import { SelectModel } from 'src/app/components/misc/SelectModel';
 import { UIService } from 'src/app/components/shared/uiservices/UI.service';
 import { Send } from 'src/app/send.model';
 import { FilteringModel } from '../../invoice/invoice.model';
+import { AssignGroupBatch, AssignGroupBatchModel } from '../invoice.model';
 import { InvoiceService } from '../invoice.service';
 
 @Component({
@@ -27,10 +28,10 @@ export class AssignToGroupComponent implements OnInit {
     bankAccountId!: number
     bankAccount!: string
 
-    // jsonToSend: ChequeToCompanyBatchModel = {
-    //   record: [],
-    //   bankAccountId: null 
-    // }
+    jsonToSend: AssignGroupBatchModel = {
+      record: [],
+      studentGroupId: null 
+    }
 
     ver2: any;
 
@@ -66,8 +67,8 @@ export class AssignToGroupComponent implements OnInit {
     }
     console.log(this.pModel);
     
-    //http://lmsapi.autopay-mcs.com/api/Ddl/getdropdown/schoolgroupid/schoolgroup,schoolyear/scgroupname/schoolgroup.active=1 and schoolgroup.deleted=0 and schoolgroupid>1 and schoolgroup.schoolyearid=schoolyear.schoolyearid and schoolyear.isactive=1/false
-    this._select.getDropdown("schoolgroupid", "schoolgroup,schoolyear", "scgroupname", "schoolgroup.active=1 and schoolgroup.deleted=0 and schoolgroupid>1 and schoolgroup.schoolyearid=schoolyear.schoolyearid and schoolyear.isactive=1", false).subscribe((res: SelectModel[]) => {
+    //http://lmsapi.autopay-mcs.com/api/Ddl/getdropdown/schoolgroupid/schoolgroup/scgroupname/active=1 and deleted=0/false
+    this._select.getDropdown("schoolgroupid", "schoolgroup", "scgroupname", "active=1 and deleted=0", false).subscribe((res: SelectModel[]) => {
       this.banks = res
       
     });
@@ -91,34 +92,34 @@ export class AssignToGroupComponent implements OnInit {
     
 
   }
-  // onChangeBank(id: number) {
-  //   this.disabled = false
-  //   this.jsonToSend.bankAccountId = id
+  onChangeBank(id: number) {
+    this.disabled = false
+    this.jsonToSend.studentGroupId = id
     
-  //   this.pModel.selected.forEach((selected:any) => {
-  //     var newChequeId : ChequeToCompanyBatch = {
-  //       chequeToCompanyId: null
-  //     }
-  //     newChequeId.chequeToCompanyId = selected.chequeToCompanyId
-  //     this.jsonToSend.record.push(newChequeId)
-  //     // newChequeId.chequeToCompanyId = null
-  //   })
+    this.pModel.selected.forEach((selected:any) => {
+      var newChequeId : AssignGroupBatch = {
+        customerAccountId: null
+      }
+      newChequeId.customerAccountId = selected.customerAccountId
+      this.jsonToSend.record.push(newChequeId)
+      // newChequeId.chequeToCompanyId = null
+    })
 
     
 
-  // }
-  // onApply () {
-  //   console.log(this.jsonToSend);
+  }
+  onApply () {
+    console.log(JSON.stringify(this.jsonToSend));
 
-  //   this.chequetocompanyservice.moveToBank(this.jsonToSend).subscribe((response) => {
-  //     console.log(response);
-  //     this._msg.showInfo("Message", "Moved succesfully");
-  //     this.dialogRef.close();
-  //   }, error => {
-  //     this._msg.showInfo("Message", "Error!!");
-  //           this.dialogRef.close();
-  //   })
-  // }
+    this.chequetocompanyservice.moveToBank(this.jsonToSend).subscribe((response) => {
+      console.log(response);
+      this._msg.showInfo("Message", "Moved succesfully");
+      this.dialogRef.close();
+    }, error => {
+      this._msg.showInfo("Message", "Error!!");
+            this.dialogRef.close();
+    })
+  }
   onCancel() {
     this.dialogRef.close();
   }

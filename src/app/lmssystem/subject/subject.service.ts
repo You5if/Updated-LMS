@@ -27,6 +27,10 @@ export class subjectService {
      ) {
      }
 
+     moveToBank(arr: any){
+      return this.http.post(this._globals.baseAPIUrl + 'ClassSubject/MoveToClass',arr);
+   }
+
    // Get entry method of the model, which fethces data based on provided id (int)
    getsubjectEntry(id: number): Observable<subjectModel> {
       return this.httpClient.get<subjectModel>(this._globals.baseAPIUrl + 'subject/' + id).pipe(

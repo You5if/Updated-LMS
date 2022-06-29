@@ -9,7 +9,7 @@
     <section class="sec" >
 
       <button class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon>add</mat-icon></button>
-      <button class="add_btn2" mat-button color="primary" (click)="onMoveToBank()" [disabled]="!screenRights.createFlag">Move to bank</button>
+      <button class="add_btn2" mat-button color="primary" (click)="onMoveToBank()" [disabled]="!screenRights.createFlag">Assign</button>
       <div class="chImg" (click)="onMySort()"><img class="sfimg" src="../../../../assets/images/svg/sort (3).png" alt=""></div>
       <div class="chImg" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
       <div class="chImg" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
@@ -96,6 +96,22 @@
       <mat-header-cell class="centH" *matHeaderCellDef>{{report}}</mat-header-cell>
       <mat-cell class="cent" mat-cell *matCellDef="let row">
         <button mat-icon-button class="Btn"  color="primary" (click)="onReport(row.invoiceId)" [disabled]="!screenRights.editFlag">
+          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true">printer</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="customerReport">
+      <mat-header-cell class="centH" *matHeaderCellDef>{{customerReport}}</mat-header-cell>
+      <mat-cell class="cent" mat-cell *matCellDef="let row">
+        <button mat-icon-button class="Btn"  color="primary" (click)="onCustomerReport(row.invoiceId)" [disabled]="!screenRights.editFlag">
+          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true">printer</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="accReport">
+      <mat-header-cell class="centH" *matHeaderCellDef>{{accReport}}</mat-header-cell>
+      <mat-cell class="cent" mat-cell *matCellDef="let row">
+        <button mat-icon-button class="Btn"  color="primary" (click)="onAccReport(row.invoiceId)" [disabled]="!screenRights.editFlag">
           <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true">printer</mat-icon>
         </button>
       </mat-cell>

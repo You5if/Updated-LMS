@@ -172,6 +172,7 @@ export class ServiceEnEntry2Component implements OnInit {
   stringOfV!: string;
   refString!: string;
   showFetchBtn1: boolean = false;
+  total: number = 0;
 
 
   constructor(
@@ -389,7 +390,17 @@ export class ServiceEnEntry2Component implements OnInit {
     }
   }
 
+  onAmountChange() {
+    this.total = 0
+    this.total = Number(this.data1[4].value) + Number(this.data2[4].value) + Number(this.data3[4].value)+ Number(this.data4[4].value)
+  }
+  onAmountChange2() {
+    this.total = 0
+    this.total = Number(this.data[4].value)
+  }
+
   onCategory(id: number) {
+    this.total = 0
     if (id === 9) {
       this.showFetchBtn = false
       this.showFetchBtn1 = false
