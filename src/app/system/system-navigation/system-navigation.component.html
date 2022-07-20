@@ -51,7 +51,8 @@
         <li *ngIf="role === '2'|| role === '9'" routerLink="schoolclass" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{schoolclass}}</div></li>
         <li *ngIf="role === '2'|| role === '9'" routerLink="schoolgroup" routerLinkActive="is-active" class="side_list_item"><mat-icon>receipt</mat-icon><div class="title"> {{schoolgroup}}</div></li>
         <li *ngIf="role === '2' || role === '9'" routerLink="subject" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-book"></i><div class="title">{{subject}}</div></li>
-        <li *ngIf="role === '2'" routerLink="classsubject" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{classsubject}}</div></li>
+        <li *ngIf="role === '2' || role === '9'" routerLink="studsubj" routerLinkActive="is-active" class="side_list_item"><mat-icon> vpn_key</mat-icon><div class="title">{{studsubj}}</div></li>
+        <li *ngIf="role === '2' || role === '9'" routerLink="classsubject" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{classsubject}}</div></li>
         <li *ngIf="role === '2'" routerLink="subjectoutline" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-book"></i><div class="title">{{subjectoutline}}</div></li>
         <mat-divider *ngIf="role === '2' || role === '3' || role === '5' || role === '7'"></mat-divider>
         <h3 *ngIf="role === '2' || role === '3' || role === '5' || role === '7'" class="main_title">{{registration}}</h3>
@@ -79,12 +80,12 @@
         <!-- <li *ngIf="role === '2'" routerLink="WareHouse" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-warehouse"></i><div class="title">Ware house</div></li>
         <li *ngIf="role === '2'"  routerLink="StockIn" routerLinkActive="is-active" class="side_list_item"><mat-icon>add_shopping_cart</mat-icon><div class="title">Stock in</div></li>
         <li *ngIf="role === '2'" routerLink="StockMovement" routerLinkActive="is-active" class="side_list_item"><mat-icon>remove_shopping_cart</mat-icon><div class="title">Stock movement</div></li> -->
-        <mat-divider *ngIf="role === '2'"></mat-divider>
-        <h3 *ngIf="role === '2'" class="main_title">{{learningManagement}}</h3>
+        <mat-divider *ngIf="role === '2' || role === '10'"></mat-divider>
+        <h3 *ngIf="role === '2' || role === '10'" class="main_title">{{learningManagement}}</h3>
         <li *ngIf="role === '2'" routerLink="groupstudent" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{groupstudent}}</div></li>
         <li *ngIf="role === '2'" routerLink="studentattend" routerLinkActive="is-active" class="side_list_item"><mat-icon>account_box</mat-icon><div class="title"> {{studentattend}}</div></li>
-        <li *ngIf="role === '2'" routerLink="studsubj" routerLinkActive="is-active" class="side_list_item"><mat-icon> vpn_key</mat-icon><div class="title">{{studsubj}}</div></li>
-        <li *ngIf="role === '2'" routerLink="teacher" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-chalkboard-teacher"></i><div class="title"> {{teacher}}</div></li>
+        <!-- <li *ngIf="role === '2'" routerLink="studsubj" routerLinkActive="is-active" class="side_list_item"><mat-icon> vpn_key</mat-icon><div class="title">{{studsubj}}</div></li> -->
+        <li *ngIf="role === '2' || role === '10'" routerLink="teacher" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-chalkboard-teacher"></i><div class="title"> {{teacher}}</div></li>
         <li *ngIf="role === '2'" routerLink="teacsub" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-chalkboard-teacher"></i><div class="title"> {{teacsub}}</div></li>
         <li *ngIf="role === '2'" routerLink="timetable" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-table"></i><div class="title"> {{timetable}}</div></li>
         <li  *ngIf="role === '2'" routerLink="subjecttracking" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-table"></i><div class="title"> {{subjecttracking}}</div></li>

@@ -53,6 +53,18 @@ export class PaymentToCompanyEntryComponent implements OnInit {
     vale2!: Sources[]
     vale3!: Sources[]
     vale4!: Sources[]
+
+    invoiceTotal!: number
+    paidTotal!: number
+    pendingTotal!: number
+    Balance!: number
+    invoiceTotalL!: string
+    paidTotalL!: string
+    pendingTotalL!: string
+    BalanceL!: string
+
+
+
     childElem: any = {
       records: [],
       auditColumn: {
@@ -265,6 +277,7 @@ export class PaymentToCompanyEntryComponent implements OnInit {
   imgHttp:string = "http://h"
 
   rateControl!: FormControl
+  showGridDetail: boolean = false;
 
 
 
@@ -287,12 +300,19 @@ export class PaymentToCompanyEntryComponent implements OnInit {
     this.showit = false
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
         this.direction = "ltr"
-        
+        this.invoiceTotalL = "Invoice total"
+        this.paidTotalL = "Paid total"
+        this.pendingTotalL = "Pending total"
+        this.BalanceL = "Balance"
         this.submit = "Submit"
         this.cancel = "Cancel"
         
       }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
         this.direction = "rtl"
+        this.invoiceTotalL = "مجموع الفواتير"
+        this.paidTotalL = "مجموع المدفوع"
+        this.pendingTotalL = "مجموع المتاخرات"
+        this.BalanceL = "الرصيد"
         this.submit = "ارسال"
         this.cancel = "الغاء"
        
@@ -493,6 +513,16 @@ export class PaymentToCompanyEntryComponent implements OnInit {
   
   
       })
+  }
+
+  onGetInvoiceBalance(id:number) {
+    this.dapiService.getInvoiceTotal(id).subscribe((result => {
+      this.showGridDetail = true
+      this.invoiceTotal = result[0].invoiceTotal
+      this.paidTotal = result[0].paidTotal
+      this.pendingTotal = result[0].pendingTotal
+      this.Balance = result[0].balance
+    }))
   }
 
   onChange1(a:any, b:any){}
@@ -1169,6 +1199,7 @@ export class PaymentToCompanyEntryComponent implements OnInit {
     onChangeValueC(id: number) {
       this.stringOfV = id.toString()
       console.log("working fine")
+      this.showGridDetail = false
       // this.dapiService.getMaxCredit(+this.data[7].value, + this.data[8].value).subscribe((reso) => {
       //   this.maxCredit  =  reso.name
       //   console.log(this.maxCredit);
@@ -1222,6 +1253,7 @@ export class PaymentToCompanyEntryComponent implements OnInit {
     onChangeValueC2(id: number) {
       var stringOfV = id.toString()
       console.log("working fine")
+      this.showGridDetail = false
       // this.dapiService.getMaxCredit(+this.data[7].value, + this.data[8].value).subscribe((reso) => {
       //   this.maxCredit  =  reso.name
       //   console.log(this.maxCredit);

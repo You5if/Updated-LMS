@@ -8,7 +8,7 @@
 
     <section class="sec" >
 
-      <button class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon>add</mat-icon></button>
+      <button *ngIf="role != '9'" class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon>add</mat-icon></button>
       <button class="add_btn2" mat-button color="primary" (click)="onMoveToBank()" [disabled]="!screenRights.createFlag">Assign</button>
       <div class="chImg" (click)="onMySort()"><img class="sfimg" src="../../../../assets/images/svg/sort (3).png" alt=""></div>
       <div class="chImg" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
@@ -71,7 +71,9 @@
     </ng-container>
     <ng-container matColumnDef="customer">      <mat-header-cell class="centH" *matHeaderCellDef>{{customer}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.customerName}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="registeredGroup">      <mat-header-cell class="centH" *matHeaderCellDef>{{registeredGroup}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.registeredGroup}}</mat-cell>
+    <ng-container matColumnDef="registeredGroup">      <mat-header-cell class="centH" *matHeaderCellDef>{{registeredGroup}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.groupName}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="ScGroupName">      <mat-header-cell class="centH" *matHeaderCellDef>{{ScGroupName}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.scGroupName}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="assignedGroup">      <mat-header-cell class="centH" *matHeaderCellDef>{{assignedGroup}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.assignedGroup}}</mat-cell>
     </ng-container>
@@ -149,7 +151,7 @@
 
     <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.invoiceId)" class="rowR" [class.active]="clickedRows.has(row)" ></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.invoiceId)" class="{{role != '9' ? 'rowR': 'row'}}" [class.active]="clickedRows.has(row)" ></mat-row>
 
   </mat-table>
 
@@ -178,9 +180,14 @@
         <div fxLayoutGap="5px" class="index_row">
           <h3>{{registeredGroup}}</h3>
           <h3>:</h3>
-          <h3>{{ index.registeredGroup }}</h3>
+          <h3>{{ index.groupName }}</h3>
         </div>
         <div fxLayoutGap="5px" class="index_row">
+          <h3>{{ScGroupName}}</h3>
+          <h3>:</h3>
+          <h3>{{ index.scGroupName }}</h3>
+        </div>
+        <!-- <div fxLayoutGap="5px" class="index_row">
           <h3>{{assignedGroup}}</h3>
           <h3>:</h3>
           <h3>{{ index.assignedGroup }}</h3>
@@ -189,7 +196,7 @@
           <h3>{{schoolYear}}</h3>
           <h3>:</h3>
           <h3>{{ index.schoolYear }}</h3>
-        </div>
+        </div> -->
         
       </div>
       <div>

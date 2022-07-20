@@ -40,6 +40,15 @@
   }
   // box-shadow: 0 0px 0px rgba(0, 0, 0, 0), 0 1px 5px rgba(0, 0, 0, 0.1) inset;
 }
+.chImg {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.sfimg {
+  width: 28px;
+  height: 28px;
+}
 :host {
   ::ng-deep {
     [dir="rtl"] .mat-checkbox-inner-container {

@@ -17,6 +17,15 @@
   position: sticky;
   z-index: 1;
 }
+.chImg {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.sfimg {
+  width: 28px;
+  height: 28px;
+}
 .cent {
   display: flex;
   justify-content: center;

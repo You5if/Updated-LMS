@@ -81,10 +81,10 @@
 
     <!-- delete Column -->
     <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let row"><button mat-icon-button color="primary"
-          (click)="onDelete(row.studSubjId)" [disabled]="!screenRights.deleteFlag">
-          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true" color="warn">delete</mat-icon>
+      <mat-header-cell class="centH" *matHeaderCellDef>{{delete}}</mat-header-cell>
+      <mat-cell class="cent" mat-cell *matCellDef="let row">
+        <button mat-icon-button color="warn" class="Btn" (click)="onDelete(row.studSubjId)" [disabled]="!screenRights.editFlag">
+          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
@@ -102,7 +102,7 @@
 
     <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 
-    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.studSubjId)" class="rowR" [class.active]="clickedRows.has(row)" ></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"  [class.active]="clickedRows.has(row)" ></mat-row>
 
   </mat-table>
 

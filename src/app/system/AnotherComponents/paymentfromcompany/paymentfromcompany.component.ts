@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CommonService } from 'src/app/components/common/common.service';
 import { UIService } from 'src/app/components/shared/uiservices/UI.service';
 import { MessageBoxService } from 'src/app/components/messagebox/message-box.service';
@@ -38,6 +38,10 @@ export class PaymentFromCompanyComponent implements OnInit {
   cancel!: string;
 
   model!: Send;
+
+  pageData: any
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
     displayedColumns: string[] =
         ['PaymentDate', 'PaymentCode', 'PaymentType', 'edit'];
@@ -85,6 +89,16 @@ export class PaymentFromCompanyComponent implements OnInit {
       }
 
   ngOnInit() {
+    this.pageData = {
+      tableId: this.pTableId,
+      userId: this._auth.getUserId(),
+      recordsPerPage: 10,
+      pageNo: 1,
+      sort: '',
+      filter: ""
+    }
+    this._cf.setSort("")
+    this._cf.setFilter("")
       this.refreshMe();
   }
 

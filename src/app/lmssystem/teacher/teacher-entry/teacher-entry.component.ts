@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { APIResultModel } from 'src/app/components/misc/APIResult.Model';
 import { Observable, of } from 'rxjs';
 import { SelectModel, SelectCodeModel } from 'src/app/components/misc/SelectModel';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { startWith, switchMap, map } from 'rxjs/operators';
 import { SelectService } from 'src/app/components/common/select.service';
 import { AppGlobals } from 'src/app/app.global';
@@ -27,6 +27,7 @@ import { Direction } from '@angular/cdk/bidi';
 export class TeacherEntryComponent implements OnInit {
 
 	url!: string;
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   checkParentAccountId!:any
     model: Send = {
       tableId: 77,
@@ -183,8 +184,14 @@ export class TeacherEntryComponent implements OnInit {
     // yea i was just making sure they were leaving here correctly.. now i will go to step 2, sorry ok
 }
 
+// onSubmit() {
+//   console.log(this.emailFormControl);
+  
+// }
+
   onSubmit() {
-    this.data.forEach((Object)=> this.light.forEach((obj)=>
+    if(this.emailFormControl.status === "VALID") {
+      this.data.forEach((Object)=> this.light.forEach((obj)=>
     {
       if(Object.tableColumnId === obj.tableColumnId){
         Object.value = obj.value
@@ -290,6 +297,9 @@ export class TeacherEntryComponent implements OnInit {
             }
            });
          }
+    }else {
+      this.emailFormControl.markAllAsTouched()
+    }
       }
 
   onResize(event:any) {

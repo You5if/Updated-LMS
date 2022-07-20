@@ -109,7 +109,7 @@ export class JournalEntryComponent implements OnInit {
   ngOnInit() {
     this.pageData = {
       tableId: this.pTableId,
-      userId: 26,
+      userId: this._auth.getUserId(),
       recordsPerPage: 10,
       pageNo: 1,
       sort: '',

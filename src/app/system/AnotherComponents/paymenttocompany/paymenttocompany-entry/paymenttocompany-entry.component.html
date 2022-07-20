@@ -274,6 +274,8 @@
                     <mat-form-field  appearance="fill" *ngIf="inAppearance">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
+                      #choosedValue 
+                      (valueChange)="onGetInvoiceBalance(choosedValue.value)"
                         [(ngModel)]="+source.value"
                         name="{{ source.label }}"
                       >
@@ -288,7 +290,7 @@
                     
                   </div>
                   <div *ngIf="source.tableColumnId == 309">
-                    <mat-form-field  appearance="fill" *ngIf="chAppearance">
+                    <!-- <mat-form-field  appearance="fill" *ngIf="chAppearance">
                       <mat-label>{{ source.label }}</mat-label>
                       <mat-select
                         [(ngModel)]="+source.value"
@@ -301,7 +303,48 @@
                           {{ choice.name }}
                         </mat-option>
                       </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
+                  
+                      <div *ngIf="showGridDetail" fxLayout="column">
+                        <div fxLayout fxLayoutGap="2px">
+                          <h4 class="fontYA">
+                            {{invoiceTotalL}}
+                          </h4>
+                          <h4 class="fontYA">:</h4>
+                          <h4 class="fontYA">
+                            {{ invoiceTotal }}
+                          </h4>
+                          
+                        </div>
+                        <div fxLayout fxLayoutGap="2px">
+                          <h4 class="fontYA">
+                            {{paidTotalL}}
+                          </h4>
+                          <h4 class="fontYA">:</h4>
+                          <h4 class="fontYA">
+                            {{ paidTotal }}
+                          </h4>
+                        </div>
+                        <div fxLayout fxLayoutGap="2px">
+                          <h4 class="fontYA">
+                            {{pendingTotalL}}
+                          </h4>
+                          <h4 class="fontYA">:</h4>
+                          <h4 class="fontYA">
+                            {{ pendingTotal }}
+                          </h4>
+                        </div>
+                        <div fxLayout fxLayoutGap="2px">
+                          <h4 class="fontYA">
+                            {{BalanceL}}
+                          </h4>
+                          <h4 class="fontYA">:</h4>
+                          <h4 class="fontYA">
+                            {{ Balance }}
+                          </h4>
+                        </div>
+                      </div>
+                    
                     
                   </div>
                   <div *ngIf="source.tableColumnId == 310">
@@ -403,6 +446,47 @@
 
           </div>
         </div>
+        <!-- <mat-grid-tile *ngIf="showGridDetail"  >
+          <div fxLayout="column">
+            <div fxLayout fxLayoutGap="2px">
+              <h4 class="fontYA">
+                {{invoiceTotalL}}
+              </h4>
+              <h4 class="fontYA">:</h4>
+              <h4 class="fontYA">
+                {{ invoiceTotal }}
+              </h4>
+              
+            </div>
+            <div fxLayout fxLayoutGap="2px">
+              <h4 class="fontYA">
+                {{paidTotalL}}
+              </h4>
+              <h4 class="fontYA">:</h4>
+              <h4 class="fontYA">
+                {{ paidTotal }}
+              </h4>
+            </div>
+            <div fxLayout fxLayoutGap="2px">
+              <h4 class="fontYA">
+                {{pendingTotalL}}
+              </h4>
+              <h4 class="fontYA">:</h4>
+              <h4 class="fontYA">
+                {{ pendingTotal }}
+              </h4>
+            </div>
+            <div fxLayout fxLayoutGap="2px">
+              <h4 class="fontYA">
+                {{BalanceL}}
+              </h4>
+              <h4 class="fontYA">:</h4>
+              <h4 class="fontYA">
+                {{ Balance }}
+              </h4>
+            </div>
+          </div>
+        </mat-grid-tile> -->
       </mat-grid-list>
     </div>
     <div *ngIf="this.paymentTypeOption == 'Cheque'">

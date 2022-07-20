@@ -18,6 +18,8 @@ import { Send } from 'src/app/send.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AppGlobals } from 'src/app/app.global';
 import { Direction } from '@angular/cdk/bidi';
+import { DeleteModel } from 'src/app/system/journalentry/journalentry.model';
+import { CheckfordeleteComponent } from 'src/app/system/journalentry/operation/checkfordelete/checkfordelete.component';
 
 @Component({
     selector: 'app-studsubj',
@@ -28,7 +30,7 @@ import { Direction } from '@angular/cdk/bidi';
 export class StudSubjComponent implements OnInit {
 
     displayedColumns: string[] =
-        ['select','scClassName','scGroupName','studentCode','fullName','subjectName'];
+        ['select','scClassName','scGroupName','studentCode','fullName','subjectName', 'delete'];
 
     dataSource: any;
     isLastPage = false;
@@ -53,6 +55,8 @@ export class StudSubjComponent implements OnInit {
         fullName!:string;
         subjectName!:string;
 
+        opC: boolean = true
+        deleteModel!: DeleteModel
 
     clickedRows = new Set<StudSubjModel>();
     selection = new SelectionModel<StudSubjModel>(true, []);
@@ -70,9 +74,11 @@ export class StudSubjComponent implements OnInit {
         shortCloseFlag: true,
         viewFlag: true
       };
+  delete!: string;
 
     constructor(
         public dialog: MatDialog,
+        public dialog2: MatDialog,
         private _cf: CommonService,
         private _ui: UIService,
         private _msg: MessageBoxService,
@@ -97,6 +103,7 @@ export class StudSubjComponent implements OnInit {
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Student subject"
+      this.delete = "Delete"
       this.scClassName="Class"
       this.scGroupName="Group"
       this.studentCode="Code"
@@ -112,6 +119,7 @@ export class StudSubjComponent implements OnInit {
     else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
       this.header = "مادة الطلاب"
+      this.delete = "مسح"
       this.scClassName="الفصل"
       this.scGroupName="المجموعة"
       this.studentCode="الرمز"
@@ -248,9 +256,35 @@ export class StudSubjComponent implements OnInit {
     this.openEntry2(this.model)
   }
 
-  onDelete = function(id: number) {
-      
-  };
+  onDelete(idAC:number) { 
+    this.opC = false
+    this.deleteModel = {
+      name: this.pTableName,
+      id: idAC
+    }
+    this.openConfirmDialog(this.deleteModel)
+    
+  }
+
+  openConfirmDialog (result: DeleteModel) {
+    let dialogRef2
+    if (result === undefined) {
+      dialogRef2 = this.dialog2.open(CheckfordeleteComponent, {
+        disableClose: true,
+        
+        data: {}
+      });
+    } else {
+      dialogRef2 = this.dialog2.open(CheckfordeleteComponent, {
+        disableClose: true,
+        
+        data: result
+      });
+    }
+    dialogRef2.afterClosed().subscribe(() => {
+      this.refreshMe();
+    });
+  }
 
   openEntry  (result: StudSubjModel) {
     if (result === undefined) {

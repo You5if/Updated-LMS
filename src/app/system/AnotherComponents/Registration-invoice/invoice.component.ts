@@ -43,6 +43,7 @@ export class RegistrationInvoiceComponent implements OnInit {
   invoiceNo!: string;
   invoiceDate!: string;
   customer!:string;
+  ScGroupName!:string;
   warehouse!:string;
   registeredGroup!:string;
   assignedGroup!:string;
@@ -63,7 +64,7 @@ export class RegistrationInvoiceComponent implements OnInit {
   deleteModel!: DeleteModel
 
   model!: Send;
-    displayedColumns: string[] = ['select','InvoiceNo', 'InvoiceDate','customer', 'report'];
+    displayedColumns: string[] = ['select','InvoiceNo', 'InvoiceDate','customer','registeredGroup', 'ScGroupName', 'report'];
 
         role :string|null= localStorage.getItem("role");
     dataSource: any;
@@ -154,6 +155,7 @@ export class RegistrationInvoiceComponent implements OnInit {
       this.customer = "Customer"
       this.warehouse = "Warehouse"
       this.registeredGroup = "Registered group"
+      this.ScGroupName = "Class"
       this.assignedGroup = "Assigned group"
       this.schoolYear = "School year"
       this.edit = "Edit"
@@ -167,6 +169,7 @@ export class RegistrationInvoiceComponent implements OnInit {
       this.header = "الفواتير"
       this.invoiceNo = "فواتير التسجيل"
       this.invoiceDate = "التاريخ"
+      this.ScGroupName = "الفصل"
       this.customer = "العميل"
       this.warehouse = "المخزن"
       this.registeredGroup = "المجموعات المسجلة"
@@ -451,27 +454,29 @@ export class RegistrationInvoiceComponent implements OnInit {
   }
 
   onEdit = (id: number) => {
-    if(this.opC == true) {
-    this.model = {
-      tableId: 46,
-      recordId: id,
-      userId: 26,
-      roleId: 2,
-      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
-    };
-    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit invoice");
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
-    }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل فاتورة");
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
+    if (this.role != '9') {
+      if(this.opC == true) {
+        this.model = {
+          tableId: 46,
+          recordId: id,
+          userId: 26,
+          roleId: 2,
+          languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+        };
+        if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+          localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit invoice");
+          localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
+        }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+          localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل فاتورة");
+          localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
+        }
+        
+        this.openEntry2(this.model)
+      }else {
+        this._ui.loadingStateChanged.next(false);
+        this.opC = true
+      }
     }
-    
-    this.openEntry2(this.model)
-  }else {
-    this._ui.loadingStateChanged.next(false);
-    this.opC = true
-  }
   }
 
 
