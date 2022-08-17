@@ -113,6 +113,9 @@ import { TransportInvoiceComponent } from "./system/AnotherComponents/Transport-
 import { PaymentfromComponent } from "./system/AnotherComponents/paymentfrom/paymenttocompany.component";
 import { ChequeFromCompanyComponent } from "./system/AnotherComponents/chequefromcompany/chequetocompany.component";
 import { ServiceEnComponent } from "./system/GeneratedComponents01Apr/serviceen/serviceen.component";
+import { FeesComponent } from "./system/reports/fees/financial.component";
+import { ItemServiceComponent } from "./system/GeneratedComponents01Apr/item/serviceen.component";
+import { OtherInvoiceComponent } from "./system/AnotherComponents/Other-invoice/invoice.component";
 
 
 const routes: Routes = [
@@ -199,6 +202,7 @@ const routes: Routes = [
         { path: "Customer", component: CustomerComponent},
         { path: "Product", component: ProductComponent},
         { path: "Service", component: ServiceEnComponent},
+        { path: "Item", component: ItemServiceComponent},
         { path: "ProductCat", component: ProductCategoryComponent},
         { path: "ProductGroup", component: ProductGroupComponent},
       //   { path: "ProductUnit", component: ProductUnitComponent},
@@ -210,6 +214,7 @@ const routes: Routes = [
         { path: "Invoice", component: InvoiceComponent},
         { path: "RegistrationInvoice", component: RegistrationInvoiceComponent},
         { path: "TransportInvoice", component: TransportInvoiceComponent},
+        { path: "OtherInvoice", component: OtherInvoiceComponent},
         { path: "PaymentFromCompany", component: PaymentfromComponent},
         { path: "PaymentToCompany", component: PaymentToCompanyComponent},
         { path: "ProductPricing", component: ProductPricingComponent},
@@ -217,7 +222,8 @@ const routes: Routes = [
         { path: "StockMovement", component: StockMovementComponent},
       //   { path: "ProductStock", component: ProductStockComponent},
         { path: "FinancialReports", component: FinancialComponent},
-        { path: "FinancialReportsPage", component: ReportPageComponent}
+        { path: "FinancialReportsPage", component: ReportPageComponent},
+        { path: "FeesReports", component: FeesComponent}
       ] },
       
       //  { path: 'dohinv', component: InventoriesComponent },

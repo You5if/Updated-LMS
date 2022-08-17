@@ -2,6 +2,8 @@ import { Direction } from '@angular/cdk/bidi';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { matDrawerAnimations } from '@angular/material/sidenav';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { ResizeEvent } from 'angular-resizable-element';
 import { AppGlobals } from 'src/app/app.global';
 import { AuthService } from 'src/app/components/security/auth/auth.service';
@@ -40,6 +42,7 @@ export class SystemNavigationComponent implements OnInit {
   bank!: string;
   rInvoice!:string;
   tInvoice!: string;
+  oInvoice!: string;
   bankBranch!: string;
   bankAccount!: string;
   customer!: string;
@@ -50,6 +53,7 @@ export class SystemNavigationComponent implements OnInit {
   sales!: string;
   inventory!: string;
   product!: string;
+  item!: string;
   productCategory!: string;
   productGroup!: string;
   productUnit!: string;
@@ -134,14 +138,18 @@ subteorder!:string;
   examination!: string;
   generalAdiminitration!: string;
   financialReports!: string;
+  feesReports!: string;
 
   constructor(private _globals: AppGlobals,
     public dialog: MatDialog,
+    private titleService: Title,
+    private router: Router,
     private _auth: AuthService,) { }
     
 
 
 ngOnInit(): void {
+  this.titleService.setTitle("LMS - System");
   this.role = localStorage.getItem("role");
   console.log(this.role);
   this.resizeStyle = {
@@ -157,6 +165,7 @@ ngOnInit(): void {
   this.generalAdiminitration = "General adiminitration"
   this.testgrade ='Grading scheme'
   this.financialReports = "Financial reports"
+  this.feesReports = "Fees analysis"
   this.testgradedet ='Test grade details'
   this.subteque ='Test questions'
   this.subtefreeinput ='Subject free input'
@@ -175,6 +184,7 @@ this.subTeSubmission='Student exam submission'
   this.teacher= 'Teacher'
   this.rInvoice = "Registration invoice"
   this.tInvoice = "Transport invoice"
+  this.oInvoice = "Other invoice"
   this.timetable='Timetable'
   this.teacsub='Teacher Subject'
   this.subjectoutline='Subject Outline'
@@ -231,6 +241,7 @@ this.subTeSubmission='Student exam submission'
       this.registration = "Registration"
       this.inventory = "Inventory"
       this.product = "Service"
+      this.item = "Item"
       this.productCategory = "Service category"
       this.productGroup = "Service group"
       this.productUnit = "Service unit"
@@ -758,6 +769,7 @@ this.subject= 'Subject'
 this.teacher= 'Teacher'
 this.rInvoice = "Registration invoice"
 this.tInvoice = "Transport invoice"
+this.oInvoice = "Other invoice"
 this.timetable='Timetable'
 this.teacsub='Teacher Subject'
 this.subjectoutline='Subject Outline'
@@ -814,6 +826,7 @@ this.home = "Home"
     this.registration = "Registration"
     this.inventory = "Inventory"
     this.product = "Service"
+    this.item = "Item"
     this.generalAdiminitration = "General adiminitration"
     this.productCategory = "Service category"
     this.productGroup = "Service group"
@@ -825,6 +838,7 @@ this.home = "Home"
     this.reports = "Reports"
     this.stockIn = "Stock in"
     this.financialReports = "Financial reports"
+    this.feesReports = "Fees analysis"
     this.stockMovement = "Stock movement"
     this.logout = "Logout"
     this.change = "Language:"
@@ -842,6 +856,7 @@ this.home = "Home"
     this.invoice = "الفواتير"
     this.student = "الطلاب"
     this.financialReports = "التقارير المالية"
+    this.feesReports = "تحليل الرسوم"
     this.changePassword = "تغيير كلمة السر"
     this.bank = "البنك"
     this.paymentFromCompany = "المصروفات"
@@ -857,6 +872,7 @@ this.home = "Home"
     this.customer = "العميل"
     this.rInvoice = "فواتير التسجيل"
 this.tInvoice = "فواتير النقل"
+this.oInvoice = "فواتير اخرى"
     this.forex = "فوركس"
     this.account = "الحسابات"
     this.accounting = "الحسابات"
@@ -866,6 +882,7 @@ this.tInvoice = "فواتير النقل"
     this.inventory = "المخزون"
     this.profile = "ملف المستخدم"
     this.product = "الخدمة"
+    this.item = "العنصر"
     this.productCategory = "اصناف الخدمة"
     this.productGroup = "مجموعات الخدمة"
     this.productUnit = "وحدات الخدمة"
@@ -931,6 +948,7 @@ this.tInvoice = "فواتير النقل"
     this.direction = "ltr"
     this.student='Student'
     this.financialReports = "Financial reports"
+    this.feesReports = "Fees analysis"
     this.reports = "Reports"
     this.learningManagement = "Learning management"
 this.qubanmc= 'Quetion bank MC'   
@@ -960,6 +978,7 @@ this.subject= 'Subject'
 this.teacher= 'Teacher'
 this.rInvoice = "Registration invoice"
 this.tInvoice = "Transport invoice"
+this.oInvoice = "Other invoice"
 this.timetable='Timetable'
 this.teacsub='Teacher Subject'
 this.subjectoutline='Subject Outline'
@@ -1012,6 +1031,7 @@ this.home = "Home"
     this.registration = "Registration"
     this.inventory = "Inventory"
     this.product = "Service"
+    this.item = "Item"
     this.productCategory = "Service category"
     this.productGroup = "Service group"
     this.productUnit = "Service unit"
@@ -1028,6 +1048,7 @@ this.home = "Home"
   }
   localStorage.setItem(this._globals.baseAppName + '_language', this.lang_LS);
   console.log("lang: ",localStorage.getItem(this._globals.baseAppName + '_language'))
+  this.router.navigate(['System/Home']);
 }
 
   onResize(event: any){

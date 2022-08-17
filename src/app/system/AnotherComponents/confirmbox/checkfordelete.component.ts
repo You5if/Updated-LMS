@@ -121,12 +121,12 @@ export class ConfBoxComponent implements OnInit {
        console.log(error);
        if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
         this._msg.showInfo("Message", "Error!!");
-        localStorage.setItem(this._globals.baseAppName + '_Confirm', 'no')
+        localStorage.setItem(this._globals.baseAppName + '_Confirm', 'yes')
       this.dialogRef.close();
       }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
         
         this._msg.showInfo("خطأ!!", "توجد مشكلة");
-        localStorage.setItem(this._globals.baseAppName + '_Confirm', 'no')
+        localStorage.setItem(this._globals.baseAppName + '_Confirm', 'yes')
       this.dialogRef.close();
       }
      });

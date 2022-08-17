@@ -442,6 +442,7 @@ export class PaymentToCompanyEntryComponent implements OnInit {
           }
   
         }
+        this.onChangePaymentType2(+this.data[3].value)
         this.breakpoint =
         window.innerWidth <= 960
           ? 1
@@ -686,6 +687,13 @@ export class PaymentToCompanyEntryComponent implements OnInit {
       this.last.child1 = []
       this.last.child2 = []
       this.last.child3 = []
+      
+      this.data[15].access = "Editable"
+      this.data[16].access = "Editable"
+      this.data[17].access = "Editable"
+      this.data[15].value = "1"
+      this.data[16].value = "1"
+      this.data[17].value = "0"
     } else if (id == 18002) {
       this.showMaxCredit = false
       this.paymentTypeOption = "Cheque"
@@ -694,6 +702,12 @@ export class PaymentToCompanyEntryComponent implements OnInit {
       this.lastDark.child3 = []
       this.last.child2 = []
       this.last.child3 = []
+      this.data[15].access = "NoAccess"
+      this.data[16].access = "NoAccess"
+      this.data[17].access = "NoAccess"
+      this.data[15].value = "1"
+      this.data[16].value = "1"
+      this.data[17].value = "0"
     } else if (id == 18003) {
       this.showMaxCredit = false
       this.paymentTypeOption = "Wire tran"
@@ -702,6 +716,12 @@ export class PaymentToCompanyEntryComponent implements OnInit {
       this.lastDark.child3 = []
       this.last.child1 = []
       this.last.child3 = []
+      this.data[15].access = "NoAccess"
+      this.data[16].access = "NoAccess"
+      this.data[17].access = "NoAccess"
+      this.data[15].value = "1"
+      this.data[16].value = "1"
+      this.data[17].value = "0"
     } else if (id == 18004) {
       this.showMaxCredit = false
       this.paymentTypeOption = "Deposite"
@@ -710,6 +730,12 @@ export class PaymentToCompanyEntryComponent implements OnInit {
       this.lastDark.child2 = []
       this.last.child1 = []
       this.last.child2 = []
+      this.data[15].access = "NoAccess"
+      this.data[16].access = "NoAccess"
+      this.data[17].access = "NoAccess"
+      this.data[15].value = "1"
+      this.data[16].value = "1"
+      this.data[17].value = "0"
     } else if (id == -1) {
       this.paymentTypeOption = "Credit"
       this.showMaxCredit = true
@@ -722,6 +748,12 @@ export class PaymentToCompanyEntryComponent implements OnInit {
       this.lastDark.child2 = []
       this.last.child1 = []
       this.last.child2 = []
+      this.data[15].access = "NoAccess"
+      this.data[16].access = "NoAccess"
+      this.data[17].access = "NoAccess"
+      this.data[15].value = "1"
+      this.data[16].value = "1"
+      this.data[17].value = "0"
     } 
     console.log("close");
     
@@ -732,6 +764,44 @@ export class PaymentToCompanyEntryComponent implements OnInit {
   onClose() {
     this._ui.loadingStateChanged.next(true);
     this._ui.loadingStateChanged.next(false);
+  }
+
+  onChangePaymentType2(id: number) {
+    // this._ui.loadingStateChanged.next(true);
+    console.log(id);
+    if (id == 18001) {
+      this.paymentTypeOption = "Cash"
+      this.data[15].access = "Editable"
+      this.data[16].access = "Editable"
+      this.data[17].access = "Editable"
+      
+      
+    } else if (id == 18002) {
+      this.paymentTypeOption = "Cheque"
+      this.data[15].access = "NoAccess"
+      this.data[16].access = "NoAccess"
+      this.data[17].access = "NoAccess"
+      
+    } else if (id == 18003) {
+      this.paymentTypeOption = "Wire tran"
+      this.data[15].access = "NoAccess"
+      this.data[16].access = "NoAccess"
+      this.data[17].access = "NoAccess"
+      
+    } else if (id == 18004) {
+      this.paymentTypeOption = "Deposite"
+      this.data[15].access = "NoAccess"
+      this.data[16].access = "NoAccess"
+      this.data[17].access = "NoAccess"
+      
+    } else if (id == -1) {
+      this.paymentTypeOption = "Credit"
+      this.data[15].access = "NoAccess"
+      this.data[16].access = "NoAccess"
+      this.data[17].access = "NoAccess"
+      
+    } 
+    // this._ui.loadingStateChanged.next(false);
   }
   onChangePaymentTypeEdit(id: number) {
     this._ui.loadingStateChanged.next(true);

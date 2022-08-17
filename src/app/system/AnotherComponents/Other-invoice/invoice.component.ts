@@ -1,64 +1,63 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CommonService } from 'src/app/components/common/common.service';
 import { UIService } from 'src/app/components/shared/uiservices/UI.service';
 import { MessageBoxService } from 'src/app/components/messagebox/message-box.service';
 import { AuthService } from 'src/app/components/security/auth/auth.service';
-import { ServiceEnEntryComponent } from './serviceen-entry/serviceen-entry.component';
-import { ServiceEnModel } from './serviceen.model';
+import { OtherInvoiceEntryComponent } from './invoice-entry/invoice-entry.component';
+import { DeleteModel, InvoiceModel } from './invoice.model';
 import { RightModel } from 'src/app/components/security/auth/rights.model';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { PageSortComponent } from 'src/app/components/common/pageevents/page-sort/page-sort.component';
-import { ServiceEnService } from './serviceen.service';
+import { InvoiceService } from './invoice.service';
 import { SelectModel } from 'src/app/components/misc/SelectModel';
 import { SelectService } from 'src/app/components/common/select.service';
-import { Send } from 'src/app/send.model';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { AppGlobals } from 'src/app/app.global';
-import { ProductModel } from '../product/product.model';
-import { Direction } from '@angular/cdk/bidi';
+import { Send } from 'src/app/send.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ServiceEnEntry2Component } from './serviceen-entry2/serviceen-entry.component';
+import { SystemNavigationComponent } from '../../system-navigation/system-navigation.component';
+import { ReportPageService } from 'src/app/components/PR/report-page/report-page.service';
+
+import { FilterService } from 'src/app/components/filter/filter.service';
 import { MyFilterComponent } from '../../journalentry/operation/my-filter/my-filter.component';
 import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.component';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
-    selector: 'app-serviceen',
-    templateUrl: './serviceen.component.html',
-    styleUrls: ['./serviceen.component.scss']
+    selector: 'app-invoice',
+    templateUrl: './invoice.component.html',
+    styleUrls: ['./invoice.component.scss']
   })
 
-export class ServiceEnComponent implements OnInit {
+export class OtherInvoiceComponent implements OnInit {
 
   idS! : number;
   direction!: Direction;
-  category!: string;
-  group!: string;
-  service!: string;
-  price!: string;
-  productName!: string;
-  productCategoryId!: string;
-  productGroupId!: string;
-  clickedRows = new Set<ServiceEnModel>();
-
-  pageData: any
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  
+  customerCode!: string;
+  customerName!: string;
+  customerMobile!: string;
+  balance!: string;
+  invoiceNo!: string;
+  invoiceDate!: string;
+  customer!:string;
+  warehouse!:string;
   edit!: string;
   header!: string;
   submit!: string;
   cancel!: string;
-  model!: Send;
-  
-  indexes!: any[]
+  selection = new SelectionModel<InvoiceModel>(true, []);;
 
-  selection = new SelectionModel<ServiceEnModel>(true, []);;
-    
+  opC: boolean = true
+
+  pageData :any
+
+  deleteModel!: DeleteModel
+
+  model!: Send;
     displayedColumns: string[] =
-        ['select','category','group','service','price'];
+        ['select','InvoiceNo', 'InvoiceDate','customer', 'report'];
 
     dataSource: any;
     isLastPage = false;
@@ -68,10 +67,19 @@ export class ServiceEnComponent implements OnInit {
     recordsPerPage: number;
     currentPageIndex: number;
     menuId: number;
+    indexes!: any[]
+    forFilter: string = "ProductCategoryId = 11"
+    report!:string;
+    delete!: string;
 
-    forFilterBtn: string = "Category = 'Registration' OR Category='Transport'"
+    sortV!:string
+
+    filterV!: string
+
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     totalRecords!: number;
+    clickedRows = new Set<InvoiceModel>();
     pageSizeOptions: number[] = [5, 10, 25, 100];
 
     screenRights: RightModel = {
@@ -89,16 +97,20 @@ export class ServiceEnComponent implements OnInit {
     constructor(
         public dialog: MatDialog,
         private _cf: CommonService,
+        private _report: ReportPageService,
         private _ui: UIService,
         private _globals: AppGlobals,
+        private router: Router,
         private _msg: MessageBoxService,
+        public _nav: SystemNavigationComponent,
         private _auth: AuthService,
         private _select: SelectService,
-        private serviceenservice: ServiceEnService
+        private invoiceservice: InvoiceService,
+        
       ) {
-        this.pTableName = 'ServiceEn';
-        this.pScreenId = 120;
-        this.pTableId = 120;
+        this.pTableName = 'Invoice';
+        this.pScreenId = 46;
+        this.pTableId = 46;
         this.recordsPerPage = 10;
         this.currentPageIndex = 1;
         this.menuId = 1019106011;
@@ -107,7 +119,7 @@ export class ServiceEnComponent implements OnInit {
   ngOnInit() {
     this.pageData = {
       tableId: this.pTableId,
-      userId: this._auth.getUserId(),
+      userId: 26,
       recordsPerPage: 10,
       pageNo: 1,
       sort: '',
@@ -119,52 +131,52 @@ export class ServiceEnComponent implements OnInit {
   }
 
   refreshMe() {
-    this.selection.clear()
-    this.clickedRows.clear()
-
+    
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
-      this.header = "Service"
-      this.category = "Category"
-      this.group = "Group"
-      this.service = "Service"
-      this.price = "Price"
-      
+      this.header = "Other invoice"
+      this.invoiceNo = "Invoice No"
+      this.invoiceDate = "Invoice Date"
+      this.customer = "Customer"
+      this.warehouse = "Warehouse"
       this.edit = "Edit"
-      this.submit = "Submit"
-      this.cancel = "Cancel"
+      this.report = "Report"
+      this.delete = "Delete"
+      
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
-      this.header = "الخدمة"
-      this.category = "الفئة"
-      this.group = "المجموعة"
-      this.service = "الخدمة"
-      this.price = "السعر"
-      
+      this.header = " الفواتير الاخرى"
+      this.invoiceNo = "فواتير النقل"
+      this.invoiceDate = "التاريخ"
+      this.customer = "العميل"
+      this.warehouse = "المخزن"
+      this.delete = "حذف"
+    //   this.nameT = "الاسم"
+    //  this.amount = "المبلغ"
+    //  this.statusT = "الحالة"
       this.edit = "تعديل"
-      this.submit = "ارسال"
-      this.cancel = "الغاء"
+      this.report = "تقرير "
+      
     }
-    this.pageData.sort = this._cf.sortVar
-    // this.pageData.filter = this._cf.filterVar
 
+    
+    this.pageData.sort = this._cf.sortVar
     if (this._cf.filterVar != '') {
-      this.pageData.filter = "Category = 'Registration' OR Category='Transport'" + ' ' + 'and' + ' ' + this._cf.filterVar
+      this.pageData.filter = "ProductCategoryId = 11" + ' ' + 'and' + ' ' + this._cf.filterVar
     }else {
 
-      this.pageData.filter = "Category = 'Registration' OR Category='Transport'"
+      this.pageData.filter = "ProductCategoryId = 11"
     }
 
     this._ui.loadingStateChanged.next(true);
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
       this._ui.loadingStateChanged.next(false);
       this.totalRecords = result[0].totalRecords;
-      this.recordsPerPage = this.recordsPerPage;
-      this.dataSource = new MatTableDataSource(result);
-      this.indexes = result
-      console.log(result)
+          this.recordsPerPage = this.recordsPerPage;
+          this.dataSource = new MatTableDataSource(result);
+          this.indexes = result
     })
-    // this._cf.getPageData('ServiceEn', this.pScreenId, this._auth.getUserId(), this.pTableId,
+    // this._cf.getPageData('Invoice', this.pScreenId, this._auth.getUserId(), this.pTableId,
     //   this.recordsPerPage, this.currentPageIndex, false).subscribe(
     //     (result) => {
     //       this.totalRecords = result[0].totalRecords;
@@ -189,9 +201,12 @@ export class ServiceEnComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+  // onMySort = function() {
+  //   this.dialog = this.dialog.open(MySortComponent, {
+  //     disableClose: true,
+  //     data: {}
+  //   });
+  // }
 
   onClearSort() {
     this.pageData.sort = ""
@@ -201,75 +216,98 @@ export class ServiceEnComponent implements OnInit {
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
       this._ui.loadingStateChanged.next(false);
       this.totalRecords = result[0].totalRecords;
-      this.recordsPerPage = this.recordsPerPage;
-      this.dataSource = new MatTableDataSource(result);
-      this.indexes = result
+          this.recordsPerPage = this.recordsPerPage;
+          this.dataSource = new MatTableDataSource(result);
+          this.indexes = result
     })
     this.paginator.firstPage()
   }
-
+  
   onClearFilter() {
-    this.pageData.filter = "Category = 'Registration' OR Category='Transport'"
+    this.pageData.filter = "ProductCategoryId = 9"
     // this.invoiceservice.setSort("")
     this._cf.setFilter("")
     this._ui.loadingStateChanged.next(true);
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
       this._ui.loadingStateChanged.next(false);
       this.totalRecords = result[0].totalRecords;
-      this.recordsPerPage = this.recordsPerPage;
-      this.dataSource = new MatTableDataSource(result);
-      this.indexes = result
+          this.recordsPerPage = this.recordsPerPage;
+          this.dataSource = new MatTableDataSource(result);
+          this.indexes = result
     })
     this.paginator.firstPage()
   }
-   onMySort() {
-
-    const dialogRef = this.dialog.open(MySortComponent, {
-      disableClose: true,
-      data: {
-        tableId: this.pTableId,
-        recordId: 0,
-        userId: 26,
-        roleId: 2,
-        languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
-      }
-    });
-
+  onMySort  () {
+    
+      const dialogRef = this.dialog.open(MySortComponent, {
+        disableClose: true,
+        data: {
+          tableId: 46,
+          recordId: 0,
+          userId: 26,
+          roleId: 2,
+          languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+        }
+      });
+    
     dialogRef.afterClosed().subscribe(() => {
       this.refreshMe();
     });
     this.paginator.firstPage()
   }
-
-   onMyFilter() {
+  
+  onMyFilter () {
 
     const dialogRef = this.dialog.open(MyFilterComponent, {
-      disableClose: true,
-      data: {
-        tableId: this.pTableId,
-        recordId: 0,
-        userId: 26,
-        roleId: 2,
-        languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
-      }
-    });
-
+        disableClose: true,
+        data: {
+          tableId: 46,
+          recordId: 0,
+          userId: 26,
+          roleId: 2,
+          languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+        }
+      });
+    
     dialogRef.afterClosed().subscribe(() => {
       this.refreshMe();
     });
     this.paginator.firstPage()
   }
+  
+  onReport(invId:number) { 
+    this.opC = false
+    var reportId: number
+    reportId = 6
+    // if (report == "Expense") {
+    //    reportId = 3; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Revenue") {
+    //  reportId = 4; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Rev vs. Exp") {
+    //   reportId = 5; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }
+    
+    let restOfUrl: string; 
+    restOfUrl = 'invoiceid=' + invId; 
+     
+    console.log(restOfUrl)
+    this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
+    this.router.navigate(['/System/FinancialReportsPage']);
+  }
 
- 
+  
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   paginatoryOperation(event: PageEvent) {
     try {
-      this.pageData.sort = this._cf.sortVar
-      this.pageData.filter = this._cf.filterVar
+      
       this.pageData.recordsPerPage = event.pageSize
       this._cf.newGetPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
-        this.pTableId, this.totalRecords,
-        this.pageData.sort,
+        this.pTableId, this.totalRecords, 
+        this.pageData.sort, 
         this.pageData.filter).subscribe(
           (result: any) => {
             this._ui.loadingStateChanged.next(false);
@@ -283,7 +321,7 @@ export class ServiceEnComponent implements OnInit {
           });
       // this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
       //   this.pTableId, this.totalRecords).subscribe(
-      //     (result: JournalEntryModel) => {
+      //     (result: InvoiceModel) => {
       //       this._ui.loadingStateChanged.next(false);
       //       this.totalRecords = result[0].totalRecords;
       //       this.recordsPerPage = event.pageSize;
@@ -293,40 +331,43 @@ export class ServiceEnComponent implements OnInit {
       //       this._msg.showAPIError(error);
       //       return false;
       //     });
-    } catch (error: any) {
+    } catch (error:any) {
       this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
   }
 
-  onSort () {
+  onSort  () {
     const dialogRef = this.dialog.open(PageSortComponent, {
       disableClose: true,
       data: this.pTableId
     });
+    dialogRef.afterClosed().subscribe(() => {
+      this.refreshMe();
+    });
   };
 
-  onAdd  () {
+  onAdd () {
     this.model = {
-      tableId: 120,
+      tableId: 46,
       recordId: 0,
       userId: 26,
       roleId: 2,
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add service");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add invoice");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة خدمة");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة فاتورة");
     }
     
-    this.openEntry3(this.model);
+    this.openEntry2(this.model);
   };
 
   onView = (id: number) => {
     this._ui.loadingStateChanged.next(true);
-    this.serviceenservice.getServiceEnEntry(id).subscribe((result: ServiceEnModel) => {
+    this.invoiceservice.getInvoiceEntry(id).subscribe((result: InvoiceModel) => {
       this._ui.loadingStateChanged.next(false);
       result.entryMode = 'V';
       result.readOnly = true;
@@ -335,23 +376,31 @@ export class ServiceEnComponent implements OnInit {
   }
 
   onEdit = (id: number) => {
+    if(this.opC == true) {
     this.model = {
-      tableId: 120,
+      tableId: 46,
       recordId: id,
       userId: 26,
       roleId: 2,
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit service");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit invoice");
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل خدمة");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل فاتورة");
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }
     
     this.openEntry2(this.model)
+  }else {
+    this._ui.loadingStateChanged.next(false);
+    this.opC = true
   }
+  }
+
+
+  
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -367,7 +416,7 @@ export class ServiceEnComponent implements OnInit {
         }}))
   }
 
-  onId(id: number, row:ServiceEnModel) {
+  onId(id: number, row:InvoiceModel) {
     
     if (this.clickedRows.has(row)) {
       this.clickedRows.delete(row)
@@ -376,15 +425,28 @@ export class ServiceEnComponent implements OnInit {
     }
 
   }
-
-  onDelete = function(id: number) {
-      
-  };
-
-
-  openEntry  (result: ServiceEnModel) {
+  openEntry  (result: InvoiceModel) {
     if (result === undefined) {
-      const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
+      const dialogRef = this.dialog.open(OtherInvoiceEntryComponent, {
+        disableClose: true,
+        data: {}
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.refreshMe();
+      });
+    } else {
+      const dialogRef = this.dialog.open(OtherInvoiceEntryComponent, {
+        disableClose: false,
+        data: result
+      });
+      dialogRef.afterClosed().subscribe(() => {
+        this.refreshMe();
+      });
+    }
+  };
+  openEntry2  (result: Send) {
+    if (result === undefined) {
+      const dialogRef = this.dialog.open(OtherInvoiceEntryComponent, {
         disableClose: true,
         
         data: {}
@@ -393,7 +455,7 @@ export class ServiceEnComponent implements OnInit {
         this.refreshMe();
       });
     } else {
-      const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
+      const dialogRef = this.dialog.open(OtherInvoiceEntryComponent, {
         disableClose: true,
         
         data: result
@@ -404,47 +466,6 @@ export class ServiceEnComponent implements OnInit {
     }
   };
 
-  openEntry2 (result: Send) {
-    if (result === undefined) {
-      const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
-        disableClose: true,
-       
-        data: {}
-      });
-      dialogRef.afterClosed().subscribe(() => {
-        this.refreshMe();
-      });
-    } else {
-      const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
-        disableClose: true,
-        
-        data: result
-      });
-      dialogRef.afterClosed().subscribe(() => {
-        this.refreshMe();
-      });
-    }
-  };
-  openEntry3 (result: Send) {
-    if (result === undefined) {
-      const dialogRef = this.dialog.open(ServiceEnEntry2Component, {
-        disableClose: true,
-       
-        data: {}
-      });
-      dialogRef.afterClosed().subscribe(() => {
-        this.refreshMe();
-      });
-    } else {
-      const dialogRef = this.dialog.open(ServiceEnEntry2Component, {
-        disableClose: true,
-        
-        data: result
-      });
-      dialogRef.afterClosed().subscribe(() => {
-        this.refreshMe();
-      });
-    }
-  };
+  
 
 }

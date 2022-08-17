@@ -310,7 +310,7 @@ export class PaymentfromEntryComponent implements OnInit {
         console.log("hello")
         this.data = res;
 
-        if (this.data[3] && this.data[3].tableColumnId == 303 && this.data[3].access == "ViewOnly") {
+        if (this.data[3] && this.data[3].tableColumnId == 380 && this.data[3].access == "ViewOnly") {
           this._select.getDropdown(this.data[3].refId, this.data[3].refTable, this.data[3].refColumn, this.data[3].refCondition, false).subscribe((resu: SelectModel[]) => {
             console.log("naruto:" ,resu);
             
@@ -422,6 +422,7 @@ export class PaymentfromEntryComponent implements OnInit {
           }
   
         }
+        this.onChangePaymentType2(+this.data[3].value)
         this.breakpoint =
         window.innerWidth <= 960
           ? 1
@@ -648,6 +649,61 @@ export class PaymentfromEntryComponent implements OnInit {
     }
   }
 
+  // onChangePaymentType(id: number) {
+    
+  //   console.log(id);
+  //   if (id == 18001) {
+  //     this.showMaxCredit = false
+  //     this.paymentTypeOption = "Cash"
+  //     // this.onClose()
+  //     this.lastDark.child1 = []
+  //     this.lastDark.child2 = []
+  //     this.lastDark.child3 = []
+  //     this.last.child1 = []
+  //     this.last.child2 = []
+  //     this.last.child3 = []
+  //   } else if (id == 18002) {
+  //     this.showMaxCredit = false
+  //     this.paymentTypeOption = "Cheque"
+  //     this.addChild1Item(0)
+  //     this.lastDark.child2 = []
+  //     this.lastDark.child3 = []
+  //     this.last.child2 = []
+  //     this.last.child3 = []
+  //   } else if (id == 18003) {
+  //     this.showMaxCredit = false
+  //     this.paymentTypeOption = "Wire tran"
+  //     this.addChild2Item(0)
+  //     this.lastDark.child1 = []
+  //     this.lastDark.child3 = []
+  //     this.last.child1 = []
+  //     this.last.child3 = []
+  //   } else if (id == 18004) {
+  //     this.showMaxCredit = false
+  //     this.paymentTypeOption = "Deposite"
+  //     this.addChild3Item(0)
+  //     this.lastDark.child1 = []
+  //     this.lastDark.child2 = []
+  //     this.last.child1 = []
+  //     this.last.child2 = []
+  //   } else if (id == -1) {
+  //     this.paymentTypeOption = "Credit"
+  //     this.showMaxCredit = true
+  //     this.dapiService.getMaxCredit(+this.data[7].value, + this.data[8].value).subscribe((reso) => {
+  //       this.maxCredit  =  reso.name
+  //       console.log(this.maxCredit);
+        
+  //     })
+  //     this.lastDark.child1 = []
+  //     this.lastDark.child2 = []
+  //     this.last.child1 = []
+  //     this.last.child2 = []
+  //   } 
+  //   console.log("close");
+    
+    
+    
+  // }
   onChangePaymentType(id: number) {
     
     console.log(id);
@@ -661,6 +717,13 @@ export class PaymentfromEntryComponent implements OnInit {
       this.last.child1 = []
       this.last.child2 = []
       this.last.child3 = []
+      
+      this.data[13].access = "Editable"
+      this.data[14].access = "Editable"
+      this.data[15].access = "Editable"
+      this.data[13].value = "1"
+      this.data[14].value = "1"
+      this.data[15].value = "0"
     } else if (id == 18002) {
       this.showMaxCredit = false
       this.paymentTypeOption = "Cheque"
@@ -669,6 +732,12 @@ export class PaymentfromEntryComponent implements OnInit {
       this.lastDark.child3 = []
       this.last.child2 = []
       this.last.child3 = []
+      this.data[13].access = "NoAccess"
+      this.data[14].access = "NoAccess"
+      this.data[15].access = "NoAccess"
+      this.data[13].value = "1"
+      this.data[14].value = "1"
+      this.data[15].value = "0"
     } else if (id == 18003) {
       this.showMaxCredit = false
       this.paymentTypeOption = "Wire tran"
@@ -677,6 +746,12 @@ export class PaymentfromEntryComponent implements OnInit {
       this.lastDark.child3 = []
       this.last.child1 = []
       this.last.child3 = []
+      this.data[13].access = "NoAccess"
+      this.data[14].access = "NoAccess"
+      this.data[15].access = "NoAccess"
+      this.data[13].value = "1"
+      this.data[14].value = "1"
+      this.data[15].value = "0"
     } else if (id == 18004) {
       this.showMaxCredit = false
       this.paymentTypeOption = "Deposite"
@@ -685,6 +760,12 @@ export class PaymentfromEntryComponent implements OnInit {
       this.lastDark.child2 = []
       this.last.child1 = []
       this.last.child2 = []
+      this.data[13].access = "NoAccess"
+      this.data[14].access = "NoAccess"
+      this.data[15].access = "NoAccess"
+      this.data[13].value = "1"
+      this.data[14].value = "1"
+      this.data[15].value = "0"
     } else if (id == -1) {
       this.paymentTypeOption = "Credit"
       this.showMaxCredit = true
@@ -697,6 +778,12 @@ export class PaymentfromEntryComponent implements OnInit {
       this.lastDark.child2 = []
       this.last.child1 = []
       this.last.child2 = []
+      this.data[13].access = "NoAccess"
+      this.data[14].access = "NoAccess"
+      this.data[15].access = "NoAccess"
+      this.data[13].value = "1"
+      this.data[14].value = "1"
+      this.data[15].value = "0"
     } 
     console.log("close");
     
@@ -707,6 +794,43 @@ export class PaymentfromEntryComponent implements OnInit {
   onClose() {
     this._ui.loadingStateChanged.next(true);
     this._ui.loadingStateChanged.next(false);
+  }
+  onChangePaymentType2(id: number) {
+    // this._ui.loadingStateChanged.next(true);
+    console.log(id);
+    if (id == 18001) {
+      this.paymentTypeOption = "Cash"
+      this.data[13].access = "Editable"
+      this.data[14].access = "Editable"
+      this.data[15].access = "Editable"
+      
+      
+    } else if (id == 18002) {
+      this.paymentTypeOption = "Cheque"
+      this.data[13].access = "NoAccess"
+      this.data[14].access = "NoAccess"
+      this.data[15].access = "NoAccess"
+      
+    } else if (id == 18003) {
+      this.paymentTypeOption = "Wire tran"
+      this.data[13].access = "NoAccess"
+      this.data[14].access = "NoAccess"
+      this.data[15].access = "NoAccess"
+      
+    } else if (id == 18004) {
+      this.paymentTypeOption = "Deposite"
+      this.data[13].access = "NoAccess"
+      this.data[14].access = "NoAccess"
+      this.data[15].access = "NoAccess"
+      
+    } else if (id == -1) {
+      this.paymentTypeOption = "Credit"
+      this.data[13].access = "NoAccess"
+      this.data[14].access = "NoAccess"
+      this.data[15].access = "NoAccess"
+      
+    } 
+    // this._ui.loadingStateChanged.next(false);
   }
   onChangePaymentTypeEdit(id: number) {
     this._ui.loadingStateChanged.next(true);
@@ -1326,8 +1450,8 @@ export class PaymentfromEntryComponent implements OnInit {
         console.log('before if');
         
         if (localStorage.getItem(this._globals.baseAppName + '_Confirm') === 'yes') {
-          console.log('in if');
           this.dialogRef.close();
+          console.log('in if');
         }
       });
           

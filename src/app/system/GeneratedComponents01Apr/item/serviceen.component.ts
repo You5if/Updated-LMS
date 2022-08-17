@@ -4,7 +4,7 @@ import { CommonService } from 'src/app/components/common/common.service';
 import { UIService } from 'src/app/components/shared/uiservices/UI.service';
 import { MessageBoxService } from 'src/app/components/messagebox/message-box.service';
 import { AuthService } from 'src/app/components/security/auth/auth.service';
-import { ServiceEnEntryComponent } from './serviceen-entry/serviceen-entry.component';
+import { ItemServiceEntryComponent } from './serviceen-entry/serviceen-entry.component';
 import { ServiceEnModel } from './serviceen.model';
 import { RightModel } from 'src/app/components/security/auth/rights.model';
 import { RouterModule, Routes } from '@angular/router';
@@ -20,7 +20,7 @@ import { AppGlobals } from 'src/app/app.global';
 import { ProductModel } from '../product/product.model';
 import { Direction } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ServiceEnEntry2Component } from './serviceen-entry2/serviceen-entry.component';
+import { ItemServiceEntry2Component } from './serviceen-entry2/serviceen-entry.component';
 import { MyFilterComponent } from '../../journalentry/operation/my-filter/my-filter.component';
 import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.component';
 
@@ -30,7 +30,7 @@ import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.co
     styleUrls: ['./serviceen.component.scss']
   })
 
-export class ServiceEnComponent implements OnInit {
+export class ItemServiceComponent implements OnInit {
 
   idS! : number;
   direction!: Direction;
@@ -69,7 +69,7 @@ export class ServiceEnComponent implements OnInit {
     currentPageIndex: number;
     menuId: number;
 
-    forFilterBtn: string = "Category = 'Registration' OR Category='Transport'"
+    forFilterBtn: string = "Category = 'Other'"
 
     totalRecords!: number;
     pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -124,7 +124,7 @@ export class ServiceEnComponent implements OnInit {
 
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
-      this.header = "Service"
+      this.header = "Item"
       this.category = "Category"
       this.group = "Group"
       this.service = "Service"
@@ -135,7 +135,7 @@ export class ServiceEnComponent implements OnInit {
       this.cancel = "Cancel"
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
-      this.header = "الخدمة"
+      this.header = "العناصر"
       this.category = "الفئة"
       this.group = "المجموعة"
       this.service = "الخدمة"
@@ -149,10 +149,10 @@ export class ServiceEnComponent implements OnInit {
     // this.pageData.filter = this._cf.filterVar
 
     if (this._cf.filterVar != '') {
-      this.pageData.filter = "Category = 'Registration' OR Category='Transport'" + ' ' + 'and' + ' ' + this._cf.filterVar
+      this.pageData.filter = "Category = 'Other'" + ' ' + 'and' + ' ' + this._cf.filterVar
     }else {
 
-      this.pageData.filter = "Category = 'Registration' OR Category='Transport'"
+      this.pageData.filter = "Category = 'Other'"
     }
 
     this._ui.loadingStateChanged.next(true);
@@ -209,7 +209,7 @@ export class ServiceEnComponent implements OnInit {
   }
 
   onClearFilter() {
-    this.pageData.filter = "Category = 'Registration' OR Category='Transport'"
+    this.pageData.filter = "Category = 'Other'"
     // this.invoiceservice.setSort("")
     this._cf.setFilter("")
     this._ui.loadingStateChanged.next(true);
@@ -316,9 +316,9 @@ export class ServiceEnComponent implements OnInit {
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add service");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add item");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة خدمة");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة عنصر");
     }
     
     this.openEntry3(this.model);
@@ -343,10 +343,10 @@ export class ServiceEnComponent implements OnInit {
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit service");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit item");
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل خدمة");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل عنصر");
       localStorage.setItem(this._globals.baseAppName + '_Add&Edit2', "Edit");
     }
     
@@ -384,7 +384,7 @@ export class ServiceEnComponent implements OnInit {
 
   openEntry  (result: ServiceEnModel) {
     if (result === undefined) {
-      const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
+      const dialogRef = this.dialog.open(ItemServiceEntryComponent, {
         disableClose: true,
         
         data: {}
@@ -393,7 +393,7 @@ export class ServiceEnComponent implements OnInit {
         this.refreshMe();
       });
     } else {
-      const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
+      const dialogRef = this.dialog.open(ItemServiceEntryComponent, {
         disableClose: true,
         
         data: result
@@ -406,7 +406,7 @@ export class ServiceEnComponent implements OnInit {
 
   openEntry2 (result: Send) {
     if (result === undefined) {
-      const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
+      const dialogRef = this.dialog.open(ItemServiceEntry2Component, {
         disableClose: true,
        
         data: {}
@@ -415,7 +415,7 @@ export class ServiceEnComponent implements OnInit {
         this.refreshMe();
       });
     } else {
-      const dialogRef = this.dialog.open(ServiceEnEntryComponent, {
+      const dialogRef = this.dialog.open(ItemServiceEntry2Component, {
         disableClose: true,
         
         data: result
@@ -427,7 +427,7 @@ export class ServiceEnComponent implements OnInit {
   };
   openEntry3 (result: Send) {
     if (result === undefined) {
-      const dialogRef = this.dialog.open(ServiceEnEntry2Component, {
+      const dialogRef = this.dialog.open(ItemServiceEntry2Component, {
         disableClose: true,
        
         data: {}
@@ -436,7 +436,7 @@ export class ServiceEnComponent implements OnInit {
         this.refreshMe();
       });
     } else {
-      const dialogRef = this.dialog.open(ServiceEnEntry2Component, {
+      const dialogRef = this.dialog.open(ItemServiceEntry2Component, {
         disableClose: true,
         
         data: result

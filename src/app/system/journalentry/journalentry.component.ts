@@ -46,7 +46,7 @@ export class JournalEntryComponent implements OnInit {
   opC: boolean = true
 
     displayedColumns: string[] =
-        ['select','code','EntryDate', 'amount', 'currency', 'state', 'report'];
+        ['select','code','EntryDate', 'amount', 'ref', 'currency', 'state', 'report'];
 
     dataSource: any;
     isLastPage = false;
@@ -131,7 +131,7 @@ export class JournalEntryComponent implements OnInit {
       this.state = "State"
       this.amount = "Amount"
       this.currency = "Currency"
-      this.ref = " Reference"
+      this.ref = " Receipt"
       this.edit = "Edit"
       this.header = "Journals"
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
@@ -140,7 +140,7 @@ export class JournalEntryComponent implements OnInit {
       this.debitacc = "الحسابات"
       this.creditacc = "التامينات"
       this.state = "الحالة"
-      this.ref = "المرجع"
+      this.ref = "الفاتورة"
       this.report = "التقرير"
       this.code = "الرمز"
       this.amount = "المبلغ"

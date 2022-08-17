@@ -60,12 +60,14 @@
   </ng-container>
     <ng-container matColumnDef="code">      <mat-header-cell class="centH" *matHeaderCellDef>{{ code }}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.journalCode}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="ref">      <mat-header-cell class="centH" *matHeaderCellDef>{{ ref }}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.reference}}</mat-cell>
+    </ng-container>
     <ng-container matColumnDef="EntryDate">      <mat-header-cell class="centH" *matHeaderCellDef>{{ entryDate }}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.entryDate | date}}</mat-cell>
     </ng-container>
 
     
-    <ng-container matColumnDef="ref">      <mat-header-cell class="centH" *matHeaderCellDef>{{ ref }}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.reference}}</mat-cell>
-    </ng-container>
+    <!-- <ng-container matColumnDef="ref">      <mat-header-cell class="centH" *matHeaderCellDef>{{ ref }}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.reference}}</mat-cell>
+    </ng-container> -->
     
     <ng-container matColumnDef="debitacc">      <mat-header-cell class="centH" *matHeaderCellDef>{{ debitacc }}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.debitAccount}}</mat-cell>
     </ng-container>

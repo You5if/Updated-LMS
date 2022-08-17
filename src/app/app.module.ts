@@ -372,6 +372,13 @@ import { ServiceEnEntry2Component } from "./system/GeneratedComponents01Apr/serv
 import { MyTestAutoComponent } from "./system/my-test-auto/my-test-auto.component";
 import { AssignToGroupComponent } from "./system/AnotherComponents/Registration-invoice/assign-to-group/movetobank.component";
 import { AssignToClassComponent } from "./lmssystem/subject/assign-to-group/movetobank.component";
+import { AlertifyService } from "./alertify.service";
+import { FeesComponent } from "./system/reports/fees/financial.component";
+import { ItemServiceComponent } from "./system/GeneratedComponents01Apr/item/serviceen.component";
+import { ItemServiceEntry2Component } from "./system/GeneratedComponents01Apr/item/serviceen-entry2/serviceen-entry.component";
+import { ItemServiceEntryComponent } from "./system/GeneratedComponents01Apr/item/serviceen-entry/serviceen-entry.component";
+import { OtherInvoiceComponent } from "./system/AnotherComponents/Other-invoice/invoice.component";
+import { OtherInvoiceEntryComponent } from "./system/AnotherComponents/Other-invoice/invoice-entry/invoice-entry.component";
 
 
 
@@ -726,7 +733,13 @@ SubTeQueEntryComponent,
     ServiceEnEntry2Component,
     MyTestAutoComponent,
     AssignToGroupComponent,
-    AssignToClassComponent
+    AssignToClassComponent,
+    FeesComponent,
+    ItemServiceComponent,
+    ItemServiceEntry2Component,
+    ItemServiceEntryComponent,
+    OtherInvoiceEntryComponent,
+    OtherInvoiceComponent
 
     
     
@@ -759,6 +772,7 @@ SubTeQueEntryComponent,
     MatBottomSheetModule
   ],
   providers: [
+    AlertifyService,
     {
     provide: 'SocialAuthServiceConfig',
     useValue: {
@@ -948,7 +962,12 @@ SubTeQueEntryComponent,
     ServiceEnEntryComponent,
     ServiceEnEntry2Component,
     AssignToGroupComponent,
-    AssignToClassComponent
+    AssignToClassComponent,
+    FeesComponent,
+    ItemServiceEntry2Component,
+    ItemServiceEntryComponent,
+    OtherInvoiceEntryComponent,
+    
     
   ]
 })

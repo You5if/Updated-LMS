@@ -22,7 +22,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./serviceen-entry.component.scss']
 })
 
-export class ServiceEnEntry2Component implements OnInit {
+export class ItemServiceEntry2Component implements OnInit {
 
 	url!: string;
 
@@ -182,7 +182,7 @@ export class ServiceEnEntry2Component implements OnInit {
       private _auth: AuthService,
       private _globals: AppGlobals,
       private _select: SelectService,
-      private dialogRef: MatDialogRef<ServiceEnEntry2Component>,
+      private dialogRef: MatDialogRef<ItemServiceEntry2Component>,
       @Inject(MAT_DIALOG_DATA) public pModel: Send
   ) { }
 
@@ -203,11 +203,14 @@ export class ServiceEnEntry2Component implements OnInit {
       this.dapiService.Controllers(this.pModel).subscribe(res => {
         this._ui.loadingStateChanged.next(false);
         this.data = res;
-        this.data[3].access = "NoAccess"
-        this.data[4].access = "NoAccess"
-        this.data[5].access = "NoAccess"
-        this.data[6].access = "NoAccess"
-        this.data[7].access = "NoAccess"
+        this.data[1].value = "12"
+        this.data[2].value = "113"
+        this.data[1].access = "NoAccess"
+        this.data[2].access = "NoAccess"
+        this.data[3].label = "Item"
+        // this.data[4].access = "NoAccess"
+        // this.data[5].access = "NoAccess"
+        // this.data[6].access = "NoAccess"
         for(let i=0;i<=this.data.length;i++){
           this.ver2 = this.data[i]
           if (this.ver2 && this.ver2.inTransaction && this.ver2.access != "NoAccess"){
@@ -255,7 +258,7 @@ export class ServiceEnEntry2Component implements OnInit {
       this.data1 = res;
       this.data1[1].access = "NoAccess"
       this.data1[2].access = "NoAccess"
-      this.data1[7].access = "NoAccess"
+
       this.data1[1].value = this.data[1].value
       this.data1[2].value = this.data[2].value
       this.data1[3].value = sGroup +"_Registration fees"
@@ -288,7 +291,7 @@ export class ServiceEnEntry2Component implements OnInit {
       this.data2 = res;
       this.data2[1].access = "NoAccess"
       this.data2[2].access = "NoAccess"
-      this.data2[7].access = "NoAccess"
+
       this.data2[1].value = this.data[1].value
       this.data2[2].value = this.data[2].value
       this.data2[3].value = sGroup +"_Tuition fees"
@@ -321,7 +324,7 @@ export class ServiceEnEntry2Component implements OnInit {
       this.data3 = res;
       this.data3[1].access = "NoAccess"
       this.data3[2].access = "NoAccess"
-      this.data3[7].access = "NoAccess"
+
       this.data3[1].value = this.data[1].value
       this.data3[2].value = this.data[2].value
       this.data3[3].value = sGroup +"_Books and Uniform fees"
@@ -354,7 +357,7 @@ export class ServiceEnEntry2Component implements OnInit {
       this.data4 = res;
       this.data4[1].access = "NoAccess"
       this.data4[2].access = "NoAccess"
-      this.data4[7].access = "NoAccess"
+
       this.data4[1].value = this.data[1].value
       this.data4[2].value = this.data[2].value
       this.data4[3].value = sGroup +"_Activity fees"
@@ -633,7 +636,34 @@ export class ServiceEnEntry2Component implements OnInit {
          }
         });
       }
-    }
+    }else if (this.last.records[1].value == "12") {
+      //  console.log(this.last);
+       
+      if(this.last.records[0].entryMode == "A"){
+        this.last.auditColumn = this._auth.getAuditColumns();
+        this.dapiService.EntryA(this.last).subscribe(nexto => {
+          this.res = nexto;
+          if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+           this._msg.showInfo("Message", "saved succesfully");
+         this.dialogRef.close();
+         }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+           this._msg.showInfo("رسالة", "تم الحفظ بنجاح");
+         this.dialogRef.close();
+         }
+  
+        }, error => {
+          console.log(error);
+          if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+           this._msg.showInfo("Message", "Error!!");
+         this.dialogRef.close();
+         }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+           this._msg.showInfo("رسالة", "توجد مشكلة");
+         this.dialogRef.close();
+         }
+        });
+      }
+       
+     }
 
      
         //   if(this.last.records[0].entryMode == "A"){

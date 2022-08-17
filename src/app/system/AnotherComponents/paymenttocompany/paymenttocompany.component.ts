@@ -43,6 +43,7 @@ export class PaymentToCompanyComponent implements OnInit {
   customer!: string;
   amount!: string;
   currency!: string;
+  receiptno!: string;
   balance!: string;
   edit!: string;
   header!: string;
@@ -123,15 +124,15 @@ export class PaymentToCompanyComponent implements OnInit {
 
     if (this.role === '2') {
       this.displayedColumns =
-        ['select','PaymentDate', 'PaymentCode', 'PaymentType','customer', 'amount', 'state'];
+        ['select','PaymentDate', 'PaymentCode', 'receiptno', 'PaymentType','customer', 'amount', 'state'];
 
     } else if (this.role === '3') {
       this.displayedColumns =
-        ['select','PaymentDate', 'PaymentCode', 'PaymentType','customer', 'amount'];
+        ['select','PaymentDate', 'PaymentCode', 'receiptno', 'PaymentType','customer', 'amount'];
 
     }else if (this.role === '5') {
       this.displayedColumns =
-        ['select','PaymentDate', 'PaymentCode', 'PaymentType','customer', 'amount', 'state'];
+        ['select','PaymentDate', 'PaymentCode', 'receiptno', 'PaymentType','customer', 'amount', 'state'];
 
     }
     
@@ -159,6 +160,7 @@ export class PaymentToCompanyComponent implements OnInit {
       this.amount = "Amount"
       this.delete = "Delete"
       this.currency = "Currency"
+      this.receiptno = "Receipt"
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
@@ -167,6 +169,7 @@ export class PaymentToCompanyComponent implements OnInit {
       this.header = "الايرادات"
       this.paymentCode = "رمز الدفع"
       this.paymentDate = "تاريخ الدفع"
+      this.receiptno = "الفاتورة"
       this.paymentType = "نوع الدفع"
       this.customer = "العميل"
       this.delete = "مسح"

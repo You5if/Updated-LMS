@@ -22,7 +22,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./serviceen-entry.component.scss']
 })
 
-export class ServiceEnEntryComponent implements OnInit {
+export class ItemServiceEntryComponent implements OnInit {
 
 	url!: string;
 
@@ -94,7 +94,7 @@ export class ServiceEnEntryComponent implements OnInit {
       private _auth: AuthService,
       private _globals: AppGlobals,
       private _select: SelectService,
-      private dialogRef: MatDialogRef<ServiceEnEntryComponent>,
+      private dialogRef: MatDialogRef<ItemServiceEntryComponent>,
       @Inject(MAT_DIALOG_DATA) public pModel: Send
   ) { }
 
@@ -115,7 +115,7 @@ export class ServiceEnEntryComponent implements OnInit {
         this.data = res;
         
           this.data[2].refCondition = this.data[2].refCondition + this.data[1].value
-          this.data[7].access = "NoAccess"
+        
         
         for(let i=0;i<=this.data.length;i++){
           this.ver2 = this.data[i]

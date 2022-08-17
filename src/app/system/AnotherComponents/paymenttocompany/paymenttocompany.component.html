@@ -67,6 +67,8 @@
 
     <ng-container matColumnDef="PaymentDate">      <mat-header-cell class="centH" *matHeaderCellDef>{{paymentDate}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.paymentDate | date}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="receiptno">      <mat-header-cell class="centH" *matHeaderCellDef>{{receiptno}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.receiptNo}}</mat-cell>
+    </ng-container>
 
     <ng-container matColumnDef="PaymentCode">      <mat-header-cell class="centH" *matHeaderCellDef>{{paymentCode}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.paymentCode}}</mat-cell>
     </ng-container>
@@ -156,6 +158,11 @@
           <h3>{{paymentCode}}</h3>
           <h3>:</h3>
           <h3>{{ index.paymentCode }}</h3>
+        </div>
+        <div fxLayoutGap="5px" class="index_row">
+          <h3>{{receiptno}}</h3>
+          <h3>:</h3>
+          <h3>{{ index.receiptno }}</h3>
         </div>
         <div fxLayoutGap="5px" class="index_row">
           <h3>{{paymentType}}</h3>

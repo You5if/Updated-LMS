@@ -288,7 +288,7 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
 
             }
 
-            this.onChangeValueC(Number(this.data[5].value))
+            // this.onChangeValueC(Number(this.data[5].value))
 
 
 
@@ -375,15 +375,27 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
         // this.displayColumn = this.dropItem.refColumn;
         // this.condition = this.dropItem.refCondition;
 
-        this._select.getDropdown(this.dropItem.refId, this.dropItem.refTable, this.dropItem.refColumn, this.dropItem.refCondition, false).subscribe((res: SelectModel[]) => {
-          // console.log("drop: ", res);
-          this.dropList[k].myarray = res;
+        if(this.dropItem.tableColumnId == 287){
+          this._select.getDropdown(this.dropItem.refId, this.dropItem.refTable, this.dropItem.refColumn, this.dropItem.refCondition+ this.data[5].value, false).subscribe((res: SelectModel[]) => {
+            console.log("drop: ", res);
+            this.dropList[k].myarray = res;
+            
+            this.container.push(res);
 
-          // this.container.push(res);
-          // console.log(this.container)
-
-
-        });
+            console.log(this.container)
+          })
+        }else {
+          this._select.getDropdown(this.dropItem.refId, this.dropItem.refTable, this.dropItem.refColumn, this.dropItem.refCondition, false).subscribe((res: SelectModel[]) => {
+            // console.log("drop: ", res);
+            this.dropList[k].myarray = res;
+  
+            // this.container.push(res);
+            // console.log(this.container)
+  
+  
+          });
+        }
+        
 
       }
       // console.log("light: ",this.light);
@@ -498,6 +510,7 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
       this._ui.loadingStateChanged.next(false);
 
       this.childElemInit = res
+      this.childElemInit[9].access = "NoAccess"
       console.log(this.childElemInit)
       // this.childElemInit[2].refCondition = this.childElemInit[2].refCondition + this.data[12].value
       this.dropListItem.push(this.childElemInit[2])
@@ -654,6 +667,7 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
       this._ui.loadingStateChanged.next(false);
 
       this.childElemInit = res
+      this.childElemInit[9].access = "NoAccess"
       console.log(this.childElemInit)
       // this.childElemInit[2].refCondition = this.childElemInit[2].refCondition + this.data[12].value
       this.dropListItem.push(this.childElemInit[2])

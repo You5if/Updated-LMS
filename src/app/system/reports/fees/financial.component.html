@@ -1,0 +1,96 @@
+<h1 class="fontY">
+  {{feesReports}}
+</h1>
+
+<h1 [dir]="direction" class="title" >{{parent}}:</h1>
+<div [dir]="direction">
+  <div fxLayoutGap="15px" class="line2" >
+    <app-my-test-auto [refId]="'customerid'" [refCondition]="'active=1 and deleted=0 and customerid>1'" [refTable]="'customer'" [refColumn]="refCon" [labelValue]="parent" [initialValue]="'1'" (resultId)="onResults(1, $event)"></app-my-test-auto>
+                 
+
+    <!-- <mat-form-field appearance="outline">
+      <mat-label>Starting Date</mat-label>
+      <input matInput [matDatepicker]="from" formControlName="fromDate">
+      <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+      <mat-datepicker #from></mat-datepicker>
+    </mat-form-field> -->
+
+    
+
+   
+    <div >
+      <button class="BtnS" (click)="onSubmit('12')"  mat-button color="primary" type="submit">{{submit}}</button>
+    </div>
+  </div>
+</div>
+
+<h1 [dir]="direction" class="title" >{{student}}:</h1>
+<div [dir]="direction">
+  <div fxLayoutGap="15px" class="line" >
+    <app-my-test-auto [refId]="'customerid'" [refCondition]="'active=1 and deleted=0 and customerid>1'" [refTable]="'customer'" [refColumn]="refCon" [labelValue]="parent" [initialValue]="'1'" (resultId)="onResults(2, $event)"></app-my-test-auto>
+    <mat-form-field appearance="outline">
+      <mat-label>{{student}}</mat-label>
+      <mat-select 
+      [(ngModel)]="studentId"
+      name="studentId"
+      >
+        <mat-option *ngFor="let tech of students" [value]="tech.id">
+          {{tech.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div >
+      <button class="BtnS" (click)="onSubmit('13')"  mat-button color="primary" type="submit">{{submit}}</button>
+    </div>
+  </div>
+</div>
+<h1 [dir]="direction" class="title" >{{group}}:</h1>
+<div [dir]="direction">
+  <div fxLayoutGap="15px" class="line" >
+    <!-- <app-my-test-auto [refId]="'customerid'" [refCondition]="'active=1 and deleted=0 and customerid>1'" [refTable]="'customer'" [refColumn]="refCon" [labelValue]="parent" [initialValue]="'1'" (resultId)="onResults(2, $event)"></app-my-test-auto> -->
+    <mat-form-field appearance="outline">
+      <mat-label>{{year}}</mat-label>
+      <mat-select 
+      (valueChange)="onGetGroup2()"
+      [(ngModel)]="yearId"
+      name="yearId"
+      >
+        <mat-option *ngFor="let tech of years" [value]="tech.id">
+          {{tech.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{class}}</mat-label>
+      <mat-select 
+      #choosedValue 
+      (valueChange)="onGetGroup(choosedValue.value)"
+      [(ngModel)]="classId"
+      name="classId"
+      >
+        <mat-option *ngFor="let tech of classes" [value]="tech.id">
+          {{tech.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{group}}</mat-label>
+      <mat-select 
+      [(ngModel)]="groupId"
+      name="groupId"
+      >
+        <mat-option *ngFor="let tech of groups" [value]="tech.id">
+          {{tech.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div >
+      <button class="BtnS" (click)="onSubmit('14')"  mat-button color="primary" type="submit">{{submit}}</button>
+    </div>
+  </div>
+</div>
+
+
+  
+
+  

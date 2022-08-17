@@ -26,7 +26,7 @@ import { Direction } from '@angular/cdk/bidi';
   styleUrls: ['./invoice-entry.component.scss']
 })
 
-export class TransportInvoiceEntryComponent implements OnInit {
+export class OtherInvoiceEntryComponent implements OnInit {
   url!: string;
   total!: number;
   totalTax!: number;
@@ -211,7 +211,7 @@ export class TransportInvoiceEntryComponent implements OnInit {
       private _globals: AppGlobals,
       private _msg: MessageBoxService,
       private _select: SelectService,
-      private dialogRef: MatDialogRef<TransportInvoiceEntryComponent>,
+      private dialogRef: MatDialogRef<OtherInvoiceEntryComponent>,
       @Inject(MAT_DIALOG_DATA) public pModel: Send) {}
 
   ngOnInit(): void {
@@ -254,7 +254,7 @@ export class TransportInvoiceEntryComponent implements OnInit {
       this._ui.loadingStateChanged.next(false);
       console.log("hello",res)
       this.data = res;
-      this.data[12].value = "9"
+      this.data[12].value = "11"
       if(localStorage.getItem(this._globals.baseAppName + '_Add&Edit2') == "Edit") {
         console.log(this.data.length)
       if(this.data.length > 0) {
@@ -460,7 +460,8 @@ export class TransportInvoiceEntryComponent implements OnInit {
       this._ui.loadingStateChanged.next(false);
 
       this.childElemInit = res
-      this.childElemInit[9].access = "NoAccess"
+      this.childElemInit[2].label = "Product"
+      this.childElemInit[3].inTransaction = true
       console.log(this.childElemInit)
       // this.childElemInit[2].refCondition = this.childElemInit[2].refCondition + this.data[12].value
       this.dropListItem.push(this.childElemInit[2])

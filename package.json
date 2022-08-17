@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@auth0/angular-jwt": "^5.0.2",
+    "alertifyjs": "^1.13.1",
     "angular-resizable-element": "^5.0.0",
     "angular2-chartjs": "^0.5.1",
     "angular4-social-login": "^1.1.1",

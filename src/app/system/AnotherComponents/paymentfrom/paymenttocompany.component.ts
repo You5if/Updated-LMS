@@ -56,6 +56,7 @@ export class PaymentfromComponent implements OnInit {
     displayedColumns!: string[]
     dataSource: any;
     isLastPage = false;
+    receiptno!: string;
     pTableName: string;
     pScreenId: number;
     pTableId: number;
@@ -113,15 +114,15 @@ export class PaymentfromComponent implements OnInit {
 
     if (this.role === '2') {
       this.displayedColumns =
-        ['select','PaymentDate', 'PaymentCode', 'PaymentType', 'amount', 'state'];
+        ['select','PaymentDate', 'PaymentCode', 'receiptno', 'PaymentType', 'amount', 'state'];
 
     } else if (this.role === '4') {
       this.displayedColumns =
-        ['select','PaymentDate', 'PaymentCode', 'PaymentType', 'amount'];
+        ['select','PaymentDate', 'PaymentCode', 'receiptno', 'PaymentType', 'amount'];
 
     }else if (this.role === '5') {
       this.displayedColumns =
-        ['select','PaymentDate', 'PaymentCode', 'PaymentType', 'amount', 'state'];
+        ['select','PaymentDate', 'PaymentCode', 'receiptno', 'PaymentType', 'amount', 'state'];
 
     }
     
@@ -151,6 +152,7 @@ export class PaymentfromComponent implements OnInit {
       this.amount = "Amount"
       this.delete = "Delete"
       this.currency = "Currency"
+      this.receiptno = "Receipt"
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
@@ -161,6 +163,7 @@ export class PaymentfromComponent implements OnInit {
       this.paymentDate = "تاريخ الدفع"
       this.paymentType = "نوع الدفع"
       this.customer = "العميل"
+      this.receiptno = "الفاتورة"
       this.delete = "مسح"
       this.state = "الحالة"
       this.amount = "المبلغ"

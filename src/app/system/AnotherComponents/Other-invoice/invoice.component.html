@@ -6,14 +6,13 @@
       {{header}}
     </section>
 
-    <section class="sec"  >
+    <section class="sec" >
 
-      <button *ngIf="role === '2' || role === '4'" class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon >add</mat-icon></button>
+      <button class="add_btn" mat-button color="primary" (click)="onAdd()" [disabled]="!screenRights.createFlag"><mat-icon>add</mat-icon></button>
       <div *ngIf="pageData.sort === ''" class="chImg" (click)="onMySort()"><img class="sfimg" src="../../../../assets/images/svg/sort (3).png" alt=""></div>
       <div *ngIf="pageData.sort != ''" class="chImg" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
-      <div *ngIf="pageData.filter === ''" class="chImg" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
-      <div *ngIf="pageData.filter != ''" class="chImg" (click)="onClearFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol (2).png" alt=""></div>
-      
+      <div *ngIf="pageData.filter === forFilter" class="chImg" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
+      <div *ngIf="pageData.filter != forFilter" class="chImg" (click)="onClearFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol (2).png" alt=""></div>
       <!-- <div class="chImg" (click)="onMySort()"><img class="sfimg" src="../../../../assets/images/svg/sort (3).png" alt=""></div>
       <div class="chImg" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
       <div class="chImg" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
@@ -64,23 +63,15 @@
       </mat-cell>
 
   </ng-container>
-
-    <ng-container matColumnDef="PaymentDate">      <mat-header-cell class="centH" *matHeaderCellDef>{{paymentDate}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.paymentDate | date}}</mat-cell>
+    <ng-container matColumnDef="InvoiceNo">      <mat-header-cell class="centH" *matHeaderCellDef>{{invoiceNo}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.invoiceNo}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="PaymentCode">      <mat-header-cell class="centH" *matHeaderCellDef>{{paymentCode}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.paymentCode}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="receiptno">      <mat-header-cell class="centH" *matHeaderCellDef>{{receiptno}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.receiptNo}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="PaymentType">      <mat-header-cell class="centH" *matHeaderCellDef>{{paymentType}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.paymentTypeName}}</mat-cell>
+    <ng-container matColumnDef="InvoiceDate">      <mat-header-cell class="centH" *matHeaderCellDef>{{invoiceDate}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.invoiceDate | date}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="customer">      <mat-header-cell class="centH" *matHeaderCellDef>{{customer}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.customerName}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="amount">      <mat-header-cell class="centH" *matHeaderCellDef>{{amount}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.amount}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="currency">      <mat-header-cell class="centH" *matHeaderCellDef>{{currency}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.currencyName}}</mat-cell>
-    </ng-container>
+    <!-- <ng-container matColumnDef="warehouse">      <mat-header-cell class="centH" *matHeaderCellDef>{{warehouse}}</mat-header-cell>     <mat-cell mat-cell class="cent" *matCellDef="let row">{{row.wareHouseName}}</mat-cell>
+    </ng-container> -->
 
 
 
@@ -88,35 +79,44 @@
     <ng-container matColumnDef="edit">
       <mat-header-cell class="cent" *matHeaderCellDef>{{edit}}</mat-header-cell>
       <mat-cell class="cent" mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary" (click)="onEdit(row.paymentFromCompanyId)" [disabled]="!screenRights.editFlag">
+        <button mat-icon-button color="primary" (click)="onEdit(row.invoiceId)" [disabled]="!screenRights.editFlag">
           <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true">edit</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
+    <!-- report Column -->
+    <ng-container matColumnDef="report">
+      <mat-header-cell class="centH" *matHeaderCellDef>{{report}}</mat-header-cell>
+      <mat-cell class="cent" mat-cell *matCellDef="let row">
+        <button mat-icon-button class="Btn"  color="primary" (click)="onReport(row.invoiceId)" [disabled]="!screenRights.editFlag">
+          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true">printer</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
 
-    <!-- delete Column -->
-    <ng-container matColumnDef="delete">
+    <!-- <ng-container matColumnDef="delete">
       <mat-header-cell class="centH" *matHeaderCellDef>{{delete}}</mat-header-cell>
       <mat-cell class="cent" mat-cell *matCellDef="let row">
-        <button mat-icon-button color="warn" class="Btn" (click)="onDelete(row.paymentFromCompanyId)" [disabled]="!screenRights.editFlag">
+        <button mat-icon-button class="Btn"  color="warn" (click)="onDelete(row.invoiceId)" [disabled]="!screenRights.editFlag">
           <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true">delete</mat-icon>
         </button>
       </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
-    <ng-container matColumnDef="state">
-      <mat-header-cell class="centH" *matHeaderCellDef>{{state}}</mat-header-cell>
-      <mat-cell class="centH" mat-cell *matCellDef="let row">
-        <button *ngIf="row.recordState === 2" mat-icon-button color="primary" class="Btn" (click)="onState(row.paymentFromCompanyId, row.status)" [disabled]="!screenRights.editFlag">
-          <i class="fas fa-sync"></i>
+    <!-- delete Column -->
+    <!-- <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef>Delete</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row"><button mat-icon-button color="primary"
+          (click)="onDelete(row.invoiceId)" [disabled]="!screenRights.deleteFlag">
+          <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true" color="warn">delete</mat-icon>
         </button>
       </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
     <!-- view Column -->
     <ng-container matColumnDef="view">
       <mat-header-cell *matHeaderCellDef>View</mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let row"><button mat-icon-button color="primary" (click)="onView(row.paymentFromCompanyId)"
+      <mat-cell mat-cell *matCellDef="let row"><button mat-icon-button color="primary" (click)="onView(row.invoiceId)"
           [disabled]="!screenRights.viewFlag">
           <mat-icon small class="mat-icon material-icons" role="img" aria-hidden="true" color="primary">visibility
           </mat-icon>
@@ -126,70 +126,42 @@
 
     <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 
-    <div *ngIf="role === '2'">
-
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.paymentFromCompanyId, row.recordState)"  class="{{row.recordState === 3 ? 'rowRG' : 'rowR'}}"   [class.active]="clickedRows.has(row)" ></mat-row>
-
-    </div>
-    <div *ngIf="role === '4'">
-
-      <mat-row *matRowDef="let row; columns: displayedColumns;"  class="{{row.recordState === 3 ? 'rowRG2' : 'rowR2'}}"   [class.active]="clickedRows.has(row)" ></mat-row>
-
-    </div>
-    <div *ngIf="role === '5'">
-
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.paymentFromCompanyId, row.recordState)" class="{{row.recordState === 3 ? 'rowRG2' : 'rowR'}}"   [class.active]="clickedRows.has(row)" ></mat-row>
-
-    </div>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onEdit(row.invoiceId)" class="rowR" [class.active]="clickedRows.has(row)" ></mat-row>
 
   </mat-table>
 
 </Section>
+
 <section [dir]="direction" class="cards_section" fxHide fxShow.xs>
   <div *ngFor="let index of indexes">
     <mat-card fxLayout class="card">
       <div >
         <div fxLayoutGap="5px" class="index_row">
-          <h3>{{paymentDate}}</h3>
+          <h3>{{invoiceNo}}</h3>
           <h3>:</h3>
-          <h3>{{ index.paymentDate }}</h3>
+          <h3>{{ index.invoiceNo }}</h3>
         </div>
         <div fxLayoutGap="5px" class="index_row">
-          <h3>{{paymentCode}}</h3>
+          <h3>{{invoiceDate}}</h3>
           <h3>:</h3>
-          <h3>{{ index.paymentCode }}</h3>
-        </div>
-        <div fxLayoutGap="5px" class="index_row">
-          <h3>{{receiptno}}</h3>
-          <h3>:</h3>
-          <h3>{{ index.receiptno }}</h3>
-        </div>
-        <div fxLayoutGap="5px" class="index_row">
-          <h3>{{paymentType}}</h3>
-          <h3>:</h3>
-          <h3>{{ index.paymentTypeName }}</h3>
+          <h3>{{ index.invoiceDate | date }}</h3>
         </div>
         <div fxLayoutGap="5px" class="index_row">
           <h3>{{customer}}</h3>
           <h3>:</h3>
-          <h3>{{ index.accountName }}</h3>
+          <h3>{{ index.customerName }}</h3>
         </div>
         <div fxLayoutGap="5px" class="index_row">
-          <h3>{{amount}}</h3>
+          <h3>{{warehouse}}</h3>
           <h3>:</h3>
-          <h3>{{ index.amount }}</h3>
+          <h3>{{ index.wareHouseName }}</h3>
         </div>
-        <div fxLayoutGap="5px" class="index_row">
-          <h3>{{currency}}</h3>
-          <h3>:</h3>
-          <h3>{{ index.currencyName }}</h3>
-        </div>
-
+        
       </div>
       <div>
         <button class="Btn" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
 <mat-menu #menu="matMenu">
-  <button (click)="onEdit(index.paymentFromCompanyId)" class="Btn" mat-menu-item>{{edit}}</button>
+  <button (click)="onEdit(index.invoiceId)" class="Btn" mat-menu-item>{{edit}}</button>
   
 </mat-menu>
       </div>
@@ -197,11 +169,12 @@
 
   </div>
 </section>
-
-
 <div class="paginator">
-  <mat-paginator [length]="totalRecords" [pageSize]="recordsPerPage" [pageSizeOptions]="pageSizeOptions"
-  (page)="paginatoryOperation($event)" showFirstLastButtons>
-</mat-paginator>
-</div>
+  
 
+<mat-paginator [length]="totalRecords" [pageSize]="recordsPerPage" [pageSizeOptions]="pageSizeOptions"
+(page)="paginatoryOperation($event)" showFirstLastButtons>
+</mat-paginator>
+
+
+</div>
