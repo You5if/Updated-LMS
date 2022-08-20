@@ -416,6 +416,14 @@ export class ServiceEnEntry2Component implements OnInit {
         this.light.push(this.data[4]);
         this.light.push(this.data[5]);
         this.light.push(this.data[6]);
+        this.data1 = []
+        this.data2 = []
+        this.data3 = []
+        this.data4 = []
+        this.light1 = []
+        this.light2 = []
+        this.light3 = []
+        this.light4 = []
     }else if (id === 10) {
       this.showFetchBtn = false
       this.showFetchBtn1 = true
