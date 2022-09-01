@@ -728,7 +728,7 @@
     <div class="btn-container2" fxLayoutGap="10px">
     
     <button class="BtnC" type="button" mat-button (click)="onCancel()">{{cancel}}</button>
-    <button type="submit" (click)="onSubmit()" mat-button class="BtnS">{{submit}}</button>
+    <button type="submit" (click)="onSubmit()" mat-button [disabled]="!openSubmit" class="{{openSubmit ? 'BtnS' : 'BtnS2'}}">{{submit}}</button>
     <!-- <button *ngIf="pModel.entryMode=='A' || pModel.entryMode=='E'"  
     [disabled]="expensefilingForm.invalid"
       type="submit" mat-button class="BtnS">{{submit}}</button> -->

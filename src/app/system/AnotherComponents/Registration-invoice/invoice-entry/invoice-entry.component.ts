@@ -210,9 +210,9 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
   vale!: Sources[]
   catId!: number;
 
-
+  openSubmit:boolean = false
   constructor(private dapiService: InvoiceEntryService,
-    private _ui: UIService,
+    public _ui: UIService,
     private _globals: AppGlobals,
     private _msg: MessageBoxService,
     private _select: SelectService,
@@ -262,9 +262,11 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
 
 
 
+    this.openSubmit = false
     this._ui.loadingStateChanged.next(true);
     this.dapiService.Controllers(this.pModel).subscribe(res => {
       this._ui.loadingStateChanged.next(false);
+      this.openSubmit = true
       console.log("hello", res)
       this.data = res;
       this.data[12].value = "10"
@@ -277,6 +279,7 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
 
             console.log("EditRes", res)
             this._ui.loadingStateChanged.next(false);
+            this.openSubmit = true
 
 
 
@@ -505,9 +508,11 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
       roleId: 2,
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
+    this.openSubmit = false
     this._ui.loadingStateChanged.next(true);
     this.dapiService.child1Controllers(this.model2).subscribe((res) => {
       this._ui.loadingStateChanged.next(false);
+      this.openSubmit = true
 
       this.childElemInit = res
       this.childElemInit[9].access = "NoAccess"
@@ -662,9 +667,11 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
       roleId: 2,
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
+    this.openSubmit = false
     this._ui.loadingStateChanged.next(true);
     this.dapiService.child1Controllers(this.model2).subscribe((res) => {
       this._ui.loadingStateChanged.next(false);
+      this.openSubmit = true
 
       this.childElemInit = res
       this.childElemInit[9].access = "NoAccess"
@@ -1193,8 +1200,10 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
   }
   onChangeCurrency(idC: number) {
     for (let c = 0; c < this.lastDark.child1.length; c++) {
+      this._ui.loadingStateChanged.next(true);
       this.dapiService.getProductPricing2(+this.lastDark.child1[c].records[2].value, idC, this.data[2].value).subscribe((resu: productPricingModel) => {
         this._ui.loadingStateChanged.next(false);
+        this.openSubmit = true
         console.log(resu)
         this.lastDark.child1[c].records[4].myarray = resu
         console.log(this.alarray)
@@ -1211,8 +1220,10 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
   onChangeDate(e: Event) {
     let idD = (<HTMLInputElement>e.target).value
     for (let c = 0; c < this.lastDark.child1.length; c++) {
+      this._ui.loadingStateChanged.next(true);
       this.dapiService.getProductPricing2(+this.lastDark.child1[c].records[2].value, +this.data[6].value, idD.toString()).subscribe((resu: productPricingModel) => {
         this._ui.loadingStateChanged.next(false);
+        this.openSubmit = true
         console.log(resu)
         this.lastDark.child1[c].records[4].myarray = resu
         console.log(this.alarray)
@@ -1284,10 +1295,12 @@ export class RegistrationInvoiceEntryComponent implements OnInit {
   }
 
   onChangeValue(id: number, id2: number) {
+    this.openSubmit = false
     this._ui.loadingStateChanged.next(true);
 
     this.dapiService.getProductPricing2(id, +this.data[6].value, this.data[2].value).subscribe((resu: any) => {
       this._ui.loadingStateChanged.next(false);
+      this.openSubmit = true
       console.log(resu)
       this.alarray = this.last.child1[id2].records
       console.log(this.alarray)

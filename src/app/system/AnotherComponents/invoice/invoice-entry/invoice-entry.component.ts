@@ -207,7 +207,7 @@ export class InvoiceEntryComponent implements OnInit {
 
 
   constructor( private dapiService: InvoiceEntryService,
-     private _ui: UIService,
+     public _ui: UIService,
       private _globals: AppGlobals,
       private _msg: MessageBoxService,
       private _select: SelectService,

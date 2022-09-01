@@ -14,6 +14,8 @@ export class PleaseWaitComponent implements OnInit {
   isLoading = false;
   private loadingSubs!: Subscription;
 
+
+
   constructor(
     private dialogRef: MatDialogRef<PleaseWaitComponent>,
     private uiService: UIService,
@@ -37,6 +39,7 @@ export class PleaseWaitComponent implements OnInit {
     this.dialogRef.disableClose = true;
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       if ( isLoading !== true ) {
+        this.uiService.openSubmit = true
         this.dialogRef.close();
         clearInterval(conutdown)
       }else {
