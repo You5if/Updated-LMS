@@ -89,6 +89,54 @@
     </div>
   </div>
 </div>
+<h1 [dir]="direction" class="title" >{{class}}:</h1>
+<div [dir]="direction">
+  <div fxLayoutGap="15px" class="line" >
+    <!-- <app-my-test-auto [refId]="'customerid'" [refCondition]="'active=1 and deleted=0 and customerid>1'" [refTable]="'customer'" [refColumn]="refCon" [labelValue]="parent" [initialValue]="'1'" (resultId)="onResults(2, $event)"></app-my-test-auto> -->
+    <mat-form-field appearance="outline">
+      <mat-label>classId</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="classId2"
+                    name="class2"
+                    type="number"
+                    
+                    placeholder="ClassId"
+                    
+                  />
+
+
+    </mat-form-field>
+   
+    <div >
+      <button class="BtnS" (click)="onSubmit('15')"  mat-button color="primary" type="submit">{{submit}}</button>
+    </div>
+  </div>
+</div>
+<h1 [dir]="direction" class="title" >{{student}}:</h1>
+<div [dir]="direction">
+  <div fxLayoutGap="15px" class="line" >
+    <!-- <app-my-test-auto [refId]="'customerid'" [refCondition]="'active=1 and deleted=0 and customerid>1'" [refTable]="'customer'" [refColumn]="refCon" [labelValue]="parent" [initialValue]="'1'" (resultId)="onResults(2, $event)"></app-my-test-auto> -->
+    <mat-form-field appearance="outline">
+      <mat-label>studentId</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="studentId2"
+                    name="student2"
+                    type="number"
+                    
+                    placeholder="studentId"
+                    
+                  />
+
+
+    </mat-form-field>
+   
+    <div >
+      <button class="BtnS" (click)="onSubmit('16')"  mat-button color="primary" type="submit">{{submit}}</button>
+    </div>
+  </div>
+</div>
 
 
   

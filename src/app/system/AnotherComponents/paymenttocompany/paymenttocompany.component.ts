@@ -326,6 +326,7 @@ dialogRef.afterClosed().subscribe(() => {
  
 
   paginatoryOperation(event: PageEvent) {
+    this.pageData.pageNo = event.pageIndex + 1
     try {
       this.pageData.sort = this._cf.sortVar
       this.pageData.filter = this._cf.filterVar

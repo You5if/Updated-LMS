@@ -254,7 +254,7 @@ export class OtherInvoiceEntryComponent implements OnInit {
       this._ui.loadingStateChanged.next(false);
       console.log("hello",res)
       this.data = res;
-      this.data[12].value = "11"
+      this.data[12].value = "12"
       if(localStorage.getItem(this._globals.baseAppName + '_Add&Edit2') == "Edit") {
         console.log(this.data.length)
       if(this.data.length > 0) {
@@ -354,25 +354,37 @@ export class OtherInvoiceEntryComponent implements OnInit {
         ? 1
         : this.data[0].maxRowSize;
 
-      for(let k=0;k<=this.dropList.length;k++) {
-        this.dropItem = this.dropList[k]
-
-            // this.tableId = this.dropItem.refId;
-            // this.tableName = this.dropItem.refTable;
-            // this.displayColumn = this.dropItem.refColumn;
-            // this.condition = this.dropItem.refCondition;
-
-          this._select.getDropdown(this.dropItem.refId, this.dropItem.refTable, this.dropItem.refColumn, this.dropItem.refCondition, false).subscribe((res: SelectModel[]) => {
-        // console.log("drop: ", res);
-        this.dropList[k].myarray = res;
-        
-        // this.container.push(res);
-        // console.log(this.container)
-
-
-    });
-
-      }
+        for (let k = 0; k <= this.dropList.length; k++) {
+          this.dropItem = this.dropList[k]
+  
+          // this.tableId = this.dropItem.refId;
+          // this.tableName = this.dropItem.refTable;
+          // this.displayColumn = this.dropItem.refColumn;
+          // this.condition = this.dropItem.refCondition;
+  
+          if(this.dropItem.tableColumnId == 287){
+            this._select.getDropdown(this.dropItem.refId, this.dropItem.refTable, this.dropItem.refColumn, this.dropItem.refCondition+ this.data[5].value, false).subscribe((res: SelectModel[]) => {
+              console.log("drop: ", res);
+              this.dropList[k].myarray = res;
+              
+              this.container.push(res);
+  
+              console.log(this.container)
+            })
+          }else {
+            this._select.getDropdown(this.dropItem.refId, this.dropItem.refTable, this.dropItem.refColumn, this.dropItem.refCondition, false).subscribe((res: SelectModel[]) => {
+              // console.log("drop: ", res);
+              this.dropList[k].myarray = res;
+    
+              // this.container.push(res);
+              // console.log(this.container)
+    
+    
+            });
+          }
+          
+  
+        }
       // console.log("light: ",this.light);
       // console.log("dark: ",this.dark);
 

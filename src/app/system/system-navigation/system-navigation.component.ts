@@ -73,6 +73,7 @@ export class SystemNavigationComponent implements OnInit {
   schoolgroup!: string;
   subTeSubmission!: string;
   schoolyear!: string;
+  openingBalance!: string;
   schoolclass!: string;
   studentattend!: string;
   studsubj!: string;
@@ -176,6 +177,7 @@ this.customeraccount='Student'
 this.subTeSubmission='Student exam submission'
   this.schoolgroup = 'Group'
   this.schoolyear='School Year'
+  this.openingBalance='Opening balance'
   this.schoolclass='Class'
   this.studentattend='Student Attendance'
   this.changePassword = "Change password"
@@ -761,6 +763,7 @@ this.customeraccount='Student'
 this.subTeSubmission='Student exam submission'
 this.schoolgroup = 'Group'
 this.schoolyear='School Year'
+this.openingBalance='Opening balance'
 this.schoolclass='Class'
 this.studentattend='Student Attendance'
 this.changePassword = "Change password"
@@ -895,6 +898,7 @@ this.oInvoice = "فواتير اخرى"
     this.logout = "تسجيل الخروج"
     this.change = "اللغة:"
     this.schoolyear="السنة الدراسية"
+    this.openingBalance='الحساب الافتتاحي'
     this.schoolclass="الفصل"
     this.schoolgroup="المجموعة"
     this.subject="المادة"
@@ -970,6 +974,7 @@ this.customeraccount='Student'
 this.subTeSubmission='Student exam submission'
 this.schoolgroup = 'Group'
 this.schoolyear='School Year'
+this.openingBalance='Opening balance'
 this.schoolclass='Class'
 this.studentattend='Student Attendance'
 this.changePassword = "Change password"

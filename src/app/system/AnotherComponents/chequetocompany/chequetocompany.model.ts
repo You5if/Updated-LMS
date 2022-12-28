@@ -20,6 +20,7 @@ constructor(
                 public dueDate: Date,
                 public customerId: number,
                 public customerAccountId: number,
+                public selectedBox: boolean,
                 public paymentToCompanyId: number,
         public entryMode: string,
         public active: boolean,

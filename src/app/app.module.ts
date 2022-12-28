@@ -379,6 +379,8 @@ import { ItemServiceEntry2Component } from "./system/GeneratedComponents01Apr/it
 import { ItemServiceEntryComponent } from "./system/GeneratedComponents01Apr/item/serviceen-entry/serviceen-entry.component";
 import { OtherInvoiceComponent } from "./system/AnotherComponents/Other-invoice/invoice.component";
 import { OtherInvoiceEntryComponent } from "./system/AnotherComponents/Other-invoice/invoice-entry/invoice-entry.component";
+import { accountOpenEntryComponent } from "./system/accountopen/accountopen-entry/accountopen-entry.component";
+import { accountOpenComponent } from "./system/accountopen/accountopen.component";
 
 
 
@@ -739,7 +741,9 @@ SubTeQueEntryComponent,
     ItemServiceEntry2Component,
     ItemServiceEntryComponent,
     OtherInvoiceEntryComponent,
-    OtherInvoiceComponent
+    OtherInvoiceComponent,
+    accountOpenComponent,
+    accountOpenEntryComponent,
 
     
     
@@ -967,6 +971,7 @@ SubTeQueEntryComponent,
     ItemServiceEntry2Component,
     ItemServiceEntryComponent,
     OtherInvoiceEntryComponent,
+    accountOpenEntryComponent,
     
     
   ]

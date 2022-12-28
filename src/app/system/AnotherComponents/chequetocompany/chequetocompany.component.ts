@@ -22,6 +22,7 @@ import { CheckforpassComponent } from './checkforpass/checkforpass.component';
 import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.component';
 import { MyFilterComponent } from '../../journalentry/operation/my-filter/my-filter.component';
 import { Direction } from '@angular/cdk/bidi';
+import { S } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-chequetocompany',
@@ -93,6 +94,8 @@ export class ChequeToCompanyComponent implements OnInit {
       }
 
   ngOnInit() {
+    this.selection.clear()
+    this.clickedRows.clear()
     if (this.role == '5') {
       this.displayedColumns = ['select','chequeNumber', 'amount'  , 'customerName', 'customerMobile1', 'dueDate', 'passFail', 'status'];
     }else {
@@ -112,8 +115,7 @@ export class ChequeToCompanyComponent implements OnInit {
   }
 
   refreshMe() {
-    this.selection.clear()
-    this.clickedRows.clear()
+
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
       this.header = "Cheque to"
@@ -146,6 +148,17 @@ export class ChequeToCompanyComponent implements OnInit {
     this._ui.loadingStateChanged.next(true);
     this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
       this._ui.loadingStateChanged.next(false);
+      for (let i = 0; i < result.length; i++) {
+          if (this.selection.isSelected(result[i])) {
+            // this.selection.toggle(row)
+            result[i].selectedBox = true
+            
+          }else {
+            result[i].selectedBox = false
+          }
+        
+        
+      }
       this.totalRecords = result[0].totalRecords;
       this.recordsPerPage = this.recordsPerPage;
       this.dataSource = new MatTableDataSource(result);
@@ -242,6 +255,17 @@ checkFail  (id: number) {
 
 }
 
+checkClicked(row: ChequeToCompanyModel) {
+  for (let i = 0; i < this.selection.selected.length; i++) {
+    if (this.selection.isSelected(row)) {
+      // this.selection.toggle(row)
+      // this.selection.selected[i].selectedBox = true
+      return true;
+    }
+    
+  }
+}
+
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -330,6 +354,17 @@ checkFail  (id: number) {
         this.pageData.filter).subscribe(
           (result: any) => {
             this._ui.loadingStateChanged.next(false);
+            for (let i = 0; i < result.length; i++) {
+              if (this.selection.isSelected(result[i])) {
+                // this.selection.toggle(row)
+                result[i].selectedBox = true
+                
+              }else {
+                result[i].selectedBox = false
+              }
+            
+            
+          }
             this.totalRecords = result[0].totalRecords;
             this.recordsPerPage = event.pageSize;
             this.dataSource = result;
@@ -364,8 +399,8 @@ checkFail  (id: number) {
     });
   };
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    var numSelected = this.selection.selected.length;
+    var numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
   masterToggle() {
@@ -389,12 +424,13 @@ checkFail  (id: number) {
     }
   }
 
-  onId(id: number, row:ChequeToCompanyModel) {
+  onId(row:ChequeToCompanyModel) {
+    console.log('Selected', this.selection.selected);
     
-    if (this.clickedRows.has(row)) {
-      this.clickedRows.delete(row)
+    if (this.selection.isSelected(row)) {
+      this.selection.deselect(row)
     }else {
-      this.clickedRows.add(row)
+      this.selection.select(row)
     }
 
   }

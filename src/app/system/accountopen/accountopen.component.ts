@@ -1,37 +1,52 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CommonService } from 'src/app/components/common/common.service';
 import { UIService } from 'src/app/components/shared/uiservices/UI.service';
 import { MessageBoxService } from 'src/app/components/messagebox/message-box.service';
 import { AuthService } from 'src/app/components/security/auth/auth.service';
-import { ChequeFromCompanyEntryComponent } from './chequetocompany-entry/chequetocompany-entry.component';
-import { ChequeToCompanyModel } from './chequetocompany.model';
+import { accountOpenEntryComponent } from './accountopen-entry/accountopen-entry.component';
+import { accountOpenModel } from './accountopen.model';
 import { RightModel } from 'src/app/components/security/auth/rights.model';
 import { RouterModule, Routes } from '@angular/router';
 import { PageSortComponent } from 'src/app/components/common/pageevents/page-sort/page-sort.component';
-import { ChequeToCompanyService } from './chequetocompany.service';
+import { accountOpenService } from './accountopen.service';
 import { SelectModel } from 'src/app/components/misc/SelectModel';
 import { SelectService } from 'src/app/components/common/select.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Direction } from '@angular/cdk/bidi';
+import { Send } from 'src/app/send.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AppGlobals } from 'src/app/app.global';
-
-import { Movetobank2Component } from './movetobank/movetobank.component';
-import { Checkforpass2Component } from './checkforpass/checkforpass.component';
-import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.component';
-import { MyFilterComponent } from '../../journalentry/operation/my-filter/my-filter.component';
-import { Direction } from '@angular/cdk/bidi';
+import { MySortComponent } from '../journalentry/operation/my-sort/my-sort.component';
+import { CompanyBankModel } from '../AnotherComponents/companybank/companybank.model';
+import { MyFilterComponent } from '../journalentry/operation/my-filter/my-filter.component';
 
 @Component({
-    selector: 'app-chequetocompany',
-    templateUrl: './chequetocompany.component.html',
-    styleUrls: ['./chequetocompany.component.scss']
+    selector: 'app-accountopen',
+    templateUrl: './accountopen.component.html',
+    styleUrls: ['./accountopen.component.scss']
   })
 
-export class ChequeFromCompanyComponent implements OnInit {
+export class accountOpenComponent implements OnInit {
 
-    displayedColumns: string[] = []
+  model!: Send;
+  idS! : number;
+  direction!: Direction;
+  customerCode!: string;
+  customerName!: string;
+  customerMobile!: string;
+  balance!: string;
+  edit!: string;
+  header!: string;
+  fiscalYearName!:string;
+  accountCode!:string;
+  accountName!:string;
+  amount!:string;
+  submit!: string;
+  cancel!: string;
+    displayedColumns: string[] =
+        ['fiscalYearName', 'accountCode', 'accountName', 'amount'];
 
     dataSource: any;
     isLastPage = false;
@@ -41,23 +56,6 @@ export class ChequeFromCompanyComponent implements OnInit {
     recordsPerPage: number;
     currentPageIndex: number;
     menuId: number;
-    chequeNumber!:string;
-    status!:string;
-    dueDate!:string;
-    passFail!: string
-    amount!:string;
-    currencyName!:string;
-    customerName!:string;
-    customerMobile1!:string;
-    header!: string;
-    direction! : Direction
-    indexes!: any[]
-    clickedRows = new Set<ChequeToCompanyModel>();
-    selection = new SelectionModel<ChequeToCompanyModel>(true, []);;
-
-    role = localStorage.getItem("role");
-    pageData: any
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     totalRecords!: number;
     pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -74,31 +72,33 @@ export class ChequeFromCompanyComponent implements OnInit {
         viewFlag: true
       };
 
+      pageData: any
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+   
+    clickedRows = new Set<accountOpenModel>();
+    selection = new SelectionModel<accountOpenModel>(true, []);;
+    indexes!: any[];
+
+
     constructor(
         public dialog: MatDialog,
         private _cf: CommonService,
+        private _globals: AppGlobals,
         private _ui: UIService,
         private _msg: MessageBoxService,
-        private _globals: AppGlobals,
         private _auth: AuthService,
         private _select: SelectService,
-        private chequetocompanyservice: ChequeToCompanyService
+        private accountopenservice: accountOpenService
       ) {
-        this.pTableName = 'ChequeFromCompany';
-        this.pScreenId = 61;
-        this.pTableId = 61;
+        this.pTableName = 'accountOpen';
+        this.pScreenId = 122;
+        this.pTableId = 122;
         this.recordsPerPage = 10;
         this.currentPageIndex = 1;
         this.menuId = 1019106011;
       }
 
   ngOnInit() {
-
-    if (this.role == '5') {
-      this.displayedColumns =['chequeNumber', 'amount', 'dueDate', 'passFail', 'status'];
-    }else {
-      this.displayedColumns =['chequeNumber', 'amount', 'dueDate', 'status'];
-    }
     this.pageData = {
       tableId: this.pTableId,
       userId: this._auth.getUserId(),
@@ -115,53 +115,53 @@ export class ChequeFromCompanyComponent implements OnInit {
   refreshMe() {
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
       this.direction = "ltr"
-      this.header = "Cheque from"
-      this.chequeNumber = "Cheque"
+      this.header = "Opening balance"
+      this.fiscalYearName = "Year"
+      this.accountCode = "Code"
+      this.accountName = "Name"
       this.amount = "Amount"
-      this.currencyName = "Currency"
-      this.customerName = "Customer"
-      this.customerMobile1 = "Contact"
-      this.dueDate = "Due"
-      this.passFail = "Pass/Fail"
-      this.status = "Status"
-     
-      
+      // this.accountCode = "Account Code"
+      // this.accountName = "Account Name"
+      // this.accountType = "Account Type"
+      this.balance = "Balance"
+      this.edit = "Edit"
+      this.submit = "Submit"
+      this.cancel = "Cancel"
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
       this.direction = "rtl"
-      this.header = "الشيكات من"
-      this.chequeNumber = "الشيك"
+      this.header = "الحساب الافتتاحي"
+      this.fiscalYearName = "السنة"
+      this.accountCode = "الرمز"
+      this.accountName = "الاسم"
       this.amount = "المبلغ"
-      this.currencyName = "العملة"
-      this.customerName = "العميل"
-      this.customerMobile1 = "الهاتف"
-      this.dueDate = "تاريخ الاستحقاق"
-      this.passFail = "نجاح/فشل"
-      this.status = "الحالة"
-      
-      
+      // this.accountCode = "رمز الحساب"
+      // this.accountName = "اسم الحساب"
+      // this.accountType = "نوع الحساب"
+      this.balance = "الحساب"
+      this.edit = "تعديل"
+      this.submit = "ارسال"
+      this.cancel = "الغاء"
     }
-    this.pageData.sort = this._cf.sortVar
-    this.pageData.filter = this._cf.filterVar
-    this._ui.loadingStateChanged.next(true);
-    this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
-      this._ui.loadingStateChanged.next(false);
-      this.totalRecords = result[0].totalRecords;
-      this.recordsPerPage = this.recordsPerPage;
-      this.dataSource = new MatTableDataSource(result);
-      this.indexes = result
-      console.log(result)
-    })
-    // this._cf.getPageData('ChequeFromCompany', this.pScreenId, this._auth.getUserId(), this.pTableId,
-    //   this.recordsPerPage, this.currentPageIndex, false).subscribe(
-    //     (result) => {
-    //       this.totalRecords = result[0].totalRecords;
-    //       this.recordsPerPage = this.recordsPerPage;
-    //       this.dataSource = new MatTableDataSource(result);
-    //       this.indexes = result
-    //       console.log(result);
-          
-    //     }
-    //   );
+    // this.pageData.sort = this._cf.sortVar
+    // this.pageData.filter = this._cf.filterVar
+    // this._ui.loadingStateChanged.next(true);
+    // this._cf.newGetPageData(this.pTableName, this.pageData).subscribe((result) => {
+    //   this._ui.loadingStateChanged.next(false);
+    //   this.totalRecords = result[0].totalRecords;
+    //   this.recordsPerPage = this.recordsPerPage;
+    //   this.dataSource = new MatTableDataSource(result);
+    //   this.indexes = result
+    //   console.log(result)
+    // })
+    this._cf.getPageData('accountOpen', this.pScreenId, this._auth.getUserId(), this.pTableId,
+      this.recordsPerPage, this.currentPageIndex, false).subscribe(
+        (result) => {
+          this.totalRecords = result[0].totalRecords;
+          this.recordsPerPage = this.recordsPerPage;
+          this.dataSource = new MatTableDataSource(result);
+          this.indexes = result
+        }
+      );
 
     this._auth.getScreenRights(this.menuId).subscribe((rights: RightModel) => {
       this.screenRights = {
@@ -176,6 +176,10 @@ export class ChequeFromCompanyComponent implements OnInit {
         viewFlag: true
       };
     });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   onClearSort() {
@@ -268,7 +272,7 @@ export class ChequeFromCompanyComponent implements OnInit {
           });
       // this._cf.getPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
       //   this.pTableId, this.totalRecords).subscribe(
-      //     (result: JournalEntryModel) => {
+      //     (result: any) => {
       //       this._ui.loadingStateChanged.next(false);
       //       this.totalRecords = result[0].totalRecords;
       //       this.recordsPerPage = event.pageSize;
@@ -278,77 +282,12 @@ export class ChequeFromCompanyComponent implements OnInit {
       //       this._msg.showAPIError(error);
       //       return false;
       //     });
-    } catch (error: any) {
+    } catch (error:any) {
       this._ui.loadingStateChanged.next(false);
       this._msg.showAPIError(error);
       return false;
     }
   }
-
-// onMoveToBank () {
-//   if (this.selection._selected != null && this.selection._selected !=  []) {
-//     var arr = []
-//     for (let i = 0; i < this.selection._selected.length; i++) {
-      
-//       if (this.selection._selected && !this.selection._selected[i].isMoved) {
-//         arr.push(this.selection._selected[i])
-//       }
-      
-//     }
-//     const dialogRef = this.dialog.open(Movetobank2Component, {
-//       disableClose: true,
-//       data: {
-//         selected: arr
-//       }
-//     });
-  
-//   dialogRef.afterClosed().subscribe(() => {
-//     this.refreshMe();
-//     this.selection.clear()
-//   });
-//   }
-
-// }
-checkPass  (id: number) {
-  
-    const dialogRef = this.dialog.open(Checkforpass2Component, {
-      disableClose: true,
-      data: {
-        id: id,
-        url: 'passcheque'
-      }
-    });
-  
-  dialogRef.afterClosed().subscribe(() => {
-    this.refreshMe();
-    this.selection.clear()
-  });
-  
-
-}
-checkFail(id: number) {
-  
-    const dialogRef = this.dialog.open(Checkforpass2Component, {
-      disableClose: true,
-      data: {
-        id: id,
-        url: 'failcheque'
-      }
-    });
-  
-  dialogRef.afterClosed().subscribe(() => {
-    this.refreshMe();
-    this.selection.clear()
-  });
-  
-
-}
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
- 
 
   onSort  () {
     const dialogRef = this.dialog.open(PageSortComponent, {
@@ -356,33 +295,71 @@ checkFail(id: number) {
       data: this.pTableId
     });
   };
+
+  onAdd  () {
+    this.model = {
+      tableId: 112,
+      recordId: 0,
+      userId: Number(this._auth.getUserId()),
+      roleId: 2,
+      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+    };
+    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add");
+    }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة");
+    }
+    
+    this.openEntry2(this.model);
+  };
+
+
+  onView = (id: number) => {
+    // this._ui.loadingStateChanged.next(true);
+    // this.accountopenservice.getaccountOpenEntry(id).subscribe((result: accountOpenModel) => {
+    //   this._ui.loadingStateChanged.next(false);
+    //   result.entryMode = 'V';
+    //   result.readOnly = true;
+    //   this.openEntry(result);
+    // });
+  }
+
+  onEdit = (id: number) => {
+    this.model = {
+      tableId: 112,
+      recordId: id,
+      userId: Number(this._auth.getUserId()),
+      roleId: Number(localStorage.getItem('role')),
+      languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
+    };
+    if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit bank");
+    }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل بنك");
+    }
+    
+    this.openEntry2(this.model)
+  }
+
+  onDelete = function(id: number) {
+      
+  };
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
   masterToggle() {
-    var num = 0
-    console.log(this.indexes.length);
-    
-    for (let i = 0; i < this.indexes.length; i++) {
-        
-        if (this.indexes && this.indexes[i].isMoved) {
-         num ++
-        }
-        
-      }
-    if (num != this.indexes.length) {
-      this.isAllSelected() ?
+    this.isAllSelected() ?
         (this.selection.clear() ,this.clickedRows.clear()):
         (this.selection.clear(), this.dataSource.data.forEach((row:any) => {this.selection.select(row); if (!this.clickedRows.has(row)) {
 
           this.clickedRows.add(row)
         }}))
-    }
   }
 
-  onId(id: number, row:ChequeToCompanyModel) {
+  onId(id: number, row:accountOpenModel) {
     
     if (this.clickedRows.has(row)) {
       this.clickedRows.delete(row)
@@ -392,68 +369,36 @@ checkFail(id: number) {
 
   }
 
-  // onAdd = function () {
-  //   const result: ChequeToCompanyModel = {
-      
-  //     'chequeToCompanyId': 0,
-  //     'chequeNumber': '',
-  //     'chequeType': 0,
-  //     'currency': 0,
-  //     'amount': 0,
-  //     'fromCheque': 0,
-  //     'toCheque': 0,
-  //     'bankListId': 0,
-  //     'chequeName': '',
-  //     'description': '',
-  //     'companyBankBranchAccountId': 0,
-  //     'dueDate': new Date(),
-  //     'customerId': 0,
-  //     'customerAccountId': 0,
-  //     'paymentToCompanyId': 0,
-  //     'auditColumns': null,
-  //     'entryMode': 'A',
-  //     'active': true,
-  //     'readOnly': false
-  //   };
-  //   this.openEntry(result);
+  // openEntry = function (result: accountOpenModel) {
+  //   if (result === undefined) {
+  //     this.dialogRef = this.dialog.open(accountOpenEntryComponent, {
+  //       disableClose: true,
+  //       data: {}
+  //     });
+  //   } else {
+  //     this.dialogRef = this.dialog.open(accountOpenEntryComponent, {
+  //       disableClose: false,
+  //       data: result
+  //     });
+  //   }
+  //   this.dialogRef.afterClosed().subscribe(() => {
+  //     this.refreshMe();
+  //   });
   // };
-
-  onView = (id: number) => {
-    this._ui.loadingStateChanged.next(true);
-    this.chequetocompanyservice.getChequeToCompanyEntry(id).subscribe((result: ChequeToCompanyModel) => {
-      this._ui.loadingStateChanged.next(false);
-      result.entryMode = 'V';
-      result.readOnly = true;
-      this.openEntry(result);
-    });
-  }
-
-  onEdit = (id: number) => {
-    this._ui.loadingStateChanged.next(true);
-    this.chequetocompanyservice.getChequeToCompanyEntry(id).subscribe((result: ChequeToCompanyModel) => {
-      this._ui.loadingStateChanged.next(false);
-      result.entryMode = 'E';
-      result.readOnly = false;
-      this.openEntry(result);
-    });
-  }
-
-  onDelete = function(id: number) {
-      
-  };
-
-  openEntry  (result: ChequeToCompanyModel) {
+  openEntry2  (result: Send) {
     if (result === undefined) {
-      const dialogRef = this.dialog.open(ChequeFromCompanyEntryComponent, {
+      const dialogRef = this.dialog.open(accountOpenEntryComponent, {
         disableClose: true,
+        
         data: {}
       });
       dialogRef.afterClosed().subscribe(() => {
         this.refreshMe();
       });
     } else {
-      const dialogRef = this.dialog.open(ChequeFromCompanyEntryComponent, {
-        disableClose: false,
+      const dialogRef = this.dialog.open(accountOpenEntryComponent, {
+        disableClose: true,
+        
         data: result
       });
       dialogRef.afterClosed().subscribe(() => {

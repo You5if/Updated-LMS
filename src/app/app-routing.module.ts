@@ -116,6 +116,7 @@ import { ServiceEnComponent } from "./system/GeneratedComponents01Apr/serviceen/
 import { FeesComponent } from "./system/reports/fees/financial.component";
 import { ItemServiceComponent } from "./system/GeneratedComponents01Apr/item/serviceen.component";
 import { OtherInvoiceComponent } from "./system/AnotherComponents/Other-invoice/invoice.component";
+import { accountOpenComponent } from "./system/accountopen/accountopen.component";
 
 
 const routes: Routes = [
@@ -223,7 +224,8 @@ const routes: Routes = [
       //   { path: "ProductStock", component: ProductStockComponent},
         { path: "FinancialReports", component: FinancialComponent},
         { path: "FinancialReportsPage", component: ReportPageComponent},
-        { path: "FeesReports", component: FeesComponent}
+        { path: "FeesReports", component: FeesComponent},
+        { path: "OpeningBalance", component: accountOpenComponent},
       ] },
       
       //  { path: 'dohinv', component: InventoriesComponent },

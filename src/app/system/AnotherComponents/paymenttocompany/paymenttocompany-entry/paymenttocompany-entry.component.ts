@@ -344,6 +344,7 @@ export class PaymentToCompanyEntryComponent implements OnInit {
         
         if(localStorage.getItem(this._globals.baseAppName + '_Add&Edit2') == "Edit") {
           this.onChangePaymentTypeEdit(+this.data[3].value)
+          this.onGetInvoiceBalance(Number(this.data[10].value))
           if(this.data.length > 0) {
     
             this.dapiService.getChild1ItembyChild1(+this.data[0].value).subscribe((res) => {

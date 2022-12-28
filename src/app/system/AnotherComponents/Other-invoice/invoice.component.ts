@@ -68,7 +68,7 @@ export class OtherInvoiceComponent implements OnInit {
     currentPageIndex: number;
     menuId: number;
     indexes!: any[]
-    forFilter: string = "ProductCategoryId = 11"
+    forFilter: string = "ProductCategoryId = 12"
     report!:string;
     delete!: string;
 
@@ -162,10 +162,10 @@ export class OtherInvoiceComponent implements OnInit {
     
     this.pageData.sort = this._cf.sortVar
     if (this._cf.filterVar != '') {
-      this.pageData.filter = "ProductCategoryId = 11" + ' ' + 'and' + ' ' + this._cf.filterVar
+      this.pageData.filter = "ProductCategoryId = 12" + ' ' + 'and' + ' ' + this._cf.filterVar
     }else {
 
-      this.pageData.filter = "ProductCategoryId = 11"
+      this.pageData.filter = "ProductCategoryId = 12"
     }
 
     this._ui.loadingStateChanged.next(true);
@@ -224,7 +224,7 @@ export class OtherInvoiceComponent implements OnInit {
   }
   
   onClearFilter() {
-    this.pageData.filter = "ProductCategoryId = 9"
+    this.pageData.filter = "ProductCategoryId = 12"
     // this.invoiceservice.setSort("")
     this._cf.setFilter("")
     this._ui.loadingStateChanged.next(true);

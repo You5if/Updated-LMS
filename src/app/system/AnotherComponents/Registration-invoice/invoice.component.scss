@@ -17,6 +17,11 @@
     }
   }
 }
+.testScroll {
+  width: 100%;
+  overflow: hidden;
+  overflow-x: scroll;
+}
 .sec {
   width: 100%;
   display: flex;

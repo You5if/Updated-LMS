@@ -41,8 +41,10 @@ export class FeesComponent implements OnInit {
   fromDate!: string;
   parentId1!:number;
   studentId!:number;
+  studentId2!:number;
   yearId!:number;
   classId!:number;
+  classId2!:number;
   groupId!:number;
   fromDateTech:string = ''
   toDateTech:string = ''
@@ -198,6 +200,30 @@ export class FeesComponent implements OnInit {
       console.log(restOfUrl)
     }
   }
+  onClassReport(id:any) {
+    if(id > 0) {
+      let reportId: number = 15;
+      let restOfUrl: string;
+      restOfUrl = 'class=' + id;
+      this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl });
+      this.router.navigate(['System/FinancialReportsPage']);
+      // this.router.navigate([]).then(result => {  window.open(this._globals.baseAppUrl + '#/report'); });
+      // window.open('#/report', '_blank');
+      console.log(restOfUrl)
+    }
+  }
+  onStudent2Report(id:any) {
+    if(id > 0) {
+      let reportId: number = 16;
+      let restOfUrl: string;
+      restOfUrl = 'student=' + id;
+      this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl });
+      this.router.navigate(['System/FinancialReportsPage']);
+      // this.router.navigate([]).then(result => {  window.open(this._globals.baseAppUrl + '#/report'); });
+      // window.open('#/report', '_blank');
+      console.log(restOfUrl)
+    }
+  }
   onGroupReport(yearId:any, classId:any, groupId:any ) {
     if(groupId > 0) {
       let reportId: number = 14;
@@ -249,6 +275,14 @@ export class FeesComponent implements OnInit {
         this.classId,
         this.groupId
         
+      );
+    }else if (type == '15') {
+      this.onClassReport(
+        this.classId2
+      );
+    }else if (type == '16') {
+      this.onStudent2Report(
+        this.studentId2
       );
     }
     // this.onReport(

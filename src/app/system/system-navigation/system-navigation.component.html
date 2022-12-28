@@ -38,6 +38,7 @@
         <li routerLink="JournalEntry" *ngIf="role === '6' || role === '2'" routerLinkActive="is-active" class="side_list_item"><mat-icon>library_books</mat-icon><div class="title"> {{journal}}</div></li>
         <!-- <li (click)="onClickListItem('JD')" class="side_list_item"><mat-icon>library_books</mat-icon><div class="title"> Journal Dynamic</div></li> -->
         <li *ngIf="role === '2'" routerLink="Expense" routerLinkActive="is-active"  class="side_list_item"><mat-icon> local_atm</mat-icon><div class="title"> {{expense}}</div></li>
+        <li *ngIf="role === '2' || role === '6'" routerLink="OpeningBalance" routerLinkActive="is-active"  class="side_list_item"><mat-icon> account_box</mat-icon><div class="title"> {{openingBalance}}</div></li>
         <mat-divider *ngIf="role === '6' || role === '2'|| role === '9'"></mat-divider>
         <h3 class="main_title" *ngIf="role === '6' || role === '2'|| role === '9' ">{{config}}</h3>
         <li *ngIf="role === '2'" routerLink="Tax" routerLinkActive="is-active" class="side_list_item"><mat-icon>receipt</mat-icon><div class="title"> {{tax}}</div></li>
@@ -54,8 +55,8 @@
         <li *ngIf="role === '2' || role === '9'" routerLink="studsubj" routerLinkActive="is-active" class="side_list_item"><mat-icon> vpn_key</mat-icon><div class="title">{{studsubj}}</div></li>
         <li *ngIf="role === '2' || role === '9'" routerLink="classsubject" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{classsubject}}</div></li>
         <li *ngIf="role === '2'" routerLink="subjectoutline" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-book"></i><div class="title">{{subjectoutline}}</div></li>
-        <mat-divider *ngIf="role === '2' || role === '3' || role === '5' || role === '7'   || role === '4' || role === '5'"></mat-divider>
-        <h3 *ngIf="role === '2' || role === '3' || role === '5' || role === '7'   || role === '4' || role === '5'" class="main_title">{{registration}}</h3>
+        <mat-divider *ngIf="role === '2' || role === '3' || role === '5' || role === '7'   || role === '4' || role === '8' || role === '11'"></mat-divider>
+        <h3 *ngIf="role === '2' || role === '3' || role === '5' || role === '7'   || role === '4' || role === '5'|| role === '8' || role === '11'" class="main_title">{{registration}}</h3>
         <li *ngIf="role === '2' || role === '7'" routerLink="Customer" routerLinkActive="is-active" class="side_list_item"><mat-icon>group</mat-icon><div class="title">{{customer}}</div></li>
         <li *ngIf="role === '2' || role === '7'" routerLink="customeraccount" routerLinkActive="is-active" class="side_list_item"><mat-icon>group</mat-icon><div class="title">{{customeraccount}}</div></li>
         <!-- <li (click)="onClickListItem('S3')" class="side_list_item"><mat-icon>Student</mat-icon><div class="title">{{Student}}</div></li> -->
@@ -63,7 +64,7 @@
         <li *ngIf="role === '2' || role === '7'" routerLink="RegistrationInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{rInvoice}}</div></li>
         <li *ngIf="role === '2' || role === '9'" routerLink="RegistrationInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{rInvoice}}</div></li>
         <li *ngIf="role === '2' || role === '8'" routerLink="TransportInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{tInvoice}}</div></li>
-        <li *ngIf="role === '2' || role === '8'" routerLink="OtherInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{oInvoice}}</div></li>
+        <li *ngIf="role === '2' || role === '11'" routerLink="OtherInvoice" routerLinkActive="is-active" class="side_list_item"><mat-icon>description</mat-icon><div class="title">{{oInvoice}}</div></li>
         <li *ngIf="role === '2' || role === '3' || role === '5'" routerLink="PaymentToCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentToCompany}}</div></li>
         <li *ngIf="role === '2' || role === '4' || role === '5'" routerLink="PaymentFromCompany" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-bill-wave"></i><div class="title">{{paymentFromCompany}}</div></li>
         <li *ngIf="role === '2' || role === '3' || role === '5'" routerLink="cheque" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-money-check-alt"></i><div class="title">{{cheque}}</div></li>
