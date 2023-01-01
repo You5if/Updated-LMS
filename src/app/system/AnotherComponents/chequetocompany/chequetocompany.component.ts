@@ -348,6 +348,8 @@ checkClicked(row: ChequeToCompanyModel) {
       this.pageData.sort = this._cf.sortVar
       this.pageData.filter = this._cf.filterVar
       this.pageData.recordsPerPage = event.pageSize
+      this.selection.clear()
+    this.clickedRows.clear()
       this._cf.newGetPageDataOnPaginatorOperation(event, this.pTableName, this.pScreenId, this._auth.getUserId(),
         this.pTableId, this.totalRecords,
         this.pageData.sort,
@@ -424,13 +426,12 @@ checkClicked(row: ChequeToCompanyModel) {
     }
   }
 
-  onId(row:ChequeToCompanyModel) {
-    console.log('Selected', this.selection.selected);
+  onId(id: number, row:ChequeToCompanyModel) {
     
-    if (this.selection.isSelected(row)) {
-      this.selection.deselect(row)
+    if (this.clickedRows.has(row)) {
+      this.clickedRows.delete(row)
     }else {
-      this.selection.select(row)
+      this.clickedRows.add(row)
     }
 
   }

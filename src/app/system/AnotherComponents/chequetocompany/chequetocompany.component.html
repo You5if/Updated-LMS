@@ -54,8 +54,8 @@
         </mat-header-cell>
          <mat-cell  class="cbPad" *matCellDef="let row; let i = index">
           <mat-checkbox *ngIf="!row.isFinalized && !row.isMoved" (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null; onId(row); checkClicked(row)"
-                      [checked]="row.selectedBox">
+                      (change)="$event ? selection.toggle(row) : null; onId(i,row)"
+                      [checked]="selection.isSelected(row)">
         </mat-checkbox>
   
         </mat-cell>
@@ -120,7 +120,7 @@
 
     <mat-header-row class="headerRow" *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 
-    <mat-row *matRowDef="let row; columns: displayedColumns;"  class="rowR" [class.active]="checkClicked(row)" ></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"  class="rowR" [class.active]="clickedRows.has(row)" ></mat-row>
 
   </mat-table>
 

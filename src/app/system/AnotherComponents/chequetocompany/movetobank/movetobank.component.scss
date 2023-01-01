@@ -69,8 +69,17 @@
   color: white;
   background: #20bf6b;
 }
+.selectedText {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  width: 100%;
+}
 .tools {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
 }

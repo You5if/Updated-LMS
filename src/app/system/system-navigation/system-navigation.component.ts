@@ -140,6 +140,8 @@ subteorder!:string;
   generalAdiminitration!: string;
   financialReports!: string;
   feesReports!: string;
+  userName!: string;
+  userEmail!: string;
 
   constructor(private _globals: AppGlobals,
     public dialog: MatDialog,
@@ -150,6 +152,8 @@ subteorder!:string;
 
 
 ngOnInit(): void {
+  this.userName = this._auth.getUserName();
+  this.userEmail = this._auth.getUniqueName();
   this.titleService.setTitle("LMS - System");
   this.role = localStorage.getItem("role");
   console.log(this.role);
@@ -349,6 +353,10 @@ var btns = header!.getElementsByClassName("side_list_item");
 
 onToggle() {
   this.break = !this.break
+}
+
+onClickHome() {
+  this.router.navigate(['/System/Home']);
 }
   
   onClickListItem(event: string) {

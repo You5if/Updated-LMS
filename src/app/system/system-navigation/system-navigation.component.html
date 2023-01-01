@@ -13,11 +13,15 @@
               <!-- [resizeEdges]="{right: true}" -->
     <div fxLayout class="logo_container">
       
-        <div class="user" routerLink="Home">
-          <img  class="user_img" src="../../../assets/images/svg/user (1).png" alt="">
-          
-          
+      <div class="user" (click)="onClickHome()" fxLayout="column" fxLayoutGap="8px">
+        <img  class="user_img"  alt="">
+        <div class="nameBox">
+          <p class="nameFont">{{userName}} Shah</p>
+        <p class="nameFont2">{{userEmail}}</p>
         </div>
+        
+        
+      </div>
       
       <div  fxFlex fxLayout fxLayoutAlign="flex-start">
         <button class="toggle_btn3" type="button"  mat-icon-button (click)="drawer.toggle(); onToggle()">

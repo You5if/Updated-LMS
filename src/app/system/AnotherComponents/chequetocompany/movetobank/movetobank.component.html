@@ -7,8 +7,15 @@
     <img (click)="onCancel()" class="cancel_Img" src="../../../../assets/images/svg/close.png" alt="">
   </div>
   
-  <div class="tools" [dir]="direction">
-  
+  <div class="tools" [dir]="direction" fxLayoutGap="10px">
+
+
+    <div *ngIf="direction == 'ltr'" class="selectedText">
+      Move {{pModel.selected.length}} cheque<div *ngIf="pModel.selected.length > 1">s </div>
+    </div>
+    <div *ngIf="direction == 'rtl'" class="selectedText">
+      نقل {{pModel.selected.length}} شيك
+    </div>
     <mat-form-field appearance="fill">
       <mat-label>{{bankAccount}}</mat-label>
       <mat-select
