@@ -640,14 +640,28 @@ elemSource = new MatTableDataSource(this.elem);
   onSubmit () {
     var allC: number = 0
         var allD: number = 0
+        var accNotSelected: number = 0
+        var dcValidation: number = 0
       for (let a = 0; a < this.elem.length; a++) {
         const element = this.elem[a];
         
         allD += +element.debit1
         allC += +element.credit1
+
+        if (element.accountId1 == 2) {
+          accNotSelected++
+        }
+
+        if (!((element.debit1 == 0 && element.credit1 > 0) || (element.credit1 == 0 && element.debit1 > 0) )) {
+          dcValidation ++
+        }
         
         
       }
+      console.log(dcValidation);
+      
+   if (accNotSelected == 0) {
+    if (dcValidation == 0) {
       if (allD === allC) {
         // console.log("===");
         console.log(this.elem);
@@ -682,19 +696,19 @@ elemSource = new MatTableDataSource(this.elem);
     }
     
     
-
+  
       // form.journalEntryId = this.pModel.journalEntryId;
       // form = this.pModel;
       this._ui.loadingStateChanged.next(true);
-
+  
       // if (this.validateForm(form) !== true) {
       //     this._ui.loadingStateChanged.next(false);
       //     return false;
       // }
-
+  
       // form.auditColumns = this._auth.getAuditColumns();
       // form.entryMode = this.pModel.entryMode;
-
+  
       try {
           // Calling the service(api) to submit the data
           this._myService.getJournalEntrySubmit(this.pModel)!.subscribe((result: APIResultModel) => {
@@ -748,6 +762,12 @@ elemSource = new MatTableDataSource(this.elem);
         this.alertify.error("Debits doesn't equal Credits")
         
       }
+    }else {
+      this.alertify.error("Debit can't equal Credit in the same line")
+    }
+   }else {
+    this.alertify.error("Account is not selected")
+   }
     
   };
 

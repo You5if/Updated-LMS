@@ -28,7 +28,7 @@ export class accountOpenService {
 
    // Get entry method of the model, which fethces data based on provided id (int)
    getaccountOpenEntry(id: number): Observable<accountOpenModel> {
-      return this.httpClient.get<accountOpenModel>(this._globals.baseAPIUrl + 'accountOpen/' + id).pipe(
+      return this.httpClient.get<accountOpenModel>(this._globals.baseAPIUrl + 'sysOpenBal/' + id).pipe(
       map((result: accountOpenModel) => {
       return result;
       }), catchError(this._cf.handleError)
@@ -49,7 +49,7 @@ export class accountOpenService {
 
           // Case A is for adding a new record
           case 'A': {
-          return this.http.post(this._globals.baseAPIUrl + 'accountOpen/create', data, this._cf.requestOptions()).pipe(
+          return this.http.post(this._globals.baseAPIUrl + 'sysOpenBal/create', data, this._cf.requestOptions()).pipe(
           map((response: Response) => {
           return response.json();
           }), catchError(this._cf.handleError));
@@ -57,7 +57,7 @@ export class accountOpenService {
 
           // Case E is for editing an existing record
           case 'E': {
-          return this.http.post(this._globals.baseAPIUrl + 'accountOpen/edit', data, this._cf.requestOptions()).pipe(
+          return this.http.post(this._globals.baseAPIUrl + 'sysOpenBal/edit', data, this._cf.requestOptions()).pipe(
           map((response: Response) => {
           return response.json();
           }), catchError(this._cf.handleError));
@@ -65,7 +65,7 @@ export class accountOpenService {
 
           // Case D is for deleting a record
           case 'D': {
-          return this.http.post(this._globals.baseAPIUrl + 'accountOpen/delete', data, this._cf.requestOptions()).pipe(
+          return this.http.post(this._globals.baseAPIUrl + 'sysOpenBal/delete', data, this._cf.requestOptions()).pipe(
           map((response: Response) => {
           return response.json();
           }), catchError(this._cf.handleError));

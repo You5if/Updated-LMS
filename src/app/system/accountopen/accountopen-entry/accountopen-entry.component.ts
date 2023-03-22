@@ -15,6 +15,7 @@ import { Sources } from 'src/app/source.model';
 import { accountOpenEntryService } from './accountopen-entry.service';
 import { Direction } from '@angular/cdk/bidi';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AlertifyService } from 'src/app/alertify.service';
 
 @Component({
   selector: 'app-accountopen-entry',
@@ -27,7 +28,7 @@ export class accountOpenEntryComponent implements OnInit {
 	url!: string;
 
     model: Send = {
-      tableId: 122,
+      tableId: 123,
       recordId: 0,
       userId: +this._auth.getUserId(),
       roleId: Number(localStorage.getItem('role')),
@@ -91,6 +92,7 @@ export class accountOpenEntryComponent implements OnInit {
       private _msg: MessageBoxService,
       private _auth: AuthService,
       private _globals: AppGlobals,
+      private alertify: AlertifyService,
       private _select: SelectService,
       private dialogRef: MatDialogRef<accountOpenEntryComponent>,
       @Inject(MAT_DIALOG_DATA) public pModel: Send
@@ -145,7 +147,9 @@ export class accountOpenEntryComponent implements OnInit {
   }
 
   onSubmit() {
-    this.data.forEach((Object)=> this.light.forEach((obj)=>
+    if (this.data[1].value != "0") {
+      if ((Number(this.data[2].value) == 0 && Number(this.data[3].value) > 0) || (Number(this.data[3].value) == 0 && Number(this.data[2].value) > 0) ) {
+        this.data.forEach((Object)=> this.light.forEach((obj)=>
     {
       if(Object.tableColumnId === obj.tableColumnId){
         Object.value = obj.value
@@ -159,51 +163,64 @@ export class accountOpenEntryComponent implements OnInit {
        }
      }
 
+    //  console.log(this.last);
+     
+
+        
           if(this.last.records[0].entryMode == "A"){
-           this.last.auditColumn = this._auth.getAuditColumns();
-           this.dapiService.EntryA(this.last).subscribe(nexto => {
-             this.res = nexto;
-             if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-              this._msg.showInfo("Message", "saved succesfully");
-            this.dialogRef.close();
-            }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-              this._msg.showInfo("رسالة", "تم الحفظ بنجاح");
-            this.dialogRef.close();
-            }
-     
-           }, error => {
-             console.log(error);
-             if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-              this._msg.showInfo("Message", "Error!!");
-            this.dialogRef.close();
-            }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-              this._msg.showInfo("رسالة", "توجد مشكلة");
-            this.dialogRef.close();
-            }
-           });
-         }else if(this.last.records[0].entryMode == "E"){
-           this.last.auditColumn = this._auth.getAuditColumns();
-           this.dapiService.EntryE(this.last).subscribe(nexto => {
-             this.res = nexto;
-             if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-              this._msg.showInfo("Message", "saved succesfully");
-            this.dialogRef.close();
-            }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-              this._msg.showInfo("رسالة", "تم الحفظ بنجاح");
-            this.dialogRef.close();
-            }
-     
-           }, error => {
-             if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-              this._msg.showInfo("Message", "Error!!");
-            this.dialogRef.close();
-            }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-              
-              this._msg.showInfo("خطأ!!", "توجد مشكلة");
-            this.dialogRef.close();
-            }
-           });
-         }
+            this.last.auditColumn = this._auth.getAuditColumns();
+            this.dapiService.EntryA(this.last).subscribe(nexto => {
+              this.res = nexto;
+              if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+               this._msg.showInfo("Message", "saved succesfully");
+             this.dialogRef.close();
+             }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+               this._msg.showInfo("رسالة", "تم الحفظ بنجاح");
+             this.dialogRef.close();
+             }
+      
+            }, error => {
+              console.log(error);
+              if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+               this._msg.showInfo("Message", "Error!!");
+             this.dialogRef.close();
+             }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+               this._msg.showInfo("رسالة", "توجد مشكلة");
+             this.dialogRef.close();
+             }
+            });
+          }else if(this.last.records[0].entryMode == "E"){
+            this.last.auditColumn = this._auth.getAuditColumns();
+            this.dapiService.EntryE(this.last).subscribe(nexto => {
+              this.res = nexto;
+              if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+               this._msg.showInfo("Message", "saved succesfully");
+             this.dialogRef.close();
+             }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+               this._msg.showInfo("رسالة", "تم الحفظ بنجاح");
+             this.dialogRef.close();
+             }
+      
+            }, error => {
+              if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
+               this._msg.showInfo("Message", "Error!!");
+             this.dialogRef.close();
+             }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
+               
+               this._msg.showInfo("خطأ!!", "توجد مشكلة");
+             this.dialogRef.close();
+             }
+            });
+          }
+      }else {
+        this.alertify.error("Check Debit and Credit!")
+      }
+    
+        }else {
+          this.alertify.error("Account is not selected")
+        }
+
+
       }
 
       onParent() {}

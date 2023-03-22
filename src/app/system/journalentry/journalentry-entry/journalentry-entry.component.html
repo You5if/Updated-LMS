@@ -144,7 +144,54 @@
                                   <div fxLayout="column" fxLayoutGap="10px">
                                     <div fxLayout.gt-sm fxLayout.lt-md="column" fxLayoutGap="10px">
                                       
-                                        <mat-form-field  class="dWidth">
+                                        <mat-form-field  class="dWidth2">
+                                          <mat-label>{{reference}}</mat-label>
+                                          <input class="inp" [ngModelOptions]="{standalone: true}"   matInput   [placeholder]="reference" type="text" [value]="elem[i].reference"  [(ngModel)] = "elem[i].reference" [readonly]= "elem[i].readOnly"  >
+                                        </mat-form-field>
+                                        
+                                     
+                                      <mat-form-field  class="dWidth2" >
+                                        <mat-label>{{narration}}</mat-label>
+                                        <input class="inp"  [ngModelOptions]="{standalone: true}" class="description"  matInput  [placeholder]="narration" type="textArea" [value]="elem[i].narration"   [(ngModel)] = "elem[i].narration" [readonly]= "elem[i].readOnly"  >
+                                      </mat-form-field>
+                                      <!-- <mat-form-field  class="dWidth">
+                                        <mat-label>{{company}}</mat-label>
+                                        <mat-select [(ngModel)]="elem[i].sysCompanyId1" [ngModelOptions]="{standalone: true}">
+                                          <mat-option *ngFor="let type of companys" [value]="type.id">
+                                            {{type.name}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field> -->
+                                     
+                                    <!-- <mat-form-field>
+                                      <mat-label>account</mat-label>
+                                      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="elem[i].accountId1" [value]="value.accountId1" appearance="outline" matInput  type="number">
+                                    </mat-form-field> -->
+                                    <!-- <mat-form-field >
+                                      <mat-label>{{acc}}</mat-label>
+                                      <mat-select [(ngModel)]="elem[i].accountId1" (selectionChange)="onChangeAccount1($event.value, i)" [ngModelOptions]="{standalone: true}">
+                                        <mat-option *ngFor="let type of accountType" [value]="type.id">
+                                          {{type.name}}
+                                        </mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+                  
+                                    <mat-form-field class="dWidth">
+                                      <mat-label>{{debit}}</mat-label>
+                                      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="elem[i].debit1" [value]="value.debit1" matInput  type="textbox"
+                                      placeholder="Number"
+                                      appIsDecimalDirective>
+                                    </mat-form-field>
+                                    <mat-form-field class="dWidth">
+                                      <mat-label>{{credit}}</mat-label>
+                                      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="elem[i].credit1" [value]="value.credit1"   matInput  type="textbox"
+                                      placeholder="Number"
+                                      appIsDecimalDirective>
+                                    </mat-form-field> -->
+                                    </div>
+                                    <div fxLayout.gt-sm fxLayout.lt-md="column" fxLayoutGap="10px">
+                                      
+                                        <!-- <mat-form-field  class="dWidth">
                                           <mat-label>{{reference}}</mat-label>
                                           <input class="inp" [ngModelOptions]="{standalone: true}"   matInput   [placeholder]="reference" type="text" [value]="elem[i].reference"  [(ngModel)] = "elem[i].reference" [readonly]= "elem[i].readOnly"  >
                                         </mat-form-field>
@@ -153,7 +200,7 @@
                                       <mat-form-field  class="dWidth" >
                                         <mat-label>{{narration}}</mat-label>
                                         <input class="inp"  [ngModelOptions]="{standalone: true}" class="description"  matInput  [placeholder]="narration" type="textArea" [value]="elem[i].narration"   [(ngModel)] = "elem[i].narration" [readonly]= "elem[i].readOnly"  >
-                                      </mat-form-field>
+                                      </mat-form-field> -->
                                       <!-- <mat-form-field  class="dWidth">
                                         <mat-label>{{company}}</mat-label>
                                         <mat-select [(ngModel)]="elem[i].sysCompanyId1" [ngModelOptions]="{standalone: true}">

@@ -46,7 +46,7 @@ export class JournalEntryComponent implements OnInit {
   opC: boolean = true
 
     displayedColumns: string[] =
-        ['select','code','EntryDate', 'amount', 'ref', 'currency', 'state', 'report'];
+        ['code','EntryDate', 'amount', 'ref', 'currency', 'state', 'report'];
 
     dataSource: any;
     isLastPage = false;

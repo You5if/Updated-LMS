@@ -46,7 +46,7 @@ export class accountOpenComponent implements OnInit {
   submit!: string;
   cancel!: string;
     displayedColumns: string[] =
-        ['fiscalYearName', 'accountCode', 'accountName', 'amount'];
+        [ 'accountName','accountCode', 'amount'];
 
     dataSource: any;
     isLastPage = false;
@@ -90,9 +90,9 @@ export class accountOpenComponent implements OnInit {
         private _select: SelectService,
         private accountopenservice: accountOpenService
       ) {
-        this.pTableName = 'accountOpen';
-        this.pScreenId = 122;
-        this.pTableId = 122;
+        this.pTableName = 'sysOpenBal';
+        this.pScreenId = 123;
+        this.pTableId = 123;
         this.recordsPerPage = 10;
         this.currentPageIndex = 1;
         this.menuId = 1019106011;
@@ -117,9 +117,9 @@ export class accountOpenComponent implements OnInit {
       this.direction = "ltr"
       this.header = "Opening balance"
       this.fiscalYearName = "Year"
-      this.accountCode = "Code"
+      this.accountCode = "Debit"
       this.accountName = "Name"
-      this.amount = "Amount"
+      this.amount = "Credit"
       // this.accountCode = "Account Code"
       // this.accountName = "Account Name"
       // this.accountType = "Account Type"
@@ -153,7 +153,7 @@ export class accountOpenComponent implements OnInit {
     //   this.indexes = result
     //   console.log(result)
     // })
-    this._cf.getPageData('accountOpen', this.pScreenId, this._auth.getUserId(), this.pTableId,
+    this._cf.getPageData('sysOpenBal', this.pScreenId, this._auth.getUserId(), this.pTableId,
       this.recordsPerPage, this.currentPageIndex, false).subscribe(
         (result) => {
           this.totalRecords = result[0].totalRecords;
@@ -298,16 +298,16 @@ export class accountOpenComponent implements OnInit {
 
   onAdd  () {
     this.model = {
-      tableId: 112,
+      tableId: 123,
       recordId: 0,
       userId: Number(this._auth.getUserId()),
       roleId: 2,
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Add opening balance");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "اضافة رصيد افتتاحي");
     }
     
     this.openEntry2(this.model);
@@ -326,16 +326,16 @@ export class accountOpenComponent implements OnInit {
 
   onEdit = (id: number) => {
     this.model = {
-      tableId: 112,
+      tableId: 123,
       recordId: id,
       userId: Number(this._auth.getUserId()),
       roleId: Number(localStorage.getItem('role')),
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
     if(localStorage.getItem(this._globals.baseAppName + '_language') == "16001") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit bank");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "Edit opening balance");
     }else if(localStorage.getItem(this._globals.baseAppName + '_language') == "16002") {
-      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل بنك");
+      localStorage.setItem(this._globals.baseAppName + '_Add&Edit', "تعديل رصيد افتتاحي");
     }
     
     this.openEntry2(this.model)

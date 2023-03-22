@@ -23,18 +23,18 @@ export class accountOpenEntryService {
         private _auth: AuthService) {}
 
         Controllers(model: Send) {
-            return this.http.post(this._globals.baseAPIUrl + 'accountOpen/getuniventry', model, this._cf.requestOptions()).pipe(
+            return this.http.post(this._globals.baseAPIUrl + 'sysOpenBal/getuniventry', model, this._cf.requestOptions()).pipe(
            map((response: any) => {
            return response.json();
            }), catchError(this._cf.handleError));
         }
 
         EntryA(arr: any){
-           return this.http.post(this._globals.baseAPIUrl + 'accountOpen/createuniv',arr);
+           return this.http.post(this._globals.baseAPIUrl + 'sysOpenBal/createuniv',arr);
         }
 
         EntryE(arr: any){
-           return this.http.post(this._globals.baseAPIUrl + 'accountOpen/edituniv',arr);
+           return this.http.post(this._globals.baseAPIUrl + 'sysOpenBal/edituniv',arr);
         }
 }
 
