@@ -1430,30 +1430,91 @@ export class PaymentfromEntryComponent implements OnInit {
   
       // console.log(JSON.stringify(this.data))
   
+       console.log(this.lastDark);
        
         
-       const dialogRef2 = this.dialog.open(ConfBoxComponent, {
-        disableClose: false,
-        data: {
-          name: 'PaymentFromCompany', 
-          arr: this.lastDark,
-          data: this.data
+       if (this.data[3].value == "18001") {
+        if (!(Number(this.data[8].value) == 1 || Number(this.data[13].value) == 1)) {
+          const dialogRef2 = this.dialog.open(ConfBoxComponent, {
+            disableClose: false,
+            data: {
+              name: 'PaymentFromCompany', 
+              arr: this.lastDark,
+              data: this.data
+            }
+          });
+      
+          dialogRef2.afterClosed(
+          //   ConfBoxComponent, {
+          //   disableClose: false,
+          //   data: {}
+          // }
+          ).subscribe(() => {
+            console.log('before if');
+            
+            if (localStorage.getItem(this._globals.baseAppName + '_Confirm') === 'yes') {
+              this.dialogRef.close();
+              console.log('in if');
+            }
+          });
+        }else {
+          this.alertify.error("Account is not selected")
         }
-      });
-  
-      dialogRef2.afterClosed(
-      //   ConfBoxComponent, {
-      //   disableClose: false,
-      //   data: {}
-      // }
-      ).subscribe(() => {
-        console.log('before if');
-        
-        if (localStorage.getItem(this._globals.baseAppName + '_Confirm') === 'yes') {
-          this.dialogRef.close();
-          console.log('in if');
+       }else if (this.data[3].value == "18002") {
+        if (!(Number(this.data[8].value) == 1 || Number(this.lastDark.child1[0].records[7].value) == 0)) {
+          const dialogRef2 = this.dialog.open(ConfBoxComponent, {
+            disableClose: false,
+            data: {
+              name: 'PaymentFromCompany', 
+              arr: this.lastDark,
+              data: this.data
+            }
+          });
+      
+          dialogRef2.afterClosed(
+          //   ConfBoxComponent, {
+          //   disableClose: false,
+          //   data: {}
+          // }
+          ).subscribe(() => {
+            console.log('before if');
+            
+            if (localStorage.getItem(this._globals.baseAppName + '_Confirm') === 'yes') {
+              this.dialogRef.close();
+              console.log('in if');
+            }
+          });
+        }else {
+          this.alertify.error("Account is not selected")
         }
-      });
+       }else if (this.data[3].value == "18003") {
+        if (!(Number(this.data[8].value) == 1 || Number(this.lastDark.child2[0].records[4].value) == 0)) {
+          const dialogRef2 = this.dialog.open(ConfBoxComponent, {
+            disableClose: false,
+            data: {
+              name: 'PaymentFromCompany', 
+              arr: this.lastDark,
+              data: this.data
+            }
+          });
+      
+          dialogRef2.afterClosed(
+          //   ConfBoxComponent, {
+          //   disableClose: false,
+          //   data: {}
+          // }
+          ).subscribe(() => {
+            console.log('before if');
+            
+            if (localStorage.getItem(this._globals.baseAppName + '_Confirm') === 'yes') {
+              this.dialogRef.close();
+              console.log('in if');
+            }
+          });
+        }else {
+          this.alertify.error("Account is not selected")
+        }
+       }
           
         
           }
