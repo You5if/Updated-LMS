@@ -297,7 +297,7 @@ export class JournalEntryComponent implements OnInit {
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
     // this._nav.onClickListItem('FRP');
-    this.router.navigate(['/System/FinancialReportsPage']);
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   applyFilter(filterValue: string) {

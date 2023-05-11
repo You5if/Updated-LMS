@@ -57,7 +57,7 @@ export class OtherInvoiceComponent implements OnInit {
 
   model!: Send;
     displayedColumns: string[] =
-        ['select','InvoiceNo', 'InvoiceDate','customer', 'report'];
+        ['InvoiceNo', 'InvoiceDate','customer', 'report'];
 
     dataSource: any;
     isLastPage = false;
@@ -292,7 +292,7 @@ export class OtherInvoiceComponent implements OnInit {
      
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this.router.navigate(['/System/FinancialReportsPage']);
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   

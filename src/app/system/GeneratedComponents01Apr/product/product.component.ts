@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/components/security/auth/auth.service';
 import { ProductEntryComponent } from './product-entry/product-entry.component';
 import { ProductModel } from './product.model';
 import { RightModel } from 'src/app/components/security/auth/rights.model';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { PageSortComponent } from 'src/app/components/common/pageevents/page-sort/page-sort.component';
 import { ProductService } from './product.service';
 import { SelectModel } from 'src/app/components/misc/SelectModel';
@@ -20,6 +20,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Direction } from '@angular/cdk/bidi';
 import { MyFilterComponent } from '../../journalentry/operation/my-filter/my-filter.component';
 import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.component';
+import { ReportPageService } from 'src/app/components/PR/report-page/report-page.service';
 
 @Component({
     selector: 'app-product',
@@ -40,7 +41,10 @@ export class ProductComponent implements OnInit {
   header!: string;
   submit!: string;
   cancel!: string;
-  selection = new SelectionModel<ProductModel>(true, []);;
+  selection = new SelectionModel<ProductModel>(true, []);
+  itemStock!: string;
+  role :string|null= localStorage.getItem("role");
+
     
 
     displayedColumns: string[] =
@@ -81,6 +85,8 @@ export class ProductComponent implements OnInit {
         private _cf: CommonService,
         private _ui: UIService,
         private _globals: AppGlobals,
+        private router: Router,
+        private _report: ReportPageService,
         private _msg: MessageBoxService,
         private _auth: AuthService,
         private _select: SelectService,
@@ -116,6 +122,7 @@ export class ProductComponent implements OnInit {
       this.productName = "Service name"
       this.productCategoryId = "Category name"
       this.productGroupId = "Group name"
+      this.itemStock = "Item stock"
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
@@ -124,6 +131,7 @@ export class ProductComponent implements OnInit {
       this.header = "الخدمة"
       this.productCode = "رمز الخدمة"
       this.productName = "اسم الخدمة"
+      this.itemStock = "مخزون المنتج"
       this.productCategoryId = "معرف تصنيف الخدمة"
       this.productGroupId = "معرف مجموعة الخدمة"
       this.edit = "تعديل"
@@ -168,6 +176,25 @@ export class ProductComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onReport() {
+    var reportId: number
+    reportId = 15
+    // if (report == "Expense") {
+    //    reportId = 3; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Revenue") {
+    //  reportId = 4; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Rev vs. Exp") {
+    //   reportId = 5; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }
+
+    // let restOfUrl: string;
+    // restOfUrl = 'invoiceid=' + invId;
+
+    // console.log(restOfUrl)
+    this._report.passReportData({ reportId: reportId });
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   

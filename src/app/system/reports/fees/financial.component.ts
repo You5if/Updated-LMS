@@ -182,7 +182,7 @@ export class FeesComponent implements OnInit {
       let restOfUrl: string;
       restOfUrl = 'parent=' + id;
       this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl });
-      this.router.navigate(['System/FinancialReportsPage']);
+      this.router.navigate(['System/ReportsPage']);
       // this.router.navigate([]).then(result => {  window.open(this._globals.baseAppUrl + '#/report'); });
       // window.open('#/report', '_blank');
       console.log(restOfUrl)
@@ -194,7 +194,7 @@ export class FeesComponent implements OnInit {
       let restOfUrl: string;
       restOfUrl = 'student=' + id;
       this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl });
-      this.router.navigate(['System/FinancialReportsPage']);
+      this.router.navigate(['System/ReportsPage']);
       // this.router.navigate([]).then(result => {  window.open(this._globals.baseAppUrl + '#/report'); });
       // window.open('#/report', '_blank');
       console.log(restOfUrl)
@@ -206,7 +206,7 @@ export class FeesComponent implements OnInit {
       let restOfUrl: string;
       restOfUrl = 'class=' + id;
       this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl });
-      this.router.navigate(['System/FinancialReportsPage']);
+      this.router.navigate(['System/ReportsPage']);
       // this.router.navigate([]).then(result => {  window.open(this._globals.baseAppUrl + '#/report'); });
       // window.open('#/report', '_blank');
       console.log(restOfUrl)
@@ -218,7 +218,7 @@ export class FeesComponent implements OnInit {
       let restOfUrl: string;
       restOfUrl = 'student=' + id;
       this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl });
-      this.router.navigate(['System/FinancialReportsPage']);
+      this.router.navigate(['System/ReportsPage']);
       // this.router.navigate([]).then(result => {  window.open(this._globals.baseAppUrl + '#/report'); });
       // window.open('#/report', '_blank');
       console.log(restOfUrl)
@@ -230,7 +230,7 @@ export class FeesComponent implements OnInit {
       let restOfUrl: string;
       restOfUrl = 'class=' + groupId;
       this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl });
-      this.router.navigate(['System/FinancialReportsPage']);
+      this.router.navigate(['System/ReportsPage']);
       // this.router.navigate([]).then(result => {  window.open(this._globals.baseAppUrl + '#/report'); });
       // window.open('#/report', '_blank');
       console.log(restOfUrl)

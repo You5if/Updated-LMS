@@ -84,9 +84,9 @@
         <!-- <li *ngIf="role === '2' || role === '5'" routerLink="ProductPricing" routerLinkActive="is-active" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productPricing}}</div></li> -->
         <!-- <li *ngIf="role === '2'" routerLink="ProductStock" routerLinkActive="is-active" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productStock}}</div></li> -->
         <!-- <li (click)="onClickListItem('PUC')" class="side_list_item"><mat-icon>pages</mat-icon><div class="title">{{productUnitConversion}}</div></li> -->
-        <!-- <li *ngIf="role === '2'" routerLink="WareHouse" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-warehouse"></i><div class="title">Ware house</div></li>
-        <li *ngIf="role === '2'"  routerLink="StockIn" routerLinkActive="is-active" class="side_list_item"><mat-icon>add_shopping_cart</mat-icon><div class="title">Stock in</div></li>
-        <li *ngIf="role === '2'" routerLink="StockMovement" routerLinkActive="is-active" class="side_list_item"><mat-icon>remove_shopping_cart</mat-icon><div class="title">Stock movement</div></li> -->
+        <!-- <li *ngIf="role === '2'" routerLink="WareHouse" routerLinkActive="is-active" class="side_list_item"><i class="fas fa-warehouse"></i><div class="title">Ware house</div></li> -->
+        <li *ngIf="role === '2' || role === '11'"  routerLink="StockIn" routerLinkActive="is-active" class="side_list_item"><mat-icon>add_shopping_cart</mat-icon><div class="title">Stock in</div></li>
+        <!-- <li *ngIf="role === '2'" routerLink="StockMovement" routerLinkActive="is-active" class="side_list_item"><mat-icon>remove_shopping_cart</mat-icon><div class="title">Stock movement</div></li> -->
         <mat-divider *ngIf="role === '2' || role === '10'"></mat-divider>
         <h3 *ngIf="role === '2' || role === '10'" class="main_title">{{learningManagement}}</h3>
         <li *ngIf="role === '2'" routerLink="groupstudent" routerLinkActive="is-active"  class="side_list_item "><mat-icon>date_range</mat-icon><div class="title"> {{groupstudent}}</div></li>

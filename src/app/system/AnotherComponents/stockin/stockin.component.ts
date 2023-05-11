@@ -42,11 +42,12 @@ export class StockInComponent implements OnInit {
   stockInDate!: string;
   stockInCode!: string;
   description!: string;
+  // role :string|null= localStorage.getItem("role");
   indexes!: any[]
 
   model!: Send;
     displayedColumns: string[] =
-        ['select', 'StockInCode','StockInDate', 'warehouse'];
+        ['StockInCode','StockInDate'];
 
     dataSource: any;
     warehouse!:string;
@@ -180,7 +181,7 @@ export class StockInComponent implements OnInit {
     this.model = {
       tableId: 38,
       recordId: 0,
-      userId: 26,
+      userId: this._auth.getUserId(),
       roleId: 2,
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };
@@ -209,7 +210,7 @@ export class StockInComponent implements OnInit {
     this.model = {
       tableId: 38,
       recordId: id,
-      userId: 26,
+      userId: this._auth.getUserId(),
       roleId: 2,
       languageId: Number(localStorage.getItem(this._globals.baseAppName + '_language'))
     };

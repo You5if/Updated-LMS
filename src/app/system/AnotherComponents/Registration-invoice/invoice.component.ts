@@ -343,7 +343,7 @@ export class RegistrationInvoiceComponent implements OnInit {
      
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this.router.navigate(['/System/FinancialReportsPage']);
+    this.router.navigate(['/System/ReportsPage']);
   }
   onCustomerReport(invId:number) { 
     this.opC = false
@@ -362,7 +362,7 @@ export class RegistrationInvoiceComponent implements OnInit {
      
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this.router.navigate(['/System/FinancialReportsPage']);
+    this.router.navigate(['/System/ReportsPage']);
   }
   onAccReport(invId:number) { 
     this.opC = false
@@ -381,7 +381,7 @@ export class RegistrationInvoiceComponent implements OnInit {
      
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this.router.navigate(['/System/FinancialReportsPage']);
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   

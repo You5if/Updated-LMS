@@ -223,7 +223,7 @@ const routes: Routes = [
         { path: "StockMovement", component: StockMovementComponent},
       //   { path: "ProductStock", component: ProductStockComponent},
         { path: "FinancialReports", component: FinancialComponent},
-        { path: "FinancialReportsPage", component: ReportPageComponent},
+        { path: "ReportsPage", component: ReportPageComponent},
         { path: "FeesReports", component: FeesComponent},
         { path: "OpeningBalance", component: accountOpenComponent},
       ] },

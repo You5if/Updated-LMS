@@ -472,6 +472,7 @@ export class OtherInvoiceEntryComponent implements OnInit {
       this._ui.loadingStateChanged.next(false);
 
       this.childElemInit = res
+      this.childElemInit[3].value = Math.trunc(Number(this.childElemInit[3].value)).toString()
       this.childElemInit[2].label = "Product"
       this.childElemInit[3].inTransaction = true
       console.log(this.childElemInit)

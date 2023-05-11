@@ -312,6 +312,7 @@ export class StockInEntryComponent implements OnInit {
 
       this.childElemInit = res
       console.log(this.childElemInit)
+      this.childElemInit[3].value = Math.trunc(Number(this.childElemInit[3].value)).toString()
       this.dropListItem.push(this.childElemInit[2])
       this.dropListItem.push(this.childElemInit[4])
 

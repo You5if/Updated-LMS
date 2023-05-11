@@ -291,7 +291,7 @@ export class TransportInvoiceComponent implements OnInit {
      
     console.log(restOfUrl)
     this._report.passReportData({ reportId: reportId, restOfUrl: restOfUrl }); 
-    this.router.navigate(['/System/FinancialReportsPage']);
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   

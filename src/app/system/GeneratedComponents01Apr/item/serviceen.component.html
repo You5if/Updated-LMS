@@ -13,7 +13,8 @@
       <div *ngIf="pageData.sort != ''" class="chImg" (click)="onClearSort()"><img class="sfimg" src="../../../../assets/images/svg/sort (2).png" alt=""></div>
       <div *ngIf="pageData.filter === forFilterBtn" class="chImg" (click)="onMyFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol.png" alt=""></div>
       <div *ngIf="pageData.filter != forFilterBtn" class="chImg" (click)="onClearFilter()"><img class="sfimg" src="../../../../assets/images/svg/filter-filled-tool-symbol (2).png" alt=""></div>
-      
+      <button *ngIf="role === '2' || role === '11'" class="add_btn2" mat-button color="primary" (click)="onReport()" [disabled]="!screenRights.createFlag">{{itemStock}}</button>
+ 
       <!-- <button mat-button color="primary" (click)="openEntry()">Filter</button>
       <button mat-button color="primary" (click)="onSort()">Sort</button>
       <button mat-button color="primary" (click)="openEntry()" [disabled]="!screenRights.printFlag">Print</button>

@@ -294,7 +294,7 @@ export class FinancialComponent implements OnInit {
     
     console.log(restOfUrl!)
     this._report.passReportData({ reportId: reportId!, restOfUrl: restOfUrl! }); 
-    this.router.navigate(['System/FinancialReportsPage']);
+    this.router.navigate(['System/ReportsPage']);
   }
  
   paginatoryOperation(event: PageEvent) {

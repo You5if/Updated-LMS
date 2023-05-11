@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/components/security/auth/auth.service';
 import { ItemServiceEntryComponent } from './serviceen-entry/serviceen-entry.component';
 import { ServiceEnModel } from './serviceen.model';
 import { RightModel } from 'src/app/components/security/auth/rights.model';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { PageSortComponent } from 'src/app/components/common/pageevents/page-sort/page-sort.component';
 import { ServiceEnService } from './serviceen.service';
 import { SelectModel } from 'src/app/components/misc/SelectModel';
@@ -23,6 +23,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ItemServiceEntry2Component } from './serviceen-entry2/serviceen-entry.component';
 import { MyFilterComponent } from '../../journalentry/operation/my-filter/my-filter.component';
 import { MySortComponent } from '../../journalentry/operation/my-sort/my-sort.component';
+import { ReportPageService } from 'src/app/components/PR/report-page/report-page.service';
 
 @Component({
     selector: 'app-serviceen',
@@ -58,7 +59,7 @@ export class ItemServiceComponent implements OnInit {
   selection = new SelectionModel<ServiceEnModel>(true, []);;
     
     displayedColumns: string[] =
-        ['select','category','group','service','price'];
+        ['category','group','service','price'];
 
     dataSource: any;
     isLastPage = false;
@@ -68,6 +69,8 @@ export class ItemServiceComponent implements OnInit {
     recordsPerPage: number;
     currentPageIndex: number;
     menuId: number;
+    role :string|null= localStorage.getItem("role");
+    itemStock!: string;
 
     forFilterBtn: string = "Category = 'Other'"
 
@@ -92,6 +95,8 @@ export class ItemServiceComponent implements OnInit {
         private _ui: UIService,
         private _globals: AppGlobals,
         private _msg: MessageBoxService,
+        private router: Router,
+        private _report: ReportPageService,
         private _auth: AuthService,
         private _select: SelectService,
         private serviceenservice: ServiceEnService
@@ -129,7 +134,7 @@ export class ItemServiceComponent implements OnInit {
       this.group = "Group"
       this.service = "Service"
       this.price = "Price"
-      
+      this.itemStock = "Item stock"
       this.edit = "Edit"
       this.submit = "Submit"
       this.cancel = "Cancel"
@@ -140,7 +145,7 @@ export class ItemServiceComponent implements OnInit {
       this.group = "المجموعة"
       this.service = "الخدمة"
       this.price = "السعر"
-      
+      this.itemStock = "مخزون المنتج"
       this.edit = "تعديل"
       this.submit = "ارسال"
       this.cancel = "الغاء"
@@ -191,6 +196,25 @@ export class ItemServiceComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onReport() {
+    var reportId: number
+    reportId = 15
+    // if (report == "Expense") {
+    //    reportId = 3; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Revenue") {
+    //  reportId = 4; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }else if (report == "Rev vs. Exp") {
+    //   reportId = 5; // if expense button: 3, Revenue: 4, RevVsExp: 5 
+    // }
+
+    // let restOfUrl: string;
+    // restOfUrl = 'invoiceid=' + invId;
+
+    // console.log(restOfUrl)
+    this._report.passReportData({ reportId: reportId });
+    this.router.navigate(['/System/ReportsPage']);
   }
 
   onClearSort() {
